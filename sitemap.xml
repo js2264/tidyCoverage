@@ -28,6 +28,21 @@
     <loc>/reference/AggregatedCoverage.html</loc>
   </url>
   <url>
+    <loc>/reference/aggregate.html</loc>
+  </url>
+  <url>
+    <loc>/reference/as_tibble.html</loc>
+  </url>
+  <url>
+    <loc>/reference/data.html</loc>
+  </url>
+  <url>
     <loc>/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/reexports.html</loc>
+  </url>
+  <url>
+    <loc>/reference/show.html</loc>
   </url>
 </urlset>

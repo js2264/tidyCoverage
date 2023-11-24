@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">AggregatedCoverage</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.98.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,21 +45,86 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">AggregatedCoverage</span><span class="op">(</span><span class="va">tracks</span>, <span class="va">features</span>, <span class="va">width</span>, BPPARAM <span class="op">=</span> <span class="fu">BiocParallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocParallel/man/register.html" class="external-link">bpparam</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S4 method for list,GRangesList</span></span>
+<span><span class="fu">AggregatedCoverage</span><span class="op">(</span></span>
+<span>  <span class="va">tracks</span>,</span>
+<span>  <span class="va">features</span>,</span>
+<span>  <span class="va">width</span>,</span>
+<span>  center <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  scale <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ignore.strand <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  BPPARAM <span class="op">=</span> <span class="fu">BiocParallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocParallel/man/register.html" class="external-link">bpparam</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for list,list</span></span>
+<span><span class="fu">AggregatedCoverage</span><span class="op">(</span></span>
+<span>  <span class="va">tracks</span>,</span>
+<span>  <span class="va">features</span>,</span>
+<span>  <span class="va">width</span>,</span>
+<span>  center <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  scale <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ignore.strand <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  BPPARAM <span class="op">=</span> <span class="fu">BiocParallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocParallel/man/register.html" class="external-link">bpparam</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for RleList,GRangesList</span></span>
+<span><span class="fu">AggregatedCoverage</span><span class="op">(</span></span>
+<span>  <span class="va">tracks</span>,</span>
+<span>  <span class="va">features</span>,</span>
+<span>  <span class="va">width</span>,</span>
+<span>  center <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  scale <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ignore.strand <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  BPPARAM <span class="op">=</span> <span class="fu">BiocParallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocParallel/man/register.html" class="external-link">bpparam</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for list,GRanges</span></span>
+<span><span class="fu">AggregatedCoverage</span><span class="op">(</span></span>
+<span>  <span class="va">tracks</span>,</span>
+<span>  <span class="va">features</span>,</span>
+<span>  <span class="va">width</span>,</span>
+<span>  center <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  scale <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ignore.strand <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  BPPARAM <span class="op">=</span> <span class="fu">BiocParallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocParallel/man/register.html" class="external-link">bpparam</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for RleList,GRanges</span></span>
+<span><span class="fu">AggregatedCoverage</span><span class="op">(</span></span>
+<span>  <span class="va">tracks</span>,</span>
+<span>  <span class="va">features</span>,</span>
+<span>  <span class="va">width</span>,</span>
+<span>  center <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  scale <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ignore.strand <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  BPPARAM <span class="op">=</span> <span class="fu">BiocParallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocParallel/man/register.html" class="external-link">bpparam</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>tracks</dt>
-<dd><p>Named list of genomic tracks (RleList)</p></dd>
+<dd><p>A genomic track imported as a <code>RleList</code> or a <em>named</em> list of
+genomic tracks.</p></dd>
 
 
 <dt>features</dt>
-<dd><p>Named GRangesList</p></dd>
+<dd><p>A set of features imported as <code>GRanges</code> or a <em>named</em>
+<code>GRangesList</code>.</p></dd>
 
 
 <dt>width</dt>
-<dd><p>Width at which each feature will be rescaled</p></dd>
+<dd><p>Width to resize each set of genomic features</p></dd>
+
+
+<dt>scale, center</dt>
+<dd><p>Logical, whether to scale and/or center tracks prior to
+summarization</p></dd>
+
+
+<dt>ignore.strand</dt>
+<dd><p>Logical, whether to not take the features strand
+information</p></dd>
 
 
 <dt>BPPARAM</dt>
@@ -70,39 +135,25 @@
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>A <code>AggregatedCoverage</code> object</p>
+<p>An <code>AggregatedCoverage</code> object</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">plyranges</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: BiocGenerics</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rtracklayer</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://purrr.tidyverse.org/" class="external-link">purrr</a></span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘BiocGenerics’</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:stats’:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘purrr’</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The following object is masked from ‘package:GenomicRanges’:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     IQR, mad, sd, var, xtabs</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:base’:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>     reduce</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The following object is masked from ‘package:IRanges’:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     Filter, Find, Map, Position, Reduce, anyDuplicated, aperm, append,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     as.data.frame, basename, cbind, colnames, dirname, do.call,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     duplicated, eval, evalq, get, grep, grepl, intersect, is.unsorted,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     lapply, mapply, match, mget, order, paste, pmax, pmax.int, pmin,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     pmin.int, rank, rbind, rownames, sapply, setdiff, table, tapply,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     union, unique, unsplit, which.max, which.min</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: IRanges</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: S4Vectors</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: stats4</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>     reduce</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The following object is masked from ‘package:base’:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘S4Vectors’</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following object is masked from ‘package:utils’:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     findMatches</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:base’:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     I, expand.grid, unname</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: GenomicRanges</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: GenomeInfoDb</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>     %||%</span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">plyranges</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘plyranges’</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The following object is masked from ‘package:IRanges’:</span>
@@ -111,27 +162,31 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The following object is masked from ‘package:stats’:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     filter</span>
-<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rtracklayer</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">scc1_peaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"Scc1-peaks.narrowPeak"</span>, package <span class="op">=</span> <span class="st">"AggregatedCoverage"</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
-<span class="r-in"><span>    <span class="fu">import</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">conv_loci</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"conv_transcription_loci.bed"</span>, package <span class="op">=</span> <span class="st">"AggregatedCoverage"</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
-<span class="r-in"><span>    <span class="fu">import</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">features</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicRanges/man/GRangesList-class.html" class="external-link">GRangesList</a></span><span class="op">(</span>Scc1 <span class="op">=</span> <span class="va">scc1_peaks</span>, Conv_transcription <span class="op">=</span> <span class="va">conv_loci</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">features</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"TSSs.bed"</span>, package <span class="op">=</span> <span class="st">"AggregatedCoverage"</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
+<span class="r-in"><span>    <span class="fu">import</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">strand</span> <span class="op">==</span> <span class="st">'+'</span><span class="op">)</span> </span></span>
 <span class="r-in"><span><span class="va">tracks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    Scc1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"Scc1-vs-input.bw"</span>, package <span class="op">=</span> <span class="st">"AggregatedCoverage"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">import</span><span class="op">(</span>as <span class="op">=</span> <span class="st">'Rle'</span><span class="op">)</span>, </span></span>
-<span class="r-in"><span>    RNA_fwd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"SRR2045244.fwd.CPM.bw"</span>, package <span class="op">=</span> <span class="st">"AggregatedCoverage"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">import</span><span class="op">(</span>as <span class="op">=</span> <span class="st">'Rle'</span><span class="op">)</span>, </span></span>
-<span class="r-in"><span>    RNA_rev <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"SRR2045244.rev.CPM.bw"</span>, package <span class="op">=</span> <span class="st">"AggregatedCoverage"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">import</span><span class="op">(</span>as <span class="op">=</span> <span class="st">'Rle'</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">AC</span> <span class="op">&lt;-</span> <span class="fu">AggregatedCoverage</span><span class="op">(</span><span class="va">tracks</span>, <span class="va">features</span>, <span class="fl">3000</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    RNA_fwd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"SRR2045244.fwd.bw"</span>, package <span class="op">=</span> <span class="st">"AggregatedCoverage"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    RNA_rev <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"SRR2045244.rev.bw"</span>, package <span class="op">=</span> <span class="st">"AggregatedCoverage"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">import</span>, as <span class="op">=</span> <span class="st">'Rle'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">AC</span> <span class="op">&lt;-</span> <span class="fu">AggregatedCoverage</span><span class="op">(</span><span class="va">tracks</span>, <span class="va">features</span>, width <span class="op">=</span> <span class="fl">5000</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">AC</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> class: AggregatedCoverage </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> dim: 2 3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> metadata(0):</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> assays(8): mean median ... ci_low ci_high</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rownames(2): Scc1 Conv_transcription</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rowData names(1): features</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> colnames(3): Scc1 RNA_fwd RNA_rev</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> colData names(1): track</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># An AggregatedCoverage-tibble abstraction: 10000 × 11</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># </span><span style="color: #555555;">features=1 | tracks=2 | assays=mean, median, min, max, sd, se, ci_low,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # <span style="color: #555555;">  ci_high</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># </span><span style="color: #555555;">width=5000 | binning=1</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    track   features coord  mean median   min   max    sd    se ci_low ci_high</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> RNA_fwd features -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">500</span>  17.9  0.551     0 <span style="text-decoration: underline;">1</span>003.  70.1  2.38   13.2    22.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> RNA_fwd features -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">499</span>  17.9  0.551     0 <span style="text-decoration: underline;">1</span>003.  70.1  2.38   13.2    22.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> RNA_fwd features -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">498</span>  17.9  0.551     0 <span style="text-decoration: underline;">1</span>003.  70.1  2.38   13.3    22.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> RNA_fwd features -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">497</span>  17.9  0.572     0 <span style="text-decoration: underline;">1</span>003.  70.0  2.38   13.3    22.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> RNA_fwd features -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">496</span>  17.9  0.575     0 <span style="text-decoration: underline;">1</span>003.  70.0  2.38   13.3    22.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> RNA_fwd features -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">495</span>  17.9  0.575     0 <span style="text-decoration: underline;">1</span>003.  70.0  2.38   13.2    22.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> RNA_fwd features -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">494</span>  17.9  0.575     0 <span style="text-decoration: underline;">1</span>003.  70.0  2.38   13.2    22.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> RNA_fwd features -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">493</span>  18.0  0.572     0 <span style="text-decoration: underline;">1</span>003.  70.5  2.39   13.3    22.7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> RNA_fwd features -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">492</span>  18.0  0.575     0 <span style="text-decoration: underline;">1</span>003.  70.5  2.39   13.3    22.7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> RNA_fwd features -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">491</span>  18.1  0.575     0 <span style="text-decoration: underline;">1</span>003.  70.5  2.39   13.4    22.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 9,990 more rows</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
