@@ -1,0 +1,213 @@
+---
+title: "Introduction to CoverageExperiment"
+author: 
+  - name: Jacques Serizay
+    affiliation:
+    - Institut Pasteur, Paris
+    email: jacques.serizay@pasteur.fr
+output: 
+  BiocStyle::html_document:
+    self_contained: yes
+    toc: true
+    toc_float: true
+    toc_depth: 2
+    code_folding: show
+date: "`r doc_date()`"
+package: "`r pkg_ver('CoverageExperiment')`"
+vignette: >
+  %\VignetteIndexEntry{Introduction to CoverageExperiment}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}  
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>",
+    crop = NULL
+)
+```
+
+## Introduction 
+
+## `CoverageExperiment` class
+
+```{r}
+library(CoverageExperiment)
+showClass("CoverageExperiment")
+
+data(ce)
+ce
+
+rowData(ce)
+
+rowRanges(ce)
+
+colData(ce)
+
+assays(ce)
+
+assay(ce, 'mean')
+
+assay(ce[1, 1], 'mean')
+```
+
+### Creating an `CoverageExperiment` object
+
+```{r}
+library(rtracklayer)
+bw_file <- system.file("extdata", "MNase.bw", package = "CoverageExperiment")
+bed_file <- system.file("extdata", "TSSs.bed", package = "CoverageExperiment")
+CE <- CoverageExperiment(
+    tracks = import(bw_file, as = "Rle"), 
+    features = import(bed_file),
+    width = 3000, scale = TRUE, center = TRUE
+)
+CE
+```
+
+### Aggregating over multiple tracks / feature sets
+
+```{r}
+library(purrr)
+library(plyranges)
+
+# ~~~~~~~~~~~~~~~ Import genomic features into a named list ~~~~~~~~~~~~~~~ #
+features <- list(
+    TSSs = system.file("extdata", "TSSs.bed", package = "CoverageExperiment"),
+    `Convergent transcription` = system.file("extdata", "conv_transcription_loci.bed", package = "CoverageExperiment")
+) |> map(import) |> map(filter, strand == '+') 
+
+# ~~~~~~~~~~~~~~~ Import coverage tracks into a named list ~~~~~~~~~~~~~~~ #
+tracks <- list(
+    Scc1 = system.file("extdata", "Scc1.bw", package = "CoverageExperiment"), 
+    RNA_fwd = system.file("extdata", "SRR2045244.fwd.bw", package = "CoverageExperiment"),
+    RNA_rev = system.file("extdata", "SRR2045244.rev.bw", package = "CoverageExperiment"),
+    PolII = system.file("extdata", "PolII.bw", package = "CoverageExperiment"), 
+    MNase = system.file("extdata", "MNase.bw", package = "CoverageExperiment")
+) |> map(import, as = 'Rle')
+
+# ~~~~~~~~~~~~~~~ Compute aggregated coverage ~~~~~~~~~~~~~~~ #
+CE <- CoverageExperiment(tracks, features, width = 5000, scale = TRUE, center = TRUE)
+CE
+```
+
+### Plotting aggregated coverage with `ggplot2`
+
+```{r}
+library(ggplot2)
+as_tibble(CE) |> 
+    ggplot(aes(x = coord, y = mean)) + 
+    geom_ribbon(aes(ymin = ci_low, ymax = ci_high, fill = track), alpha = 0.2) + 
+    geom_line(aes(col = track)) + 
+    facet_grid(features ~ .) + 
+    labs(x = 'Distance from genomic feature', y = 'Mean coverage') + 
+    theme_bw() + 
+    theme(legend.position = 'top')
+```
+
+### Using a tidy grammar
+
+```{r}
+library(tidySummarizedExperiment) 
+CE |> 
+    filter(track != 'Scc1') |> 
+    filter(features == 'Convergent transcription') |> 
+    ggplot(aes(x = coord, y = mean)) + 
+    geom_ribbon(aes(ymin = ci_low, ymax = ci_high, fill = track), alpha = 0.2) + 
+    geom_line(aes(col = track)) + 
+    facet_grid(track ~ .) + 
+    labs(x = 'Distance from locus of convergent transcription', y = 'Mean coverage') + 
+    theme_bw() + 
+    theme(legend.position = 'top')
+```
+
+### Coarsening the aggregated coverage statistics
+
+```{r}
+CE2 <- S4Vectors::aggregate(CE, bin = 200)
+CE2 |> 
+    filter(track != 'Scc1') |> 
+    filter(features == 'Convergent transcription') |> 
+    ggplot(aes(x = coord, y = mean)) + 
+    geom_ribbon(aes(ymin = ci_low, ymax = ci_high, fill = track), alpha = 0.2) + 
+    geom_line(aes(col = track)) + 
+    geom_point(aes(col = track)) + 
+    facet_grid(track ~ .) + 
+    labs(x = 'Distance from locus of convergent transcription', y = 'Mean coverage') + 
+    theme_bw() + 
+    theme(legend.position = 'top')
+```
+
+## Example use case: `AnnotationHub` and `TxDb` resources
+
+### Recovering TSSs of forward human genes 
+
+```{r}
+txdb <- TxDb.Hsapiens.UCSC.hg19.knownGene::TxDb.Hsapiens.UCSC.hg19.knownGene
+TSSs <- GenomicFeatures::genes(txdb) |> 
+    filter(strand == '+') |> 
+    anchor_5p() |> 
+    mutate(width = 1)
+```
+
+### Recovering H3K4me3 coverage track from ENCODE
+
+```{r}
+library(AnnotationHub)
+ah <- AnnotationHub()
+ah['AH34904']
+H3K4me3_bw <- ah[['AH34904']]
+```
+
+### Computing the aggregated coverage of H3K4me3 ± 3kb around the TSSs of forward human genes 
+
+```{r}
+CE <- CoverageExperiment(
+    import(H3K4me3_bw, as = 'Rle'), 
+    TSSs, 
+    width = 6000, 
+    scale = TRUE, center = TRUE
+)
+ggplot(CE, aes(x = coord, y = mean)) + 
+    geom_ribbon(aes(ymin = ci_low, ymax = ci_high, fill = track), alpha = 0.2) + 
+    geom_line(aes(col = track)) + 
+    facet_grid(track ~ .) + 
+    labs(x = 'Distance from TSSs', y = 'Mean coverage') + 
+    theme_bw() + 
+    theme(legend.position = 'top')
+```
+
+### With more genomic tracks
+
+```{r eval = FALSE}
+# ~~~~~~~~~~ Recover 15 different histone PTM ChIP-seq tracks ~~~~~~~~~~ #
+ids <- c(
+    'AH35163', 'AH35165', 'AH35167', 'AH35170', 'AH35173', 'AH35176', 
+    'AH35178', 'AH35180', 'AH35182', 'AH35185', 'AH35187', 'AH35189', 
+    'AH35191', 'AH35193', 'AH35196'
+)
+names(ids) <- mcols(ah[ids])$title |> 
+    gsub(".*IMR90.", "", x = _) |> 
+    gsub("\\..*", "", x = _)
+bws <- map(ids, ~ ah[[.x]]) |> 
+    map(resource) |> 
+    BigWigFileList()
+names(bws) <- names(ids)
+
+# ~~~~~~~~~~ Computing coverage over TSSs ~~~~~~~~~~ #
+CE <- CoverageExperiment(
+    bws, GRangesList(TSSs = TSSs), 
+    width = 4000, 
+    scale = TRUE, center = TRUE
+)
+
+# ~~~~~~~~~~ Plot the resulting CoverageExperiment object ~~~~~~~~~~ #
+ggplot(CE, aes(x = coord, y = mean)) + 
+    geom_ribbon(aes(ymin = ci_low, ymax = ci_high, fill = track), alpha = 0.2) + 
+    geom_line(aes(col = track)) + 
+    facet_grid(track ~ .) + 
+    labs(x = 'Distance from TSSs', y = 'Mean coverage') + 
+    theme_bw() + 
+    theme(legend.position = 'top')
+```
