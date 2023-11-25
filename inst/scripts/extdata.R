@@ -40,8 +40,8 @@ file.copy(
 
 
 ## Scc1-vs-input.bw <-------- /home/rsg/Projects/20220309_Christophe_GC-paper/data/WT/ChIP/tracks/CH224/CH224^unmapped_CBS138^mapped_S288c^YMT7BP.vs-CH225.bw
-## SRR2045244.fwd.CPM.bw <--- /home/rsg/Projects/20220309_Christophe_GC-paper/data/WT/RNA/tracks/SRR2045244/SRR2045244^mapped_S288c^KEYTQL.fwd.CPM.bw
-## SRR2045244.rev.CPM.bw <--- /home/rsg/Projects/20220309_Christophe_GC-paper/data/WT/RNA/tracks/SRR2045244/SRR2045244^mapped_S288c^KEYTQL.rev.CPM.bw
+## RNA.fwd.bw <--- /home/rsg/Projects/20220309_Christophe_GC-paper/data/WT/RNA/tracks/SRR2045244/SRR2045244^mapped_S288c^KEYTQL.fwd.CPM.bw
+## RNA.rev.bw <--- /home/rsg/Projects/20220309_Christophe_GC-paper/data/WT/RNA/tracks/SRR2045244/SRR2045244^mapped_S288c^KEYTQL.rev.CPM.bw
 ## PolII.bw <---------------- /home/rsg/Projects/20220309_Christophe_GC-paper/data/WT/ChIP/tracks/CH244/CH244^mapped_S288c^CIJXLY.CPM.bw"
 ## MNase.bw <---------------- ~/Projects/20230517_Lea_MNase-timecourse/nuc_cov_Pneumo-time-course.bw
 library(rtracklayer)
@@ -54,8 +54,8 @@ si <- seqinfo(t)
 seqlevels(si) <- seqlevels(si)[1:16]
 bins <- plyranges::tile_ranges(si |> as("GRanges"), width = 50)
 tracks <- list(
-    `SRR2045244.fwd.bw` = "/home/rsg/Projects/20220309_Christophe_GC-paper/data/WT/RNA/tracks/SRR2045244/SRR2045244^mapped_S288c^KEYTQL.fwd.CPM.bw", 
-    `SRR2045244.rev.bw` = "/home/rsg/Projects/20220309_Christophe_GC-paper/data/WT/RNA/tracks/SRR2045244/SRR2045244^mapped_S288c^KEYTQL.rev.CPM.bw", 
+    `RNA.fwd.bw` = "/home/rsg/Projects/20220309_Christophe_GC-paper/data/WT/RNA/tracks/SRR2045244/SRR2045244^mapped_S288c^KEYTQL.fwd.CPM.bw", 
+    `RNA.rev.bw` = "/home/rsg/Projects/20220309_Christophe_GC-paper/data/WT/RNA/tracks/SRR2045244/SRR2045244^mapped_S288c^KEYTQL.rev.CPM.bw", 
     `Scc1.bw` = "/home/rsg/Projects/20220309_Christophe_GC-paper/data/WT/ChIP/tracks/CH224/CH224^unmapped_CBS138^mapped_S288c^YMT7BP.vs-CH225.bw", 
     `PolII.bw` = "/home/rsg/Projects/20220309_Christophe_GC-paper/data/WT/ChIP/tracks/CH244/CH244^mapped_S288c^CIJXLY.CPM.bw", 
     `MNase.bw` = "~/Projects/20230517_Lea_MNase-timecourse/nuc_cov_Pneumo-time-course.bw" 

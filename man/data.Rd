@@ -3,17 +3,25 @@
 \docType{data}
 \name{ce}
 \alias{ce}
+\alias{ac}
 \title{Stranded RNA-seq coverage in yeast}
 \format{
-\code{CoverageExperiment} object containing 2 features sets and 2 tracks.
+\code{CoverageExperiment} object containing 1 features set and 2 tracks.
+
+\code{AggregatedCoverage} object containing 1 features set and 2 tracks.
 }
 \usage{
+data(ce)
+
 data(ac)
 }
 \description{
-An \code{CoverageExperiment} dataset summarizing stranded RNA-seq coverage
-(forward and reverse) over Scc1 peaks and convergent transcription loci
-(± 1kb).
+An \code{CoverageExperiment} dataset containing stranded RNA-seq coverage
+(forward and reverse) over Scc1 peaks (± 1kb).
+Data was generated in yeast (S288c) and aligned to reference R64-1-1.
+
+An \code{AggregatedCoverage} dataset summarizing stranded RNA-seq coverage
+(forward and reverse) over Scc1 peaks (± 1kb).
 Data was generated in yeast (S288c) and aligned to reference R64-1-1.
 }
 \keyword{datasets}
