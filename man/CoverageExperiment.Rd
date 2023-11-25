@@ -2,14 +2,91 @@
 % Please edit documentation in R/CoverageExperiment.R
 \name{CoverageExperiment}
 \alias{CoverageExperiment}
+\alias{CoverageExperiment,BigWigFileList,GRangesList-method}
+\alias{CoverageExperiment,BigWigFileList,GRanges-method}
+\alias{CoverageExperiment,BigWigFileList,list-method}
+\alias{CoverageExperiment,BigWigFile,GRangesList-method}
+\alias{CoverageExperiment,BigWigFile,GRanges-method}
+\alias{CoverageExperiment,BigWigFile,list-method}
 \alias{CoverageExperiment,list,GRangesList-method}
+\alias{CoverageExperiment,list,GRanges-method}
 \alias{CoverageExperiment,list,list-method}
 \alias{CoverageExperiment,RleList,GRangesList-method}
-\alias{CoverageExperiment,list,GRanges-method}
 \alias{CoverageExperiment,RleList,GRanges-method}
+\alias{CoverageExperiment,RleList,list-method}
 \title{CoverageExperiment}
 \usage{
+\S4method{CoverageExperiment}{BigWigFileList,GRangesList}(
+  tracks,
+  features,
+  width,
+  center = FALSE,
+  scale = FALSE,
+  ignore.strand = TRUE,
+  BPPARAM = BiocParallel::bpparam()
+)
+
+\S4method{CoverageExperiment}{BigWigFileList,GRanges}(
+  tracks,
+  features,
+  width,
+  center = FALSE,
+  scale = FALSE,
+  ignore.strand = TRUE,
+  BPPARAM = BiocParallel::bpparam()
+)
+
+\S4method{CoverageExperiment}{BigWigFileList,list}(
+  tracks,
+  features,
+  width,
+  center = FALSE,
+  scale = FALSE,
+  ignore.strand = TRUE,
+  BPPARAM = BiocParallel::bpparam()
+)
+
+\S4method{CoverageExperiment}{BigWigFile,GRangesList}(
+  tracks,
+  features,
+  width,
+  center = FALSE,
+  scale = FALSE,
+  ignore.strand = TRUE,
+  BPPARAM = BiocParallel::bpparam()
+)
+
+\S4method{CoverageExperiment}{BigWigFile,GRanges}(
+  tracks,
+  features,
+  width,
+  center = FALSE,
+  scale = FALSE,
+  ignore.strand = TRUE,
+  BPPARAM = BiocParallel::bpparam()
+)
+
+\S4method{CoverageExperiment}{BigWigFile,list}(
+  tracks,
+  features,
+  width,
+  center = FALSE,
+  scale = FALSE,
+  ignore.strand = TRUE,
+  BPPARAM = BiocParallel::bpparam()
+)
+
 \S4method{CoverageExperiment}{list,GRangesList}(
+  tracks,
+  features,
+  width,
+  center = FALSE,
+  scale = FALSE,
+  ignore.strand = TRUE,
+  BPPARAM = BiocParallel::bpparam()
+)
+
+\S4method{CoverageExperiment}{list,GRanges}(
   tracks,
   features,
   width,
@@ -39,7 +116,7 @@
   BPPARAM = BiocParallel::bpparam()
 )
 
-\S4method{CoverageExperiment}{list,GRanges}(
+\S4method{CoverageExperiment}{RleList,GRanges}(
   tracks,
   features,
   width,
@@ -49,7 +126,7 @@
   BPPARAM = BiocParallel::bpparam()
 )
 
-\S4method{CoverageExperiment}{RleList,GRanges}(
+\S4method{CoverageExperiment}{RleList,list}(
   tracks,
   features,
   width,
@@ -86,12 +163,32 @@ This function initiates a \code{CoverageExperiment} object.
 library(rtracklayer)
 library(purrr)
 library(plyranges)
-features <- system.file("extdata", "TSSs.bed", package = "CoverageExperiment") |> 
-    import() |> filter(strand == '+') |> GRangesList(x = _)
+TSSs_bed <- system.file("extdata", "TSSs.bed", package = "CoverageExperiment")
+features <- import(TSSs_bed) |> filter(strand == '+')
+
+#############################################################################
+## 1. Creating a `CoverageExperiment` object from a single BigWigFile
+#############################################################################
+
+RNA_fwd <- system.file("extdata", "RNA.fwd.bw", package = "CoverageExperiment")
+tracks <- BigWigFile(RNA_fwd)
+CoverageExperiment(tracks, features, width = 5000)
+
+#############################################################################
+## 2. Creating a `CoverageExperiment` object from a BigWigFileList
+#############################################################################
+
+RNA_rev <- system.file("extdata", "RNA.rev.bw", package = "CoverageExperiment")
+tracks <- BigWigFileList(list(RNA_fwd = RNA_fwd, RNA_rev = RNA_rev))
+CoverageExperiment(tracks, features, width = 5000)
+
+#############################################################################
+## 3. Creating a `CoverageExperiment` object from imported bigwig files
+#############################################################################
+
 tracks <- list(
-    RNA_fwd = system.file("extdata", "SRR2045244.fwd.bw", package = "CoverageExperiment"),
-    RNA_rev = system.file("extdata", "SRR2045244.rev.bw", package = "CoverageExperiment")
+    RNA_fwd = system.file("extdata", "RNA.fwd.bw", package = "CoverageExperiment"),
+    RNA_rev = system.file("extdata", "RNA.rev.bw", package = "CoverageExperiment")
 ) |> map(import, as = 'Rle')
-CE <- CoverageExperiment(tracks, features, width = 5000)
-AC
+CoverageExperiment(tracks, features, width = 5000)
 }

@@ -28,6 +28,15 @@
     return(tracks)
 }
 
+.set_seqinfo_bwfl <- function(tracks) {
+    n <- names(tracks)
+    sis <- lapply(tracks, seqinfo) |> unique()
+    if (length(sis) > 1) 
+        stop("More than 1 seqinfo inferred from the tracks.")
+    si <- sis[[1]]
+    return(tracks)
+} 
+
 .resize_granges <- function(gr, width, seqinfo) {
     GenomeInfoDb::seqlevels(gr, pruning.mode = "coarse") <- GenomeInfoDb::seqlevels(seqinfo)
     GenomeInfoDb::seqinfo(gr) <- seqinfo
@@ -43,6 +52,18 @@
 .compute_cov <- function(rle, gr, center, scale, ignore.strand = TRUE) {
     scores <- rle[gr]
     scores <- IRanges::NumericList(scores)
+    scores <- as.matrix(scores)
+    scores <- t(scale(t(scores), center = center, scale = scale))
+    scores
+}
+
+.compute_cov_bw <- function(bwf, gr, center, scale, ignore.strand = TRUE) {
+    scores <- rtracklayer::import(
+        bwf, 
+        selection = rtracklayer::BigWigSelection(ranges = gr), 
+        as = "NumericList", 
+        format = "bigWig"
+    )
     scores <- as.matrix(scores)
     scores <- t(scale(t(scores), center = center, scale = scale))
     scores

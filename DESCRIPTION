@@ -1,14 +1,14 @@
 Package: CoverageExperiment
-Title: Coverage metrics over aligned genomic features of interest 
+Title: Aggregate coverage over aligned genomic features of interest
 Version: 0.98.0
 Date: 2023-11-09
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+    person("Jacques", "Serizay", , "jacquesserizay@gmail.com", 
+        role = c("aut", "cre"))
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
-URL: 
-BugReports: https://support.bioconductor.org/tag/CoverageExperiment
+URL: https://github.com/js2264/CoverageExperiment
+BugReports: https://github.com/js2264/CoverageExperiment/issues
 biocViews: Software
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -46,14 +46,3 @@ Suggests:
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 LazyData: false
-Collate: 
-    'AllClasses.R'
-    'AllGenerics.R'
-    'AllMethods.R'
-    'CoverageExperiment.R'
-    'aggregate.R'
-    'data.R'
-    'globals.R'
-    'print.R'
-    'reexports.R'
-    'utils.R'

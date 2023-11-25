@@ -1,49 +1,54 @@
 #' aggregate 
 #' 
-#' Bin assays of an `CoverageExperiment` to a coarser resolution
+#' Bin coverage contained in a `CoverageExperiment` into an
+#' `AggregatedCoverage` object.
 #' 
-#' @name aggregate
-#' @rdname aggregate
+#' @name AggregatedCoverage
+#' @aliases aggregate,CoverageExperiment
+#' @rdname AggregatedCoverage
 #' 
-#' @param x a `CoverageExperiment` or CoverageExperiment` object
+#' @param x a `CoverageExperiment` object
 #' @param ... ignored
 #' @param bin an integer to bin each assay by. The `width` of the 
-#' `CoverageExperiment` object should be a multiple of `bin`. 
-#' @return an `CoverageExperiment` object
+#' `AggregatedCoverage` object should be a multiple of `bin`. 
+#' @return an `AggregatedCoverage` object
 #' 
 #' @importFrom S4Vectors aggregate
-#' @examples 
-#' data(ac)
-#' aggregate(ac, bin = 10)
-NULL 
-
-#' @name aggregate
 #' @export
-
+#' @examples 
+#' data(ce)
+#' aggregate(ce, bin = 10)
 setMethod("aggregate", signature(x = "CoverageExperiment"), 
     function(x, bin = 1, ...) {
         m0 <- matrix(
             list(), 
-            nrow = length(features), ncol = length(tracks)
+            nrow = length(rowData(x)$features), ncol = length(colData(x)$track)
         )
         colnames(m0) <- colData(x)$track
         rownames(m0) <- rowData(x)$features
-        assays <- c("coverage", "mean", "median", "min", "max", "sd", "se", "ci_low", "ci_high")
+        assays <- c("mean", "median", "min", "max", "sd", "se", "ci_low", "ci_high")
         l_assays <- vector("list", length = length(assays))
         names(l_assays) <- assays
-        l_assays[['coverage']] <- assay(x, 'coverage')
-        for(assay in assays[-1]) l_assays[[assay]] <- m0
+        for(assay in assays) l_assays[[assay]] <- m0
         for (t in colData(x)$track) {
             for (f in rowData(x)$features) {
                 m <- assay(x, 'coverage')[f, t][[1]]
                 df <- .summarize_cov(m)
-                for (assay in assays[-1]) {
+                for (assay in assays) {
                     vec <- .coarsen(df[[assay]], bin = bin, FUN = mean, na.rm = TRUE)
                     l_assays[[assay]][f, t][[1]] <- vec
                 }
             }
         }
         assays(x) <- l_assays
-        return(x)
+        AC <- methods::new(
+            "AggregatedCoverage",
+            SummarizedExperiment::SummarizedExperiment(
+                rowRanges = rowRanges(x),
+                colData = colData(x),
+                assays = l_assays
+            )
+        )
+        return(AC)
     }
 )

@@ -24,13 +24,16 @@ vignette: >
 knitr::opts_chunk$set(
     collapse = TRUE,
     comment = "#>",
-    crop = NULL
+    crop = NULL, 
+    width = 180
 )
 ```
 
 ## Introduction 
 
-## `CoverageExperiment` class
+## New classes
+
+### `CoverageExperiment`
 
 ```{r}
 library(CoverageExperiment)
@@ -47,12 +50,35 @@ colData(ce)
 
 assays(ce)
 
-assay(ce, 'mean')
+assay(ce, 'coverage')
 
-assay(ce[1, 1], 'mean')
+assay(ce[1, 1], 'coverage')
 ```
 
-### Creating an `CoverageExperiment` object
+### `AggregatedCoverage`
+
+```{r}
+showClass("AggregatedCoverage")
+
+data(ac)
+ac
+
+rowData(ac)
+
+rowRanges(ac)
+
+colData(ac)
+
+assays(ac)
+
+assay(ac, 'mean')
+
+assay(ac[1, 1], 'mean')
+```
+
+## Creating `CoverageExperiment` and `AggregatedCoverage` classes
+
+### Creating a `CoverageExperiment` object
 
 ```{r}
 library(rtracklayer)
@@ -66,7 +92,17 @@ CE <- CoverageExperiment(
 CE
 ```
 
-### Aggregating over multiple tracks / feature sets
+### Aggregating a `CoverageExperiment` into an `AggregatedCoverage` object
+
+```{r}
+AC <- aggregate(CE)
+AC
+
+AC10 <- aggregate(CE, bin = 10)
+AC10
+```
+
+### `CoverageExperiment` over multiple tracks / feature sets
 
 ```{r}
 library(purrr)
@@ -81,8 +117,8 @@ features <- list(
 # ~~~~~~~~~~~~~~~ Import coverage tracks into a named list ~~~~~~~~~~~~~~~ #
 tracks <- list(
     Scc1 = system.file("extdata", "Scc1.bw", package = "CoverageExperiment"), 
-    RNA_fwd = system.file("extdata", "SRR2045244.fwd.bw", package = "CoverageExperiment"),
-    RNA_rev = system.file("extdata", "SRR2045244.rev.bw", package = "CoverageExperiment"),
+    RNA_fwd = system.file("extdata", "RNA.fwd.bw", package = "CoverageExperiment"),
+    RNA_rev = system.file("extdata", "RNA.rev.bw", package = "CoverageExperiment"),
     PolII = system.file("extdata", "PolII.bw", package = "CoverageExperiment"), 
     MNase = system.file("extdata", "MNase.bw", package = "CoverageExperiment")
 ) |> map(import, as = 'Rle')
@@ -90,13 +126,16 @@ tracks <- list(
 # ~~~~~~~~~~~~~~~ Compute aggregated coverage ~~~~~~~~~~~~~~~ #
 CE <- CoverageExperiment(tracks, features, width = 5000, scale = TRUE, center = TRUE)
 CE
+
+AC <- aggregate(CE)
+AC
 ```
 
 ### Plotting aggregated coverage with `ggplot2`
 
 ```{r}
 library(ggplot2)
-as_tibble(CE) |> 
+p <- as_tibble(AC) |> 
     ggplot(aes(x = coord, y = mean)) + 
     geom_ribbon(aes(ymin = ci_low, ymax = ci_high, fill = track), alpha = 0.2) + 
     geom_line(aes(col = track)) + 
@@ -110,7 +149,9 @@ as_tibble(CE) |>
 
 ```{r}
 library(tidySummarizedExperiment) 
-CE |> 
+AC
+
+AC |> 
     filter(track != 'Scc1') |> 
     filter(features == 'Convergent transcription') |> 
     ggplot(aes(x = coord, y = mean)) + 
@@ -125,8 +166,8 @@ CE |>
 ### Coarsening the aggregated coverage statistics
 
 ```{r}
-CE2 <- S4Vectors::aggregate(CE, bin = 200)
-CE2 |> 
+AC2 <- S4Vectors::aggregate(CE, bin = 200)
+AC2 |> 
     filter(track != 'Scc1') |> 
     filter(features == 'Convergent transcription') |> 
     ggplot(aes(x = coord, y = mean)) + 
@@ -169,7 +210,8 @@ CE <- CoverageExperiment(
     width = 6000, 
     scale = TRUE, center = TRUE
 )
-ggplot(CE, aes(x = coord, y = mean)) + 
+AC <- aggregate(CE)
+ggplot(AC, aes(x = coord, y = mean)) + 
     geom_ribbon(aes(ymin = ci_low, ymax = ci_high, fill = track), alpha = 0.2) + 
     geom_line(aes(col = track)) + 
     facet_grid(track ~ .) + 
@@ -202,8 +244,11 @@ CE <- CoverageExperiment(
     scale = TRUE, center = TRUE
 )
 
-# ~~~~~~~~~~ Plot the resulting CoverageExperiment object ~~~~~~~~~~ #
-ggplot(CE, aes(x = coord, y = mean)) + 
+# ~~~~~~~~~~ Aggregate coverages ~~~~~~~~~~ #
+AC <- aggregate(CE, 50)
+
+# ~~~~~~~~~~ Plot the resulting AggregatedCoverage object ~~~~~~~~~~ #
+ggplot(AC, aes(x = coord, y = mean)) + 
     geom_ribbon(aes(ymin = ci_low, ymax = ci_high, fill = track), alpha = 0.2) + 
     geom_line(aes(col = track)) + 
     facet_grid(track ~ .) + 
