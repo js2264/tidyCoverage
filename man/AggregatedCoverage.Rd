@@ -2,7 +2,7 @@
 % Please edit documentation in R/aggregate.R
 \name{AggregatedCoverage}
 \alias{AggregatedCoverage}
-\alias{aggregate,CoverageExperiment}
+\alias{aggregate,CoverageExperiment-method}
 \title{aggregate}
 \usage{
 \S4method{aggregate}{CoverageExperiment}(x, bin = 1, ...)

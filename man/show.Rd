@@ -2,8 +2,8 @@
 % Please edit documentation in R/show.R
 \name{show}
 \alias{show}
-\alias{show,CoverageExperiment}
-\alias{show,AggregatedCoverage}
+\alias{show,CoverageExperiment-method}
+\alias{show,AggregatedCoverage-method}
 \alias{print.AggregatedCoverage}
 \alias{tbl_format_header.tidyAggregatedCoverage}
 \title{show}

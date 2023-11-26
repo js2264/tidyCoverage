@@ -3,8 +3,8 @@
 #' show method for `CoverageExperiment` and `AggregatedCoverage` objects
 #' 
 #' @name show
-#' @aliases show,CoverageExperiment
-#' @aliases show,AggregatedCoverage
+#' @aliases show,CoverageExperiment-method
+#' @aliases show,AggregatedCoverage-method
 #' 
 #' @param object a `CoverageExperiment` or `AggregatedCoverage` object
 #' @param setup a setup object returned from [pillar::tbl_format_setup()].

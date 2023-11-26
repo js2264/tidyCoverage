@@ -22,6 +22,7 @@ Imports:
     GenomicRanges,
     GenomeInfoDb, 
     BiocParallel, 
+    rtracklayer,
     methods,
     dplyr,
     fansi, 
@@ -33,7 +34,6 @@ Imports:
 Suggests: 
     tidySummarizedExperiment,
     plyranges,
-    rtracklayer,
     ggplot2,
     TxDb.Hsapiens.UCSC.hg19.knownGene,
     AnnotationHub,

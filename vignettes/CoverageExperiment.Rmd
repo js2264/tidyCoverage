@@ -131,7 +131,7 @@ AC <- aggregate(CE)
 AC
 ```
 
-### Plotting aggregated coverage with `ggplot2`
+### Plotting aggregated coverages with `ggplot2`
 
 ```{r}
 library(ggplot2)

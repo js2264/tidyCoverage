@@ -53,6 +53,12 @@
     scores <- rle[gr]
     scores <- IRanges::NumericList(scores)
     scores <- as.matrix(scores)
+    if (!ignore.strand) {
+        scores <- data.frame(scores)
+        which.flip <- which(as.vector(strand(gr)) == '-')
+        scores[which.flip, ] <- rev(scores[which.flip, ])
+        scores <- as.matrix(scores)
+    }
     scores <- t(scale(t(scores), center = center, scale = scale))
     scores
 }
@@ -65,6 +71,12 @@
         format = "bigWig"
     )
     scores <- as.matrix(scores)
+    if (!ignore.strand) {
+        scores <- data.frame(scores)
+        which.flip <- which(as.vector(strand(gr)) == '-')
+        scores[which.flip, ] <- rev(scores[which.flip, ])
+        scores <- as.matrix(scores)
+    }
     scores <- t(scale(t(scores), center = center, scale = scale))
     scores
 }

@@ -4,7 +4,7 @@
 #' `AggregatedCoverage` object.
 #' 
 #' @name AggregatedCoverage
-#' @aliases aggregate,CoverageExperiment
+#' @aliases aggregate,CoverageExperiment-method
 #' @rdname AggregatedCoverage
 #' 
 #' @param x a `CoverageExperiment` object

@@ -21,6 +21,8 @@
 #' @import GenomeInfoDb
 #' @import SummarizedExperiment
 #' @import methods
+#' @importFrom rtracklayer BigWigFile
+#' @importFrom rtracklayer BigWigFileList
 #' @importFrom dplyr filter
 #' @importFrom dplyr bind_rows
 #' @importFrom dplyr bind_cols
@@ -61,6 +63,22 @@
 #'     RNA_rev = system.file("extdata", "RNA.rev.bw", package = "CoverageExperiment")
 #' ) |> map(import, as = 'Rle')
 #' CoverageExperiment(tracks, features, width = 5000)
+#' 
+#' #############################################################################
+#' ## 4. Correct for strandness when recovering coverage
+#' #############################################################################
+#' 
+#' TSSs_bed <- system.file("extdata", "TSSs.bed", package = "CoverageExperiment")
+#' features <- list(
+#'     TSS_fwd = import(TSSs_bed) |> filter(strand == '+'), 
+#'     TSS_rev = import(TSSs_bed) |> filter(strand == '-')
+#' )
+#' tracks <- list(
+#'     RNA_fwd = system.file("extdata", "RNA.fwd.bw", package = "CoverageExperiment"),
+#'     RNA_rev = system.file("extdata", "RNA.rev.bw", package = "CoverageExperiment")
+#' ) |> map(import, as = 'Rle')
+#' ce_nostrand <- CoverageExperiment(tracks, features, width = 5000)
+#' ce <- CoverageExperiment(tracks, features, width = 5000, ignore.strand = FALSE)
 NULL
 
 #' @rdname CoverageExperiment
