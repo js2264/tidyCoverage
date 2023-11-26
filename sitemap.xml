@@ -13,7 +13,7 @@
     <loc>/LICENSE.html</loc>
   </url>
   <url>
-    <loc>/articles/AggregatedCoverage.html</loc>
+    <loc>/articles/CoverageExperiment.html</loc>
   </url>
   <url>
     <loc>/articles/index.html</loc>
@@ -28,10 +28,10 @@
     <loc>/reference/AggregatedCoverage.html</loc>
   </url>
   <url>
-    <loc>/reference/aggregate.html</loc>
+    <loc>/reference/CoverageExperiment.html</loc>
   </url>
   <url>
-    <loc>/reference/as_tibble.html</loc>
+    <loc>/reference/as_tibble.AggregatedCoverage.html</loc>
   </url>
   <url>
     <loc>/reference/data.html</loc>
