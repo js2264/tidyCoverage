@@ -239,7 +239,7 @@ names(bws) <- names(ids)
 
 # ~~~~~~~~~~ Computing coverage over TSSs ~~~~~~~~~~ #
 CE <- CoverageExperiment(
-    bws, GRangesList(TSSs = TSSs), 
+    bws, TSSs, 
     width = 4000, 
     scale = TRUE, center = TRUE
 )
@@ -248,11 +248,19 @@ CE <- CoverageExperiment(
 AC <- aggregate(CE, 50)
 
 # ~~~~~~~~~~ Plot the resulting AggregatedCoverage object ~~~~~~~~~~ #
-ggplot(AC, aes(x = coord, y = mean)) + 
+AC$histone <- case_when(
+    stringr::str_detect(AC$track, 'H2A') ~ "H2A", 
+    stringr::str_detect(AC$track, 'H2B') ~ "H2B", 
+    stringr::str_detect(AC$track, 'H3') ~ "H3"
+)
+p <- AC |> 
+    ggplot(aes(x = coord, y = mean)) + 
     geom_ribbon(aes(ymin = ci_low, ymax = ci_high, fill = track), alpha = 0.2) + 
     geom_line(aes(col = track)) + 
-    facet_grid(track ~ .) + 
-    labs(x = 'Distance from TSSs', y = 'Mean coverage') + 
+    facet_grid(~histone) + 
+    labs(x = 'Distance from TSSs', y = 'Mean histone PTM coverage') + 
     theme_bw() + 
     theme(legend.position = 'top')
 ```
+
+![](../man/figures/PTMs-TSSs.png)

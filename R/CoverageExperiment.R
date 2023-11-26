@@ -77,8 +77,7 @@
 #'     RNA_fwd = system.file("extdata", "RNA.fwd.bw", package = "CoverageExperiment"),
 #'     RNA_rev = system.file("extdata", "RNA.rev.bw", package = "CoverageExperiment")
 #' ) |> map(import, as = 'Rle')
-#' ce_nostrand <- CoverageExperiment(tracks, features, width = 5000)
-#' ce <- CoverageExperiment(tracks, features, width = 5000, ignore.strand = FALSE)
+#' CoverageExperiment(tracks, features, width = 5000, ignore.strand = FALSE)
 NULL
 
 #' @rdname CoverageExperiment

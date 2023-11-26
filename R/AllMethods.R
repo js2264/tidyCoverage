@@ -31,5 +31,7 @@ as_tibble.AggregatedCoverage <- function(x, ...) {
                 dplyr::relocate(features) |> 
                 dplyr::relocate(track)
         }) |> dplyr::bind_rows()
-    }) |> dplyr::bind_rows()
+    }) |> 
+        dplyr::bind_rows() |> 
+        dplyr::left_join(colData(x) |> as.data.frame(), by = 'track')
 }
