@@ -1,4 +1,4 @@
-# CoverageExperiment
+# tidyCoverage
 
 <!-- badges: start -->
 <!-- badges: end -->

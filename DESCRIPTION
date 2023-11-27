@@ -1,14 +1,20 @@
-Package: CoverageExperiment
-Title: Aggregate coverage over aligned genomic features of interest
+Package: tidyCoverage
+Title: Extract and aggregate genomic coverage over features of interest
 Version: 0.98.0
 Date: 2023-11-09
 Authors@R: 
     person("Jacques", "Serizay", , "jacquesserizay@gmail.com", 
         role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Description: `tidyCoverage` framework enables tidy manipulation 
+    of collections of genomic tracks and features using 
+    `tidySummarizedExperiment` methods. It facilitates the 
+    extraction, aggregation and visualization of genomic coverage over 
+    individual of thousands of genomic loci, relying on `CoverageExperiment`
+    and `AggregatedCoverage` classes. This accelerates the integration 
+    of genomic track data in genomic analysis workflows. 
 License: MIT + file LICENSE
-URL: https://github.com/js2264/CoverageExperiment
-BugReports: https://github.com/js2264/CoverageExperiment/issues
+URL: https://github.com/js2264/tidyCoverage
+BugReports: https://github.com/js2264/tidyCoverage/issues
 biocViews: 
     Software, 
     Coverage

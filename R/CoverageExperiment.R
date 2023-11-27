@@ -37,14 +37,14 @@
 #' library(rtracklayer)
 #' library(purrr)
 #' library(plyranges)
-#' TSSs_bed <- system.file("extdata", "TSSs.bed", package = "CoverageExperiment")
+#' TSSs_bed <- system.file("extdata", "TSSs.bed", package = "tidyCoverage")
 #' features <- import(TSSs_bed) |> filter(strand == '+')
 #' 
 #' #############################################################################
 #' ## 1. Creating a `CoverageExperiment` object from a single BigWigFile
 #' #############################################################################
 #' 
-#' RNA_fwd <- system.file("extdata", "RNA.fwd.bw", package = "CoverageExperiment")
+#' RNA_fwd <- system.file("extdata", "RNA.fwd.bw", package = "tidyCoverage")
 #' tracks <- BigWigFile(RNA_fwd)
 #' CoverageExperiment(tracks, features, width = 5000)
 #' 
@@ -52,7 +52,7 @@
 #' ## 2. Creating a `CoverageExperiment` object from a BigWigFileList
 #' #############################################################################
 #' 
-#' RNA_rev <- system.file("extdata", "RNA.rev.bw", package = "CoverageExperiment")
+#' RNA_rev <- system.file("extdata", "RNA.rev.bw", package = "tidyCoverage")
 #' tracks <- BigWigFileList(list(RNA_fwd = RNA_fwd, RNA_rev = RNA_rev))
 #' CoverageExperiment(tracks, features, width = 5000)
 #' 
@@ -61,8 +61,8 @@
 #' #############################################################################
 #' 
 #' tracks <- list(
-#'     RNA_fwd = system.file("extdata", "RNA.fwd.bw", package = "CoverageExperiment"),
-#'     RNA_rev = system.file("extdata", "RNA.rev.bw", package = "CoverageExperiment")
+#'     RNA_fwd = system.file("extdata", "RNA.fwd.bw", package = "tidyCoverage"),
+#'     RNA_rev = system.file("extdata", "RNA.rev.bw", package = "tidyCoverage")
 #' ) |> map(import, as = 'Rle')
 #' CoverageExperiment(tracks, features, width = 5000)
 #' 
@@ -70,14 +70,14 @@
 #' ## 4. Correct for strandness when recovering coverage
 #' #############################################################################
 #' 
-#' TSSs_bed <- system.file("extdata", "TSSs.bed", package = "CoverageExperiment")
+#' TSSs_bed <- system.file("extdata", "TSSs.bed", package = "tidyCoverage")
 #' features <- list(
 #'     TSS_fwd = import(TSSs_bed) |> filter(strand == '+'), 
 #'     TSS_rev = import(TSSs_bed) |> filter(strand == '-')
 #' )
 #' tracks <- list(
-#'     RNA_fwd = system.file("extdata", "RNA.fwd.bw", package = "CoverageExperiment"),
-#'     RNA_rev = system.file("extdata", "RNA.rev.bw", package = "CoverageExperiment")
+#'     RNA_fwd = system.file("extdata", "RNA.fwd.bw", package = "tidyCoverage"),
+#'     RNA_rev = system.file("extdata", "RNA.rev.bw", package = "tidyCoverage")
 #' ) |> map(import, as = 'Rle')
 #' CoverageExperiment(tracks, features, width = 5000, ignore.strand = FALSE)
 NULL

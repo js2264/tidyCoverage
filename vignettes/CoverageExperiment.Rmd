@@ -1,5 +1,5 @@
 ---
-title: "Introduction to CoverageExperiment"
+title: "Introduction to tidyCoverage"
 author: 
   - name: Jacques Serizay
     affiliation:
@@ -13,9 +13,9 @@ output:
     toc_depth: 2
     code_folding: show
 date: "`r doc_date()`"
-package: "`r pkg_ver('CoverageExperiment')`"
+package: "`r pkg_ver('tidyCoverage')`"
 vignette: >
-  %\VignetteIndexEntry{Introduction to CoverageExperiment}
+  %\VignetteIndexEntry{Introduction to tidyCoverage}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}  
 ---
@@ -36,7 +36,7 @@ knitr::opts_chunk$set(
 ### `CoverageExperiment`
 
 ```{r}
-library(CoverageExperiment)
+library(tidyCoverage)
 showClass("CoverageExperiment")
 
 data(ce)
@@ -82,8 +82,8 @@ assay(ac[1, 1], 'mean')
 
 ```{r}
 library(rtracklayer)
-bw_file <- system.file("extdata", "MNase.bw", package = "CoverageExperiment")
-bed_file <- system.file("extdata", "TSSs.bed", package = "CoverageExperiment")
+bw_file <- system.file("extdata", "MNase.bw", package = "tidyCoverage")
+bed_file <- system.file("extdata", "TSSs.bed", package = "tidyCoverage")
 CE <- CoverageExperiment(
     tracks = import(bw_file, as = "Rle"), 
     features = import(bed_file),
@@ -105,11 +105,11 @@ library(ggplot2)
 
 # ~~~~~~~~~~~~~~~ Import coverage tracks into a named list ~~~~~~~~~~~~~~~ #
 tracks <- list(
-    Scc1 = system.file("extdata", "Scc1.bw", package = "CoverageExperiment"), 
-    RNA_fwd = system.file("extdata", "RNA.fwd.bw", package = "CoverageExperiment"),
-    RNA_rev = system.file("extdata", "RNA.rev.bw", package = "CoverageExperiment"),
-    PolII = system.file("extdata", "PolII.bw", package = "CoverageExperiment"), 
-    MNase = system.file("extdata", "MNase.bw", package = "CoverageExperiment")
+    Scc1 = system.file("extdata", "Scc1.bw", package = "tidyCoverage"), 
+    RNA_fwd = system.file("extdata", "RNA.fwd.bw", package = "tidyCoverage"),
+    RNA_rev = system.file("extdata", "RNA.rev.bw", package = "tidyCoverage"),
+    PolII = system.file("extdata", "PolII.bw", package = "tidyCoverage"), 
+    MNase = system.file("extdata", "MNase.bw", package = "tidyCoverage")
 ) |> BigWigFileList()
 
 locus <- "II:450001-475000"
@@ -147,17 +147,17 @@ library(plyranges)
 
 # ~~~~~~~~~~~~~~~ Import genomic features into a named list ~~~~~~~~~~~~~~~ #
 features <- list(
-    TSSs = system.file("extdata", "TSSs.bed", package = "CoverageExperiment"),
-    `Convergent transcription` = system.file("extdata", "conv_transcription_loci.bed", package = "CoverageExperiment")
+    TSSs = system.file("extdata", "TSSs.bed", package = "tidyCoverage"),
+    `Convergent transcription` = system.file("extdata", "conv_transcription_loci.bed", package = "tidyCoverage")
 ) |> map(import) |> map(filter, strand == '+') 
 
 # ~~~~~~~~~~~~~~~ Import coverage tracks into a named list ~~~~~~~~~~~~~~~ #
 tracks <- list(
-    Scc1 = system.file("extdata", "Scc1.bw", package = "CoverageExperiment"), 
-    RNA_fwd = system.file("extdata", "RNA.fwd.bw", package = "CoverageExperiment"),
-    RNA_rev = system.file("extdata", "RNA.rev.bw", package = "CoverageExperiment"),
-    PolII = system.file("extdata", "PolII.bw", package = "CoverageExperiment"), 
-    MNase = system.file("extdata", "MNase.bw", package = "CoverageExperiment")
+    Scc1 = system.file("extdata", "Scc1.bw", package = "tidyCoverage"), 
+    RNA_fwd = system.file("extdata", "RNA.fwd.bw", package = "tidyCoverage"),
+    RNA_rev = system.file("extdata", "RNA.rev.bw", package = "tidyCoverage"),
+    PolII = system.file("extdata", "PolII.bw", package = "tidyCoverage"), 
+    MNase = system.file("extdata", "MNase.bw", package = "tidyCoverage")
 ) |> map(import, as = 'Rle')
 
 # ~~~~~~~~~~~~~~~ Compute aggregated coverage ~~~~~~~~~~~~~~~ #
