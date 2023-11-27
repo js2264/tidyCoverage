@@ -25,7 +25,7 @@ setMethod("coarsen", signature(x = "CoverageExperiment"),
             mat <- .coarsen_mat(
                 assay(x, 'coverage')[f, t][[1]], 
                 bin = window, FUN = mean, na.rm = TRUE
-            )
+            ) |> t()
         }, BPPARAM = BPPARAM)
         names(l) <- paste(combs$tracks, combs$features, sep = '^')
         for (t in colData(x)$track) {

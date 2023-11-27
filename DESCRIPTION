@@ -9,12 +9,14 @@ Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 URL: https://github.com/js2264/CoverageExperiment
 BugReports: https://github.com/js2264/CoverageExperiment/issues
-biocViews: Software
+biocViews: 
+    Software, 
+    Coverage
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Depends: 
-    R (>= 2.10),
+    R (>= 4.3.0),
     SummarizedExperiment
 Imports: 
     S4Vectors, 
@@ -30,7 +32,9 @@ Imports:
     rlang, 
     cli, 
     purrr, 
+    vctrs, 
     vctrs
+    stats
 Suggests: 
     tidySummarizedExperiment,
     plyranges,

@@ -131,25 +131,19 @@ setMethod(
         names(l) <- paste(combs$tracks, combs$features, sep = '^')
 
         ## Fill out different assay matrices
-        m0 <- matrix(
+        m <- matrix(
             list(), 
             nrow = length(features), ncol = length(tracks)
         )
-        colnames(m0) <- names(tracks)
-        rownames(m0) <- names(features)
-        assays <- "coverage"
-        l_assays <- vector("list", length = length(assays))
-        names(l_assays) <- assays
-        for (assay in assays) {
-            m <- m0
-            for (t in names(tracks)) {
-                for (f in names(features)) {
-                    name <- paste(t, f, sep = '^')
-                    m[f, t][[1]] <- l[[name]]
-                }
+        colnames(m) <- names(tracks)
+        rownames(m) <- names(features)
+        for (t in names(tracks)) {
+            for (f in names(features)) {
+                name <- paste(t, f, sep = '^')
+                m[f, t][[1]] <- l[[name]]
             }
-            l_assays[[assay]] <- m
         }
+        l_assays <- list(coverage = m)
 
         ## Instantiate and return the CoverageExperiment final object
         CE <- methods::new(
@@ -322,25 +316,19 @@ setMethod(
         names(l) <- paste(combs$tracks, combs$features, sep = '^')
 
         ## Fill out different assay matrices
-        m0 <- matrix(
+        m <- matrix(
             list(), 
             nrow = length(features), ncol = length(tracks)
         )
-        colnames(m0) <- names(tracks)
-        rownames(m0) <- names(features)
-        assays <- "coverage"
-        l_assays <- vector("list", length = length(assays))
-        names(l_assays) <- assays
-        for (assay in assays) {
-            m <- m0
-            for (t in names(tracks)) {
-                for (f in names(features)) {
-                    name <- paste(t, f, sep = '^')
-                    m[f, t][[1]] <- l[[name]]
-                }
+        colnames(m) <- names(tracks)
+        rownames(m) <- names(features)
+        for (t in names(tracks)) {
+            for (f in names(features)) {
+                name <- paste(t, f, sep = '^')
+                m[f, t][[1]] <- l[[name]]
             }
-            l_assays[[assay]] <- m
         }
+        l_assays <- list(coverage = m)
 
         ## Instantiate and return the CoverageExperiment final object
         CE <- methods::new(
