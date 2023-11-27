@@ -78,14 +78,22 @@
 }
 
 .coarsen_vec <- function(x, bin, FUN, ...) {
+    if ({length(x) %% bin} != 0) stop(
+        "The length of the provided vector should be divided by the bin size without remainder.
+Please adjust `bin` argument."
+    )
     stats::aggregate(
         x, 
         by = list(rep(seq(1, length(x)/bin), each = bin)), 
-        FUN = FUN, ...
+        FUN = FUN
     )$x
 }
 
 .coarsen_mat <- function(x, bin, FUN, ...) {
+    if ({ncol(x) %% bin} != 0) stop(
+        "The column number of the provided matrix should be divided by the window size without remainder.
+Please adjust `window` argument."
+    )
     apply(x, 1, function(vec) {
         stats::aggregate(
             vec, 
