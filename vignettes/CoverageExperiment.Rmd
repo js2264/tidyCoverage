@@ -76,7 +76,7 @@ assay(ac, 'mean')
 assay(ac[1, 1], 'mean')
 ```
 
-## Creating `CoverageExperiment` and `AggregatedCoverage` classes
+## Creating `CoverageExperiment` objects
 
 ### Creating a `CoverageExperiment` object
 
@@ -87,10 +87,47 @@ bed_file <- system.file("extdata", "TSSs.bed", package = "CoverageExperiment")
 CE <- CoverageExperiment(
     tracks = import(bw_file, as = "Rle"), 
     features = import(bed_file),
-    width = 3000, scale = TRUE, center = TRUE
+    width = 3000
 )
 CE
 ```
+
+### Bin a `CoverageExperiment` object 
+
+```{r}
+coarsen(CE, window = 50)
+```
+
+### Plot coverage of a set of tracks over a single genomic locus
+
+```{r}
+library(ggplot2)
+
+# ~~~~~~~~~~~~~~~ Import coverage tracks into a named list ~~~~~~~~~~~~~~~ #
+tracks <- list(
+    Scc1 = system.file("extdata", "Scc1.bw", package = "CoverageExperiment"), 
+    RNA_fwd = system.file("extdata", "RNA.fwd.bw", package = "CoverageExperiment"),
+    RNA_rev = system.file("extdata", "RNA.rev.bw", package = "CoverageExperiment"),
+    PolII = system.file("extdata", "PolII.bw", package = "CoverageExperiment"), 
+    MNase = system.file("extdata", "MNase.bw", package = "CoverageExperiment")
+) |> BigWigFileList()
+
+locus <- "II:450001-475000"
+CE2 <- CoverageExperiment(
+    tracks = tracks, 
+    features = GRanges(locus),
+    width = width(GRanges(locus))
+) |> coarsen(window = width(GRanges(locus))/1000)
+as_tibble(CE2) |> 
+    ggplot(aes(x = coord, y = coverage)) + 
+        geom_col(aes(fill = track), col = NA) + 
+        facet_grid(track~., scales = 'free') + 
+        scale_x_continuous(expand = c(0, 0)) + 
+        theme_bw() + 
+        theme(legend.position = "none", aspect.ratio = 0.1)
+```
+
+## Creating `AggregatedCoverage` classes
 
 ### Aggregating a `CoverageExperiment` into an `AggregatedCoverage` object
 
@@ -102,7 +139,7 @@ AC10 <- aggregate(CE, bin = 10)
 AC10
 ```
 
-### `CoverageExperiment` over multiple tracks / feature sets
+### `AggregatedCoverage` over multiple tracks / feature sets
 
 ```{r}
 library(purrr)
@@ -134,7 +171,6 @@ AC
 ### Plotting aggregated coverages with `ggplot2`
 
 ```{r}
-library(ggplot2)
 p <- as_tibble(AC) |> 
     ggplot(aes(x = coord, y = mean)) + 
     geom_ribbon(aes(ymin = ci_low, ymax = ci_high, fill = track), alpha = 0.2) + 
@@ -166,7 +202,7 @@ AC |>
 ### Coarsening the aggregated coverage statistics
 
 ```{r}
-AC2 <- S4Vectors::aggregate(CE, bin = 200)
+AC2 <- aggregate(CE, bin = 200)
 AC2 |> 
     filter(track != 'Scc1') |> 
     filter(features == 'Convergent transcription') |> 
