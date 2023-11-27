@@ -1,4 +1,7 @@
 ## ce
+library(purrr)
+library(plyranges)
+library(rtracklayer)
 features <- list(
     Scc1 = system.file("extdata", "TSSs.bed", package = "tidyCoverage")
 ) |> map(import) |> map(filter, strand == '+') |> map(`[`, 1:1000)
@@ -11,4 +14,4 @@ usethis::use_data(ce, overwrite = TRUE)
 
 ## ac
 ac <- aggregate(ce)
-usethis::use_data(ac)
+usethis::use_data(ac, overwrite = TRUE)
