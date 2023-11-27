@@ -172,7 +172,7 @@ AC
 ### Plotting aggregated coverages with `ggplot2`
 
 ```{r}
-p <- as_tibble(AC) |> 
+as_tibble(AC) |> 
     ggplot(aes(x = coord, y = mean)) + 
     geom_ribbon(aes(ymin = ci_low, ymax = ci_high, fill = track), alpha = 0.2) + 
     geom_line(aes(col = track)) + 

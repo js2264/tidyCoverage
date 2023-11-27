@@ -8,6 +8,9 @@
 #' 
 #' @export
 #' @examples 
+#' #############################################################################
+#' ## Aggregating a `CoverageExperiment` object
+#' #############################################################################
 #' data(ce)
 #' coarsen(ce, window = 10)
 setMethod("coarsen", signature(x = "CoverageExperiment"), 
