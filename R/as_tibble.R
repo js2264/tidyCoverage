@@ -8,6 +8,9 @@
 #' @param ... ignored
 #' @return `tibble`
 #' 
+#' @importFrom tidyr any_of
+#' @importFrom tidyr all_of
+#' @importFrom tidyr pivot_longer
 #' @importFrom dplyr as_tibble
 #' @examples 
 #' data(ac)
@@ -35,10 +38,10 @@ as_tibble.CoverageExperiment <- function(x, ...) {
                     ranges = as.character(rr), 
                     strand = as.vector(strand(rr))
                 ) |> 
-                dplyr::relocate(all_of(c("track", "features", "chr", "ranges", "strand")))
+                dplyr::relocate(tidyr::all_of(c("track", "features", "chr", "ranges", "strand")))
             d <- tidyr::pivot_longer(
                 m, 
-                !any_of(c("track", "features", "chr", "ranges", "strand")), 
+                !tidyr::any_of(c("track", "features", "chr", "ranges", "strand")), 
                 names_to = "coord", values_to = "coverage"
             )
             d$coord <- coord

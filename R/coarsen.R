@@ -1,15 +1,10 @@
-#' coarsen 
-#' 
-#' Coarsen the coverage contained in a `CoverageExperiment`.
-#' 
-#' @name CoverageExperiment
+#' @name coarsen
 #' @aliases coarsen,CoverageExperiment-method
 #' @rdname CoverageExperiment
 #' 
 #' @param x a `CoverageExperiment` object
 #' @param window an integer to coarsen coverage by. 
 #' @param BPPARAM Passed to BiocParallel.
-#' @return a `CoverageExperiment` object
 #' 
 #' @export
 #' @examples 

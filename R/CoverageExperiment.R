@@ -1,6 +1,7 @@
 #' CoverageExperiment
 #'
-#' This function initiates a `CoverageExperiment` object. 
+#' `CoverageExperiment` objects are instantiated using the `CoverageExperiment()` 
+#' function, and can be coarsened using the `coarsen()` function.
 #'
 #' @name CoverageExperiment
 #' @rdname CoverageExperiment
@@ -15,6 +16,7 @@
 #' @param scale,center Logical, whether to scale and/or center tracks prior to 
 #' summarization
 #' @param BPPARAM Passed to BiocParallel
+#' @param ... Passed to the relevant method
 #' @return An `CoverageExperiment` object
 #'
 #' @import GenomicRanges

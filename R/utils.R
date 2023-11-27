@@ -85,7 +85,7 @@ Please adjust `bin` argument."
     stats::aggregate(
         x, 
         by = list(rep(seq(1, length(x)/bin), each = bin)), 
-        FUN = FUN
+        FUN = FUN, ...
     )$x
 }
 
@@ -98,7 +98,7 @@ Please adjust `window` argument."
         stats::aggregate(
             vec, 
             by = list(rep(seq(1, length(vec)/bin), each = bin)), 
-            FUN = FUN
+            FUN = FUN, ...
         )$x
     })
 }

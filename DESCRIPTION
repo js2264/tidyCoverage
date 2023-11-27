@@ -26,6 +26,7 @@ Imports:
     BiocParallel, 
     rtracklayer,
     methods,
+    tidyr, 
     dplyr,
     fansi, 
     pillar, 
@@ -33,7 +34,6 @@ Imports:
     cli, 
     purrr, 
     vctrs, 
-    vctrs
     stats
 Suggests: 
     tidySummarizedExperiment,
