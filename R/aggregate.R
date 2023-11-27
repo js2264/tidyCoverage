@@ -29,13 +29,18 @@ setMethod("aggregate", signature(x = "CoverageExperiment"),
         assays <- c("mean", "median", "min", "max", "sd", "se", "ci_low", "ci_high")
         l_assays <- vector("list", length = length(assays))
         names(l_assays) <- assays
-        for(assay in assays) l_assays[[assay]] <- m0
+        for (assay in assays) l_assays[[assay]] <- m0
         for (t in colData(x)$track) {
             for (f in rowData(x)$features) {
                 m <- assay(x, 'coverage')[f, t][[1]]
                 df <- .summarize_cov(m)
                 for (assay in assays) {
-                    vec <- .coarsen(df[[assay]], bin = bin, FUN = mean, na.rm = TRUE)
+                    vec <- df[[assay]]
+                    if (bin > 1) {
+                        vec <- .coarsen_vec(
+                            vec, bin = bin, FUN = mean, na.rm = TRUE
+                        )
+                    }
                     l_assays[[assay]][f, t][[1]] <- vec
                 }
             }

@@ -77,10 +77,20 @@
     )
 }
 
-.coarsen <- function(x, bin, FUN, ...) {
+.coarsen_vec <- function(x, bin, FUN, ...) {
     stats::aggregate(
         x, 
         by = list(rep(seq(1, length(x)/bin), each = bin)), 
         FUN = FUN, ...
     )$x
+}
+
+.coarsen_mat <- function(x, bin, FUN, ...) {
+    apply(x, 1, function(vec) {
+        stats::aggregate(
+            vec, 
+            by = list(rep(seq(1, length(vec)/bin), each = bin)), 
+            FUN = FUN
+        )$x
+    })
 }
