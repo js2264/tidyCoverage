@@ -49,27 +49,7 @@
 #' @importFrom IRanges NumericList
 #' @importFrom stats qt
 
-.compute_cov <- function(rle, gr, center, scale, ignore.strand = TRUE) {
-    scores <- rle[gr]
-    scores <- IRanges::NumericList(scores)
-    scores <- as.matrix(scores)
-    if (!ignore.strand) {
-        scores <- data.frame(scores)
-        which.flip <- which(as.vector(strand(gr)) == '-')
-        scores[which.flip, ] <- rev(scores[which.flip, ])
-        scores <- as.matrix(scores)
-    }
-    scores <- t(scale(t(scores), center = center, scale = scale))
-    scores
-}
-
-.compute_cov_bw <- function(bwf, gr, center, scale, ignore.strand = TRUE) {
-    scores <- rtracklayer::import(
-        bwf, 
-        selection = rtracklayer::BigWigSelection(ranges = gr), 
-        as = "NumericList", 
-        format = "bigWig"
-    )
+.compute_cov <- function(scores, gr, center, scale, ignore.strand = TRUE) {
     scores <- as.matrix(scores)
     if (!ignore.strand) {
         scores <- data.frame(scores)

@@ -116,8 +116,14 @@ setMethod(
         l <- BiocParallel::bplapply(seq_len(nrow(combs)), function(K) {
             t <- combs[K, "tracks"]
             f <- combs[K, "features"]
-            m <- .compute_cov_bw(
-                tracks[[t]], features[[f]], 
+            scores <- rtracklayer::import(
+                tracks[[t]], 
+                selection = rtracklayer::BigWigSelection(ranges = features[[f]]), 
+                as = "NumericList", 
+                format = "bigWig"
+            )
+            m <- .compute_cov(
+                scores, features[[f]], 
                 scale = scale, center = center, ignore.strand = ignore.strand
             )
             return(m)
@@ -306,8 +312,9 @@ setMethod(
         l <- BiocParallel::bplapply(seq_len(nrow(combs)), function(K) {
             t <- combs[K, "tracks"]
             f <- combs[K, "features"]
+            scores <- IRanges::NumericList(tracks[[t]][features[[f]]])
             m <- .compute_cov(
-                tracks[[t]], features[[f]], 
+                scores, features[[f]], 
                 scale = scale, center = center, ignore.strand = ignore.strand
             )
             return(m)
