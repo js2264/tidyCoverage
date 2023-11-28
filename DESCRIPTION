@@ -49,6 +49,7 @@ Suggests:
     AnnotationHub,
     GenomicFeatures, 
     BiocStyle,
+    hues, 
     knitr,
     rmarkdown,
     sessioninfo,

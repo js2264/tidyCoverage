@@ -80,6 +80,7 @@
 #'     RNA_rev = system.file("extdata", "RNA.rev.bw", package = "tidyCoverage")
 #' ) |> map(import, as = 'Rle')
 #' CoverageExperiment(tracks, features, width = 5000, ignore.strand = FALSE)
+#' 
 NULL
 
 #' @rdname CoverageExperiment

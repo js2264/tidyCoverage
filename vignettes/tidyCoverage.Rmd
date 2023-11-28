@@ -117,11 +117,11 @@ locus <- "II:450001-475000"
 CE2 <- CoverageExperiment(
     tracks = tracks, 
     features = GRanges(locus),
-    width = width(GRanges(locus))
+    width = width   (GRanges(locus))
 ) |> coarsen(window = width(GRanges(locus))/1000)
 as_tibble(CE2) |> 
     ggplot(aes(x = coord, y = coverage)) + 
-        geom_col(aes(fill = track), col = NA) + 
+        geom_col(aes(fill = track, col = track)) + 
         facet_grid(track~., scales = 'free') + 
         scale_x_continuous(expand = c(0, 0)) + 
         theme_bw() + 
@@ -282,22 +282,27 @@ CE <- CoverageExperiment(
 )
 
 # ~~~~~~~~~~ Aggregate coverages ~~~~~~~~~~ #
-AC <- aggregate(CE, 50)
+AC <- aggregate(CE)
 
 # ~~~~~~~~~~ Plot the resulting AggregatedCoverage object ~~~~~~~~~~ #
-AC$histone <- case_when(
-    stringr::str_detect(AC$track, 'H2A') ~ "H2A", 
-    stringr::str_detect(AC$track, 'H2B') ~ "H2B", 
-    stringr::str_detect(AC$track, 'H3') ~ "H3"
-)
-AC
-    ggplot(aes(x = coord, y = mean)) + 
+df <- AC |> 
+    as_tibble() |> 
+    mutate(
+        histone = dplyr::case_when(
+            stringr::str_detect(track, 'H2A') ~ "H2A", 
+            stringr::str_detect(track, 'H2B') ~ "H2B", 
+            stringr::str_detect(track, 'H3') ~ "H3"
+        )
+    )
+p <- df |> ggplot(aes(x = coord, y = mean)) + 
     geom_ribbon(aes(ymin = ci_low, ymax = ci_high, fill = track), alpha = 0.2) + 
     geom_line(aes(col = track)) + 
     facet_grid(~histone) + 
     labs(x = 'Distance from TSSs', y = 'Mean histone PTM coverage') + 
     theme_bw() + 
-    theme(legend.position = 'top')
+    theme(legend.position = 'top') + 
+    hues::scale_colour_iwanthue() + 
+    hues::scale_fill_iwanthue() 
 ```
 
 ![](../man/figures/PTMs-TSSs.png)
