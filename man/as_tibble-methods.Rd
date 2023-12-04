@@ -19,7 +19,7 @@
 \code{tibble}
 }
 \description{
-Coerce an \code{CoverageExperiment} object into a \code{tibble}
+Coerce an \code{CoverageExperiment} or \code{AggregatedCoverage} object into a \code{tibble}
 }
 \examples{
 data(ac)

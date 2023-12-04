@@ -275,17 +275,14 @@ bws <- map(ids, ~ ah[[.x]]) |>
 names(bws) <- names(ids)
 
 # ~~~~~~~~~~ Computing coverage over TSSs ~~~~~~~~~~ #
-CE <- CoverageExperiment(
+AC <- CoverageExperiment(
     bws, TSSs, 
     width = 4000, 
     scale = TRUE, center = TRUE
-)
-
-# ~~~~~~~~~~ Aggregate coverages ~~~~~~~~~~ #
-AC <- aggregate(CE)
+) |> aggregate()
 
 # ~~~~~~~~~~ Plot the resulting AggregatedCoverage object ~~~~~~~~~~ #
-df <- AC |> 
+AC |> 
     as_tibble() |> 
     mutate(
         histone = dplyr::case_when(
@@ -293,8 +290,8 @@ df <- AC |>
             stringr::str_detect(track, 'H2B') ~ "H2B", 
             stringr::str_detect(track, 'H3') ~ "H3"
         )
-    )
-p <- df |> ggplot(aes(x = coord, y = mean)) + 
+    ) |> 
+    ggplot(aes(x = coord, y = mean)) + 
     geom_ribbon(aes(ymin = ci_low, ymax = ci_high, fill = track), alpha = 0.2) + 
     geom_line(aes(col = track)) + 
     facet_grid(~histone) + 

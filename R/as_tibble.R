@@ -1,6 +1,6 @@
 #' as_tibble
 #' 
-#' Coerce an `CoverageExperiment` object into a `tibble`
+#' Coerce an `CoverageExperiment` or `AggregatedCoverage` object into a `tibble`
 #' 
 #' @name as_tibble-methods
 #' @rdname as_tibble-methods
@@ -50,6 +50,9 @@ as_tibble.CoverageExperiment <- function(x, ...) {
     }) |> 
         dplyr::bind_rows() |> 
         dplyr::left_join(colData(x) |> as.data.frame(), by = 'track') |> 
+        dplyr::mutate(.feature = features, .sample = track) |> 
+        dplyr::relocate(.feature) |> 
+        dplyr::relocate(.sample) |>
         dplyr::group_by(track, features, ranges)
 }
 
@@ -77,5 +80,8 @@ as_tibble.AggregatedCoverage <- function(x, ...) {
         }) |> dplyr::bind_rows()
     }) |> 
         dplyr::bind_rows() |> 
-        dplyr::left_join(colData(x) |> as.data.frame(), by = 'track')
+        dplyr::left_join(colData(x) |> as.data.frame(), by = 'track') |> 
+        dplyr::mutate(.feature = features, .sample = track) |> 
+        dplyr::relocate(.feature) |> 
+        dplyr::relocate(.sample)
 }
