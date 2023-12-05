@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">tidyCoverage</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.98.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.98.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,7 +67,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Introduction to tidyCoverage</h1>
             
-            <h4 data-toc-skip class="date">4 December 2023</h4>
+            <h4 data-toc-skip class="date">5 December 2023</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/js2264/tidyCoverage/blob/HEAD/vignettes/tidyCoverage.Rmd" class="external-link"><code>vignettes/tidyCoverage.Rmd</code></a></small>
       <div class="d-none name"><code>tidyCoverage.Rmd</code></div>
@@ -78,10 +78,31 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>…</p>
+<p>Genome-wide assays provide powerful methods to profile the
+composition, the conformation and the activity of the chromatin. Linear
+“coverage” tracks (generally stored as <code>.bigwig</code> files) are
+one of the outputs obtained when processing raw high-throughput
+sequencing data. These coverage tracks can be inspected in genome
+interactive browsers (e.g. <code>IGV</code>) to visually appreciate
+local or global variations in the coverage of specific genomic
+assays.</p>
+<p>The coverage signal aggregated over multiple genomic features can
+also be computed. This approach is very efficient to summarize and
+compare the coverage of chromatin modalities (e.g. protein binding
+profiles from ChIP-seq, transcription profiles from RNA-seq, chromatin
+accessibility from ATAC-seq, …) over hundreds and up to thousands of
+genomic features of interest. This unlocks a more quantitative
+description of the coverage over groups of genomic features.</p>
+<p><code>tidyCoverage</code> implements the
+<code>CoverageExperiment</code> and the <code>AggregatedCoverage</code>
+classes built on top of the <code>SummarizedExperiment</code> class.
+These classes formalize the extraction and aggregation of coverage
+tracks over sets of genomic features of interests.</p>
 </div>
 <div class="section level2">
-<h2 id="new-classes">New classes<a class="anchor" aria-label="anchor" href="#new-classes"></a>
+<h2 id="coverageexperiment-and-aggregatedcoverage-classes">
+<code>CoverageExperiment</code> and <code>AggregatedCoverage</code>
+classes<a class="anchor" aria-label="anchor" href="#coverageexperiment-and-aggregatedcoverage-classes"></a>
 </h2>
 <div class="section level3">
 <h3 id="coverageexperiment">
@@ -255,11 +276,10 @@
 </div>
 </div>
 <div class="section level2">
-<h2 id="coverageexperiment-objects">
-<code>CoverageExperiment</code> objects<a class="anchor" aria-label="anchor" href="#coverageexperiment-objects"></a>
+<h2 id="manipulate-coverageexperiment-objects">Manipulate <code>CoverageExperiment</code> objects<a class="anchor" aria-label="anchor" href="#manipulate-coverageexperiment-objects"></a>
 </h2>
 <div class="section level3">
-<h3 id="creating-a-coverageexperiment-object">Creating a <code>CoverageExperiment</code> object<a class="anchor" aria-label="anchor" href="#creating-a-coverageexperiment-object"></a>
+<h3 id="create-a-coverageexperiment-object">Create a <code>CoverageExperiment</code> object<a class="anchor" aria-label="anchor" href="#create-a-coverageexperiment-object"></a>
 </h3>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rtracklayer</span><span class="op">)</span></span>
@@ -297,9 +317,30 @@
 <span><span class="co">#&gt; width: 3000</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="plot-coverage-of-a-set-of-tracks-over-a-single-genomic-locus">Plot coverage of a set of tracks over a single genomic locus<a class="anchor" aria-label="anchor" href="#plot-coverage-of-a-set-of-tracks-over-a-single-genomic-locus"></a>
+<h3 id="expand-a-coverageexperiment-object">Expand a <code>CoverageExperiment</code> object<a class="anchor" aria-label="anchor" href="#expand-a-coverageexperiment-object"></a>
 </h3>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/expand.html">expand</a></span><span class="op">(</span><span class="va">CE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5,355,000 × 7</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># Groups:   track, features, ranges [1,785]</span></span></span>
+<span><span class="co">#&gt;    track features chr   ranges             strand  coord coverage</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> track features II    II:235967-238966:- -      <span style="text-decoration: underline;">235</span>967     1.24</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> track features II    II:235967-238966:- -      <span style="text-decoration: underline;">235</span>968     1.24</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> track features II    II:235967-238966:- -      <span style="text-decoration: underline;">235</span>969     1.24</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> track features II    II:235967-238966:- -      <span style="text-decoration: underline;">235</span>970     1.24</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> track features II    II:235967-238966:- -      <span style="text-decoration: underline;">235</span>971     1.24</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> track features II    II:235967-238966:- -      <span style="text-decoration: underline;">235</span>972     1.24</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> track features II    II:235967-238966:- -      <span style="text-decoration: underline;">235</span>973     1.24</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> track features II    II:235967-238966:- -      <span style="text-decoration: underline;">235</span>974     1.24</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> track features II    II:235967-238966:- -      <span style="text-decoration: underline;">235</span>975     1.24</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> track features II    II:235967-238966:- -      <span style="text-decoration: underline;">235</span>976     1.24</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 5,354,990 more rows</span></span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="plot-coverage-of-a-set-of-tracks-over-a-single-genomic-locus">Plot coverage of a set of tracks over a single genomic locus<a class="anchor" aria-label="anchor" href="#plot-coverage-of-a-set-of-tracks-over-a-single-genomic-locus"></a>
+</h3>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># ~~~~~~~~~~~~~~~ Import coverage tracks into a named list ~~~~~~~~~~~~~~~ #</span></span>
@@ -317,25 +358,25 @@
 <span>    features <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicRanges/man/GRanges-class.html" class="external-link">GRanges</a></span><span class="op">(</span><span class="va">locus</span><span class="op">)</span>,</span>
 <span>    width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/start.html" class="external-link">width</a></span>   <span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/GenomicRanges/man/GRanges-class.html" class="external-link">GRanges</a></span><span class="op">(</span><span class="va">locus</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/CoverageExperiment.html">coarsen</a></span><span class="op">(</span>window <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/start.html" class="external-link">width</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/GenomicRanges/man/GRanges-class.html" class="external-link">GRanges</a></span><span class="op">(</span><span class="va">locus</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">1000</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">CE2</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">CE2</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="../reference/expand.html">expand</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">coord</span>, y <span class="op">=</span> <span class="va">coverage</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">track</span>, col <span class="op">=</span> <span class="va">track</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">facet_grid</a></span><span class="op">(</span><span class="va">track</span><span class="op">~</span><span class="va">.</span>, scales <span class="op">=</span> <span class="st">'free'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span>, aspect.ratio <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tidyCoverage_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<p><img src="tidyCoverage_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="aggregatedcoverage-objects">
-<code>AggregatedCoverage</code> objects<a class="anchor" aria-label="anchor" href="#aggregatedcoverage-objects"></a>
+<h2 id="manipulate-aggregatedcoverage-objects">Manipulate <code>AggregatedCoverage</code> objects<a class="anchor" aria-label="anchor" href="#manipulate-aggregatedcoverage-objects"></a>
 </h2>
 <div class="section level3">
-<h3 id="aggregating-a-coverageexperiment-into-an-aggregatedcoverage-object">Aggregating a <code>CoverageExperiment</code> into an
-<code>AggregatedCoverage</code> object<a class="anchor" aria-label="anchor" href="#aggregating-a-coverageexperiment-into-an-aggregatedcoverage-object"></a>
+<h3 id="aggregate-a-coverageexperiment-into-an-aggregatedcoverage-object">Aggregate a <code>CoverageExperiment</code> into an
+<code>AggregatedCoverage</code> object<a class="anchor" aria-label="anchor" href="#aggregate-a-coverageexperiment-into-an-aggregatedcoverage-object"></a>
 </h3>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">AC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="va">CE</span><span class="op">)</span></span>
 <span><span class="va">AC</span></span>
 <span><span class="co">#&gt; class: AggregatedCoverage </span></span>
@@ -367,7 +408,7 @@
 <code>AggregatedCoverage</code> over multiple tracks / feature
 sets<a class="anchor" aria-label="anchor" href="#aggregatedcoverage-over-multiple-tracks-feature-sets"></a>
 </h3>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://purrr.tidyverse.org/" class="external-link">purrr</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Attaching package: 'purrr'</span></span>
@@ -432,9 +473,9 @@ sets<a class="anchor" aria-label="anchor" href="#aggregatedcoverage-over-multipl
 <span><span class="co">#&gt; binning: 1</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="plotting-aggregated-coverages-with-ggplot2">Plotting aggregated coverages with <code>ggplot2</code><a class="anchor" aria-label="anchor" href="#plotting-aggregated-coverages-with-ggplot2"></a>
+<h3 id="plot-aggregated-coverages-with-ggplot2">Plot aggregated coverages with <code>ggplot2</code><a class="anchor" aria-label="anchor" href="#plot-aggregated-coverages-with-ggplot2"></a>
 </h3>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">AC</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">coord</span>, y <span class="op">=</span> <span class="va">mean</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html" class="external-link">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">ci_low</span>, ymax <span class="op">=</span> <span class="va">ci_high</span>, fill <span class="op">=</span> <span class="va">track</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -443,59 +484,40 @@ sets<a class="anchor" aria-label="anchor" href="#aggregatedcoverage-over-multipl
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">'Distance from genomic feature'</span>, y <span class="op">=</span> <span class="st">'Mean coverage'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">'top'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tidyCoverage_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
+<p><img src="tidyCoverage_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
 </div>
 <div class="section level3">
-<h3 id="using-a-tidy-grammar">Using a tidy grammar<a class="anchor" aria-label="anchor" href="#using-a-tidy-grammar"></a>
+<h3 id="use-a-tidy-grammar">Use a tidy grammar<a class="anchor" aria-label="anchor" href="#use-a-tidy-grammar"></a>
 </h3>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/stemangiola/tidySummarizedExperiment" class="external-link">tidySummarizedExperiment</a></span><span class="op">)</span> </span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/stemangiola/tidySummarizedExperiment" class="external-link">tidySummarizedExperiment</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required package: ttservice</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Attaching package: 'tidySummarizedExperiment'</span></span>
 <span><span class="co">#&gt; The following object is masked from 'package:ttservice':</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;     plot_ly</span></span>
-<span><span class="va">AC</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># An AggregatedCoverage-tibble abstraction: 50000 × 13</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># </span><span style="color: #555555;">features=2 | tracks=5 | assays=mean, median, min, max, sd, se, ci_low,</span></span></span>
-<span><span class="co">#&gt; # <span style="color: #555555;">  ci_high</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># </span><span style="color: #555555;">width=5000 | binning=1</span></span></span>
-<span><span class="co">#&gt;    .sample .feature track features coord   mean median   min   max    sd     se</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Scc1    TSSs     Scc1  TSSs     -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">500</span> 0.082<span style="text-decoration: underline;">7</span> -<span style="color: #BB0000;">0.381</span> -<span style="color: #BB0000;">2.15</span>  7.28  1.36 0.046<span style="text-decoration: underline;">0</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Scc1    TSSs     Scc1  TSSs     -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">499</span> 0.087<span style="text-decoration: underline;">2</span> -<span style="color: #BB0000;">0.391</span> -<span style="color: #BB0000;">2.13</span>  7.28  1.36 0.046<span style="text-decoration: underline;">2</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Scc1    TSSs     Scc1  TSSs     -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">498</span> 0.089<span style="text-decoration: underline;">1</span> -<span style="color: #BB0000;">0.391</span> -<span style="color: #BB0000;">2.13</span>  7.28  1.36 0.046<span style="text-decoration: underline;">2</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Scc1    TSSs     Scc1  TSSs     -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">497</span> 0.088<span style="text-decoration: underline;">8</span> -<span style="color: #BB0000;">0.392</span> -<span style="color: #BB0000;">2.13</span>  7.16  1.35 0.045<span style="text-decoration: underline;">9</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Scc1    TSSs     Scc1  TSSs     -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">496</span> 0.090<span style="text-decoration: underline;">1</span> -<span style="color: #BB0000;">0.391</span> -<span style="color: #BB0000;">2.13</span>  7.16  1.35 0.045<span style="text-decoration: underline;">8</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Scc1    TSSs     Scc1  TSSs     -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">495</span> 0.086<span style="text-decoration: underline;">2</span> -<span style="color: #BB0000;">0.392</span> -<span style="color: #BB0000;">2.13</span>  6.38  1.33 0.045<span style="text-decoration: underline;">2</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Scc1    TSSs     Scc1  TSSs     -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">494</span> 0.083<span style="text-decoration: underline;">2</span> -<span style="color: #BB0000;">0.398</span> -<span style="color: #BB0000;">2.13</span>  6.38  1.34 0.045<span style="text-decoration: underline;">5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Scc1    TSSs     Scc1  TSSs     -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">493</span> 0.080<span style="text-decoration: underline;">4</span> -<span style="color: #BB0000;">0.402</span> -<span style="color: #BB0000;">2.13</span>  6.38  1.34 0.045<span style="text-decoration: underline;">4</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Scc1    TSSs     Scc1  TSSs     -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">492</span> 0.082<span style="text-decoration: underline;">5</span> -<span style="color: #BB0000;">0.397</span> -<span style="color: #BB0000;">2.13</span>  6.38  1.34 0.045<span style="text-decoration: underline;">4</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Scc1    TSSs     Scc1  TSSs     -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">491</span> 0.080<span style="text-decoration: underline;">4</span> -<span style="color: #BB0000;">0.397</span> -<span style="color: #BB0000;">2.13</span>  6.38  1.33 0.045<span style="text-decoration: underline;">1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 49,990 more rows</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2 more variables: ci_low &lt;dbl&gt;, ci_high &lt;dbl&gt;</span></span></span>
-<span></span>
-<span><span class="va">AC</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">CE</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">track</span> <span class="op">!=</span> <span class="st">'Scc1'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">features</span> <span class="op">==</span> <span class="st">'Convergent transcription'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">coord</span>, y <span class="op">=</span> <span class="va">mean</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html" class="external-link">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">ci_low</span>, ymax <span class="op">=</span> <span class="va">ci_high</span>, fill <span class="op">=</span> <span class="va">track</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>col <span class="op">=</span> <span class="va">track</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">facet_grid</a></span><span class="op">(</span><span class="va">track</span> <span class="op">~</span> <span class="va">.</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">'Distance from locus of convergent transcription'</span>, y <span class="op">=</span> <span class="st">'Mean coverage'</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">'Distance from locus of convergent transcription'</span>, y <span class="op">=</span> <span class="st">'RNA-seq coverage'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">'top'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tidyCoverage_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
+<p><img src="tidyCoverage_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
 </div>
 <div class="section level3">
-<h3 id="coarsening-the-aggregated-coverage-statistics">Coarsening the aggregated coverage statistics<a class="anchor" aria-label="anchor" href="#coarsening-the-aggregated-coverage-statistics"></a>
+<h3 id="coarsen-the-aggregated-coverage-statistics">Coarsen the aggregated coverage statistics<a class="anchor" aria-label="anchor" href="#coarsen-the-aggregated-coverage-statistics"></a>
 </h3>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">AC2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="va">CE</span>, bin <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></span>
-<span><span class="va">AC2</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">CE</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">track</span> <span class="op">!=</span> <span class="st">'Scc1'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">features</span> <span class="op">==</span> <span class="st">'Convergent transcription'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span>bin <span class="op">=</span> <span class="fl">200</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">coord</span>, y <span class="op">=</span> <span class="va">mean</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html" class="external-link">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">ci_low</span>, ymax <span class="op">=</span> <span class="va">ci_high</span>, fill <span class="op">=</span> <span class="va">track</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>col <span class="op">=</span> <span class="va">track</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -504,7 +526,7 @@ sets<a class="anchor" aria-label="anchor" href="#aggregatedcoverage-over-multipl
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">'Distance from locus of convergent transcription'</span>, y <span class="op">=</span> <span class="st">'Mean coverage'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">'top'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tidyCoverage_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
+<p><img src="tidyCoverage_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
 </div>
 </div>
 <div class="section level2">
@@ -512,9 +534,9 @@ sets<a class="anchor" aria-label="anchor" href="#aggregatedcoverage-over-multipl
 resources<a class="anchor" aria-label="anchor" href="#example-use-case-annotationhub-and-txdb-resources"></a>
 </h2>
 <div class="section level3">
-<h3 id="recovering-tsss-of-forward-human-genes">Recovering TSSs of forward human genes<a class="anchor" aria-label="anchor" href="#recovering-tsss-of-forward-human-genes"></a>
+<h3 id="recover-tsss-of-forward-human-genes">Recover TSSs of forward human genes<a class="anchor" aria-label="anchor" href="#recover-tsss-of-forward-human-genes"></a>
 </h3>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">txdb</span> <span class="op">&lt;-</span> <span class="fu">TxDb.Hsapiens.UCSC.hg19.knownGene</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/TxDb.Hsapiens.UCSC.hg19.knownGene/man/package.html" class="external-link">TxDb.Hsapiens.UCSC.hg19.knownGene</a></span></span>
 <span><span class="va">TSSs</span> <span class="op">&lt;-</span> <span class="fu">GenomicFeatures</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/GenomicFeatures/man/transcripts.html" class="external-link">genes</a></span><span class="op">(</span><span class="va">txdb</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">strand</span> <span class="op">==</span> <span class="st">'+'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -527,9 +549,9 @@ resources<a class="anchor" aria-label="anchor" href="#example-use-case-annotatio
 <span><span class="co">#&gt;   GRangesList object, or use suppressMessages() to suppress this message.</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="recovering-h3k4me3-coverage-track-from-encode">Recovering H3K4me3 coverage track from ENCODE<a class="anchor" aria-label="anchor" href="#recovering-h3k4me3-coverage-track-from-encode"></a>
+<h3 id="recover-h3k4me3-coverage-track-from-encode">Recover H3K4me3 coverage track from ENCODE<a class="anchor" aria-label="anchor" href="#recover-h3k4me3-coverage-track-from-encode"></a>
 </h3>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">AnnotationHub</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required package: BiocFileCache</span></span>
 <span><span class="co">#&gt; Loading required package: dbplyr</span></span>
@@ -569,30 +591,30 @@ resources<a class="anchor" aria-label="anchor" href="#example-use-case-annotatio
 <span><span class="co">#&gt; loading from cache</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="computing-the-aggregated-coverage-of-h3k4me3-3kb-around-the-tsss-of-forward-human-genes">Computing the aggregated coverage of H3K4me3 ± 3kb around the TSSs
-of forward human genes<a class="anchor" aria-label="anchor" href="#computing-the-aggregated-coverage-of-h3k4me3-3kb-around-the-tsss-of-forward-human-genes"></a>
+<h3 id="compute-the-aggregated-coverage-of-h3k4me3-3kb-around-the-tsss-of-forward-human-genes">Compute the aggregated coverage of H3K4me3 ± 3kb around the TSSs of
+forward human genes<a class="anchor" aria-label="anchor" href="#compute-the-aggregated-coverage-of-h3k4me3-3kb-around-the-tsss-of-forward-human-genes"></a>
 </h3>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">CE</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CoverageExperiment.html">CoverageExperiment</a></span><span class="op">(</span></span>
-<span>    <span class="fu">import</span><span class="op">(</span><span class="va">H3K4me3_bw</span>, as <span class="op">=</span> <span class="st">'Rle'</span><span class="op">)</span>, </span>
-<span>    <span class="va">TSSs</span>, </span>
+<span>    <span class="va">H3K4me3_bw</span>, <span class="va">TSSs</span>, </span>
 <span>    width <span class="op">=</span> <span class="fl">6000</span>, </span>
 <span>    scale <span class="op">=</span> <span class="cn">TRUE</span>, center <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">AC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="va">CE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">AC</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">coord</span>, y <span class="op">=</span> <span class="va">mean</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">AC</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">coord</span>, y <span class="op">=</span> <span class="va">mean</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html" class="external-link">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">ci_low</span>, ymax <span class="op">=</span> <span class="va">ci_high</span>, fill <span class="op">=</span> <span class="va">track</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>col <span class="op">=</span> <span class="va">track</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">facet_grid</a></span><span class="op">(</span><span class="va">track</span> <span class="op">~</span> <span class="va">.</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">'Distance from TSSs'</span>, y <span class="op">=</span> <span class="st">'Mean coverage'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">'top'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tidyCoverage_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
+<p><img src="tidyCoverage_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="with-more-genomic-tracks">With more genomic tracks<a class="anchor" aria-label="anchor" href="#with-more-genomic-tracks"></a>
 </h3>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ~~~~~~~~~~ Recover 15 different histone PTM ChIP-seq tracks ~~~~~~~~~~ #</span></span>
 <span><span class="va">ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">'AH35163'</span>, <span class="st">'AH35165'</span>, <span class="st">'AH35167'</span>, <span class="st">'AH35170'</span>, <span class="st">'AH35173'</span>, <span class="st">'AH35176'</span>, </span>

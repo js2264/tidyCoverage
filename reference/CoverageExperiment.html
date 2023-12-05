@@ -12,7 +12,7 @@ function, and can be coarsened using the coarsen() function."><!-- mathjax --><s
     
     <a class="navbar-brand me-2" href="../index.html">tidyCoverage</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.98.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.98.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -240,7 +240,7 @@ information</p></dd>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>An <code>CoverageExperiment</code> object</p>
+<p>A <code>CoverageExperiment</code> object</p>
     </div>
 
     <div class="section level2">
@@ -277,15 +277,6 @@ information</p></dd>
 <span class="r-in"><span><span class="va">RNA_fwd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"RNA.fwd.bw"</span>, package <span class="op">=</span> <span class="st">"tidyCoverage"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">tracks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rtracklayer/man/BigWigFile.html" class="external-link">BigWigFile</a></span><span class="op">(</span><span class="va">RNA_fwd</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">CoverageExperiment</span><span class="op">(</span><span class="va">tracks</span>, <span class="va">features</span>, width <span class="op">=</span> <span class="fl">5000</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> class: CoverageExperiment </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> dim: 1 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> metadata(0):</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> assays(1): coverage</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rownames(1): features</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rowData names(1): features</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> colnames(1): track</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> colData names(1): track</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> width: 5000</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#############################################################################</span></span></span>
 <span class="r-in"><span><span class="co">## 2. Creating a `CoverageExperiment` object from a BigWigFileList</span></span></span>
@@ -294,15 +285,6 @@ information</p></dd>
 <span class="r-in"><span><span class="va">RNA_rev</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"RNA.rev.bw"</span>, package <span class="op">=</span> <span class="st">"tidyCoverage"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">tracks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rtracklayer/man/BigWigFile.html" class="external-link">BigWigFileList</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>RNA_fwd <span class="op">=</span> <span class="va">RNA_fwd</span>, RNA_rev <span class="op">=</span> <span class="va">RNA_rev</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">CoverageExperiment</span><span class="op">(</span><span class="va">tracks</span>, <span class="va">features</span>, width <span class="op">=</span> <span class="fl">5000</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> class: CoverageExperiment </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> dim: 1 2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> metadata(0):</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> assays(1): coverage</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rownames(1): features</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rowData names(1): features</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> colnames(2): RNA_fwd RNA_rev</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> colData names(1): track</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> width: 5000</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#############################################################################</span></span></span>
 <span class="r-in"><span><span class="co">## 3. Creating a `CoverageExperiment` object from imported bigwig files</span></span></span>
@@ -313,15 +295,6 @@ information</p></dd>
 <span class="r-in"><span>    RNA_rev <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"RNA.rev.bw"</span>, package <span class="op">=</span> <span class="st">"tidyCoverage"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">import</span>, as <span class="op">=</span> <span class="st">'Rle'</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">CoverageExperiment</span><span class="op">(</span><span class="va">tracks</span>, <span class="va">features</span>, width <span class="op">=</span> <span class="fl">5000</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> class: CoverageExperiment </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> dim: 1 2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> metadata(0):</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> assays(1): coverage</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rownames(1): features</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rowData names(1): features</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> colnames(2): RNA_fwd RNA_rev</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> colData names(1): track</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> width: 5000</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#############################################################################</span></span></span>
 <span class="r-in"><span><span class="co">## 4. Correct for strandness when recovering coverage</span></span></span>
@@ -337,30 +310,12 @@ information</p></dd>
 <span class="r-in"><span>    RNA_rev <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"RNA.rev.bw"</span>, package <span class="op">=</span> <span class="st">"tidyCoverage"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">import</span>, as <span class="op">=</span> <span class="st">'Rle'</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">CoverageExperiment</span><span class="op">(</span><span class="va">tracks</span>, <span class="va">features</span>, width <span class="op">=</span> <span class="fl">5000</span>, ignore.strand <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> class: CoverageExperiment </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> dim: 2 2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> metadata(0):</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> assays(1): coverage</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rownames(2): TSS_fwd TSS_rev</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rowData names(1): features</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> colnames(2): RNA_fwd RNA_rev</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> colData names(1): track</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> width: 5000</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#############################################################################</span></span></span>
 <span class="r-in"><span><span class="co">## Aggregating a `CoverageExperiment` object</span></span></span>
 <span class="r-in"><span><span class="co">#############################################################################</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ce</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">coarsen</span><span class="op">(</span><span class="va">ce</span>, window <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> class: CoverageExperiment </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> dim: 1 2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> metadata(0):</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> assays(1): coverage</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rownames(1): Scc1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rowData names(1): features</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> colnames(2): RNA_fwd RNA_rev</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> colData names(1): track</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> width: 3000</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

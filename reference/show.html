@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">tidyCoverage</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.98.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.98.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,8 +57,14 @@
 <span><span class="co"># S4 method for AggregatedCoverage</span></span>
 <span><span class="fu">show</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
 <span></span>
+<span><span class="co"># S3 method for CoverageExperiment</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, n <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
 <span><span class="co"># S3 method for AggregatedCoverage</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, n <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for tidyCoverageExperiment</span></span>
+<span><span class="fu">tbl_format_header</span><span class="op">(</span><span class="va">x</span>, <span class="va">setup</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for tidyAggregatedCoverage</span></span>
 <span><span class="fu">tbl_format_header</span><span class="op">(</span><span class="va">x</span>, <span class="va">setup</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
@@ -100,35 +106,8 @@ Otherwise, will print as many rows as specified by the
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ce</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">ce</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> class: CoverageExperiment </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> dim: 1 2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> metadata(0):</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> assays(1): coverage</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rownames(1): Scc1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rowData names(1): features</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> colnames(2): RNA_fwd RNA_rev</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> colData names(1): track</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> width: 3000</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ac</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">ac</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># An AggregatedCoverage-tibble abstraction: 6000 × 13</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># </span><span style="color: #555555;">features=1 | tracks=2 | assays=mean, median, min, max, sd, se, ci_low,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # <span style="color: #555555;">  ci_high</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># </span><span style="color: #555555;">width=3000 | binning=1</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    .sample .feature track features coord    mean median   min   max    sd     se</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> RNA_fwd Scc1     RNA_… Scc1     -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">500</span> -<span style="color: #BB0000;">0.092</span><span style="color: #BB0000; text-decoration: underline;">1</span> -<span style="color: #BB0000;">0.611</span> -<span style="color: #BB0000;">3.25</span>  10.5  1.42 0.057<span style="text-decoration: underline;">2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> RNA_fwd Scc1     RNA_… Scc1     -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">499</span> -<span style="color: #BB0000;">0.091</span><span style="color: #BB0000; text-decoration: underline;">5</span> -<span style="color: #BB0000;">0.609</span> -<span style="color: #BB0000;">3.25</span>  10.5  1.42 0.057<span style="text-decoration: underline;">2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> RNA_fwd Scc1     RNA_… Scc1     -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">498</span> -<span style="color: #BB0000;">0.089</span><span style="color: #BB0000; text-decoration: underline;">8</span> -<span style="color: #BB0000;">0.609</span> -<span style="color: #BB0000;">3.25</span>  10.5  1.42 0.057<span style="text-decoration: underline;">3</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> RNA_fwd Scc1     RNA_… Scc1     -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">497</span> -<span style="color: #BB0000;">0.091</span><span style="color: #BB0000; text-decoration: underline;">4</span> -<span style="color: #BB0000;">0.609</span> -<span style="color: #BB0000;">3.25</span>  10.5  1.42 0.057<span style="text-decoration: underline;">3</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> RNA_fwd Scc1     RNA_… Scc1     -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">496</span> -<span style="color: #BB0000;">0.091</span><span style="color: #BB0000; text-decoration: underline;">5</span> -<span style="color: #BB0000;">0.609</span> -<span style="color: #BB0000;">3.25</span>  10.5  1.42 0.057<span style="text-decoration: underline;">3</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> RNA_fwd Scc1     RNA_… Scc1     -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">495</span> -<span style="color: #BB0000;">0.091</span><span style="color: #BB0000; text-decoration: underline;">2</span> -<span style="color: #BB0000;">0.609</span> -<span style="color: #BB0000;">3.25</span>  10.5  1.42 0.057<span style="text-decoration: underline;">2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> RNA_fwd Scc1     RNA_… Scc1     -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">494</span> -<span style="color: #BB0000;">0.091</span><span style="color: #BB0000; text-decoration: underline;">2</span> -<span style="color: #BB0000;">0.609</span> -<span style="color: #BB0000;">3.25</span>  10.5  1.42 0.057<span style="text-decoration: underline;">2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> RNA_fwd Scc1     RNA_… Scc1     -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">493</span> -<span style="color: #BB0000;">0.091</span><span style="color: #BB0000; text-decoration: underline;">5</span> -<span style="color: #BB0000;">0.609</span> -<span style="color: #BB0000;">3.25</span>  10.5  1.42 0.057<span style="text-decoration: underline;">2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> RNA_fwd Scc1     RNA_… Scc1     -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">492</span> -<span style="color: #BB0000;">0.090</span><span style="color: #BB0000; text-decoration: underline;">7</span> -<span style="color: #BB0000;">0.609</span> -<span style="color: #BB0000;">3.25</span>  10.5  1.42 0.057<span style="text-decoration: underline;">3</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> RNA_fwd Scc1     RNA_… Scc1     -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">491</span> -<span style="color: #BB0000;">0.090</span><span style="color: #BB0000; text-decoration: underline;">3</span> -<span style="color: #BB0000;">0.609</span> -<span style="color: #BB0000;">3.25</span>  10.5  1.42 0.057<span style="text-decoration: underline;">2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 5,990 more rows</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 2 more variables: ci_low &lt;dbl&gt;, ci_high &lt;dbl&gt;</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
