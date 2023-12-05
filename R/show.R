@@ -77,6 +77,29 @@ setMethod("show", signature("AggregatedCoverage"), function(object) {
 #' @name show
 #' @export
 
+print.CoverageExperiment <- function (x, ..., n = NULL) {
+    .x <- x
+    x <- as_tibble(.x) 
+    x <- vctrs::new_data_frame(x, class=c("tidyCoverageExperiment", "tbl"))
+    attr(x, "width") <- width(rowRanges(.x)[[1]][1])
+    attr(x, "binning") <- attr(x, "width") / length(assay(.x, 1)[1, 1][[1]])
+    attr(x, "number_of_features") <- nrow(.x)
+    attr(x, "number_of_tracks") <- ncol(.x)
+    attr(x, "assay_names") <- names(assays(.x))
+    attr(x, "named_header") <- sprintf(
+        "%s %s %s", 
+        nrow(x),
+        cli::symbol$times,
+        ncol(x)
+    ) |>
+    setNames("A CoverageExperiment-tibble abstraction")
+    print(x)
+    invisible(x) 
+}
+
+#' @name show
+#' @export
+
 print.AggregatedCoverage <- function (x, ..., n = NULL) {
     .x <- x
     x <- as_tibble(.x) 
@@ -95,6 +118,40 @@ print.AggregatedCoverage <- function (x, ..., n = NULL) {
     setNames("An AggregatedCoverage-tibble abstraction")
     print(x)
     invisible(x) 
+}
+
+#' @name show
+#' @export
+
+tbl_format_header.tidyCoverageExperiment <- function(x, setup, ...) {
+    width <- x |> attr("width")
+    number_of_features <- x |> attr("number_of_features")
+    number_of_tracks <- x |> attr("number_of_tracks")
+    named_header <- x |> attr("named_header")
+    assay_names <- x |> attr("assay_names")
+    if (all(rlang::names2(named_header) == "")) {
+        header <- named_header
+    } else {
+        header <-
+            paste0(
+                align(paste0(rlang::names2(named_header), ":"), space="\U00A0"),
+                " ",
+                named_header
+            ) |>
+            # Add further info
+            append(sprintf(
+                "\033[90m features=%s | tracks=%s | assays=%s\033[39m",
+                number_of_features,
+                number_of_tracks,
+                assay_names |> paste(collapse=", ")
+            ), after = 1) |> 
+            # Add further info re: width
+            append(sprintf(
+                "\033[90m width=%s\033[39m",
+                width
+            ))
+    }
+    pillar::style_subtle(.pillar___format_comment(header, width=setup$width))
 }
 
 #' @name show

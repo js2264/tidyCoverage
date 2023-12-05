@@ -4,7 +4,9 @@
 \alias{show}
 \alias{show,CoverageExperiment-method}
 \alias{show,AggregatedCoverage-method}
+\alias{print.CoverageExperiment}
 \alias{print.AggregatedCoverage}
+\alias{tbl_format_header.tidyCoverageExperiment}
 \alias{tbl_format_header.tidyAggregatedCoverage}
 \title{show}
 \usage{
@@ -12,7 +14,11 @@
 
 \S4method{show}{AggregatedCoverage}(object)
 
+\method{print}{CoverageExperiment}(x, ..., n = NULL)
+
 \method{print}{AggregatedCoverage}(x, ..., n = NULL)
+
+\method{tbl_format_header}{tidyCoverageExperiment}(x, setup, ...)
 
 \method{tbl_format_header}{tidyAggregatedCoverage}(x, setup, ...)
 }

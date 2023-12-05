@@ -2,7 +2,9 @@
 
 S3method(as_tibble,AggregatedCoverage)
 S3method(print,AggregatedCoverage)
+S3method(print,CoverageExperiment)
 S3method(tbl_format_header,tidyAggregatedCoverage)
+S3method(tbl_format_header,tidyCoverageExperiment)
 export(CoverageExperiment)
 export(aggregate)
 export(as_tibble)

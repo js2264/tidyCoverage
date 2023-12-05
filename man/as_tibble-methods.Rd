@@ -2,12 +2,9 @@
 % Please edit documentation in R/as_tibble.R
 \name{as_tibble-methods}
 \alias{as_tibble-methods}
-\alias{as_tibble.CoverageExperiment}
 \alias{as_tibble.AggregatedCoverage}
 \title{as_tibble}
 \usage{
-\method{as_tibble}{CoverageExperiment}(x, ...)
-
 \method{as_tibble}{AggregatedCoverage}(x, ...)
 }
 \arguments{

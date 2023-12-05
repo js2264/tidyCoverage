@@ -185,17 +185,16 @@ as_tibble(AC) |>
 ### Using a tidy grammar
 
 ```{r}
-library(tidySummarizedExperiment) 
-AC
-
-AC |> 
+library(tidySummarizedExperiment)
+CE |> 
     filter(track != 'Scc1') |> 
     filter(features == 'Convergent transcription') |> 
+    aggregate(10) |> 
     ggplot(aes(x = coord, y = mean)) + 
     geom_ribbon(aes(ymin = ci_low, ymax = ci_high, fill = track), alpha = 0.2) + 
     geom_line(aes(col = track)) + 
     facet_grid(track ~ .) + 
-    labs(x = 'Distance from locus of convergent transcription', y = 'Mean coverage') + 
+    labs(x = 'Distance from locus of convergent transcription', y = 'RNA-seq coverage') + 
     theme_bw() + 
     theme(legend.position = 'top')
 ```
@@ -203,8 +202,7 @@ AC |>
 ### Coarsening the aggregated coverage statistics
 
 ```{r}
-AC2 <- aggregate(CE, bin = 200)
-AC2 |> 
+aggregate(CE, bin = 200) |> 
     filter(track != 'Scc1') |> 
     filter(features == 'Convergent transcription') |> 
     ggplot(aes(x = coord, y = mean)) + 
@@ -242,13 +240,13 @@ H3K4me3_bw <- ah[['AH34904']]
 
 ```{r}
 CE <- CoverageExperiment(
-    import(H3K4me3_bw, as = 'Rle'), 
-    TSSs, 
+    H3K4me3_bw, TSSs, 
     width = 6000, 
     scale = TRUE, center = TRUE
 )
 AC <- aggregate(CE)
-ggplot(AC, aes(x = coord, y = mean)) + 
+as_tibble(AC) |> 
+    ggplot(aes(x = coord, y = mean)) + 
     geom_ribbon(aes(ymin = ci_low, ymax = ci_high, fill = track), alpha = 0.2) + 
     geom_line(aes(col = track)) + 
     facet_grid(track ~ .) + 
