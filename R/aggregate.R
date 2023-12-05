@@ -18,6 +18,7 @@
 #' @examples 
 #' data(ce)
 #' aggregate(ce, bin = 10)
+
 setMethod("aggregate", signature(x = "CoverageExperiment"), 
     function(x, bin = 1, ...) {
         m0 <- matrix(

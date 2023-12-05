@@ -98,9 +98,11 @@ print.CoverageExperiment <- function (x, ..., n = NULL) {
             ncol(x)
         ) |> setNames("A CoverageExperiment-tibble abstraction")
         print(x)
+        return(invisible(x))
     }
     else {
         x
+        return(invisible(x))
     }
 }
 
@@ -128,9 +130,11 @@ print.AggregatedCoverage <- function (x, ..., n = NULL) {
             ncol(x)
         ) |> setNames("An AggregatedCoverage-tibble abstraction")
         print(x)
+        return(invisible(x))
     }
     else {
         x
+        return(invisible(x))
     }
 }
 

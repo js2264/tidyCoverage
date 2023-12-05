@@ -169,7 +169,7 @@ information}
 \item{BPPARAM}{Passed to BiocParallel.}
 }
 \value{
-An \code{CoverageExperiment} object
+A \code{CoverageExperiment} object
 }
 \description{
 \code{CoverageExperiment} objects are instantiated using the \code{CoverageExperiment()}

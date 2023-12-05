@@ -17,7 +17,7 @@
 #' summarization
 #' @param BPPARAM Passed to BiocParallel
 #' @param ... Passed to the relevant method
-#' @return An `CoverageExperiment` object
+#' @return A `CoverageExperiment` object
 #'
 #' @import GenomicRanges
 #' @import GenomeInfoDb
