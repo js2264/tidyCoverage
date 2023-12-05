@@ -116,7 +116,8 @@ setMethod(
         )
         rData <- GRangesList(features)
         mcols(rData) <- data.frame(
-            features = names(features)
+            features = names(features), 
+            n = lengths(features)
         )
 
         ## Extract coverage scores
@@ -312,7 +313,8 @@ setMethod(
         )
         rData <- GRangesList(features)
         mcols(rData) <- data.frame(
-            features = names(features)
+            features = names(features),
+            n = lengths(features)
         )
 
         ## Extract coverage scores
