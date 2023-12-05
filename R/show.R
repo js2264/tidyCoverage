@@ -79,22 +79,29 @@ setMethod("show", signature("AggregatedCoverage"), function(object) {
 
 print.CoverageExperiment <- function (x, ..., n = NULL) {
     .x <- x
-    x <- as_tibble(.x) 
-    x <- vctrs::new_data_frame(x, class=c("tidyCoverageExperiment", "tbl"))
-    attr(x, "width") <- width(rowRanges(.x)[[1]][1])
-    attr(x, "binning") <- attr(x, "width") / length(assay(.x, 1)[1, 1][[1]])
-    attr(x, "number_of_features") <- nrow(.x)
-    attr(x, "number_of_tracks") <- ncol(.x)
-    attr(x, "assay_names") <- names(assays(.x))
-    attr(x, "named_header") <- sprintf(
-        "%s %s %s", 
-        nrow(x),
-        cli::symbol$times,
-        ncol(x)
-    ) |>
-    setNames("A CoverageExperiment-tibble abstraction")
-    print(x)
-    invisible(x) 
+    if (!{
+        isTRUE(x = getOption(x = "restore_SummarizedExperiment_show", default = FALSE)) | 
+        isTRUE(x = getOption(x = "restore_CoverageExperiment_show", default = FALSE)) | 
+        isFALSE("tidySummarizedExperiment" %in% .packages())
+    }) {
+        x <- as_tibble(.x) 
+        x <- vctrs::new_data_frame(x, class=c("tidyCoverageExperiment", "tbl"))
+        attr(x, "width") <- width(rowRanges(.x)[[1]][1])
+        attr(x, "binning") <- attr(x, "width") / length(assay(.x, 1)[1, 1][[1]])
+        attr(x, "number_of_features") <- nrow(.x)
+        attr(x, "number_of_tracks") <- ncol(.x)
+        attr(x, "assay_names") <- names(assays(.x))
+        attr(x, "named_header") <- sprintf(
+            "%s %s %s", 
+            nrow(x),
+            cli::symbol$times,
+            ncol(x)
+        ) |> setNames("A CoverageExperiment-tibble abstraction")
+        print(x)
+    }
+    else {
+        x
+    }
 }
 
 #' @name show
@@ -102,22 +109,29 @@ print.CoverageExperiment <- function (x, ..., n = NULL) {
 
 print.AggregatedCoverage <- function (x, ..., n = NULL) {
     .x <- x
-    x <- as_tibble(.x) 
-    x <- vctrs::new_data_frame(x, class=c("tidyAggregatedCoverage", "tbl"))
-    attr(x, "width") <- width(rowRanges(.x)[[1]][1])
-    attr(x, "binning") <- attr(x, "width") / length(assay(.x, 1)[1, 1][[1]])
-    attr(x, "number_of_features") <- nrow(.x)
-    attr(x, "number_of_tracks") <- ncol(.x)
-    attr(x, "assay_names") <- names(assays(.x))
-    attr(x, "named_header") <- sprintf(
-        "%s %s %s", 
-        nrow(x),
-        cli::symbol$times,
-        ncol(x)
-    ) |>
-    setNames("An AggregatedCoverage-tibble abstraction")
-    print(x)
-    invisible(x) 
+    if (!{
+        isTRUE(x = getOption(x = "restore_SummarizedExperiment_show", default = FALSE)) | 
+        isTRUE(x = getOption(x = "restore_CoverageExperiment_show", default = FALSE)) | 
+        isFALSE("tidySummarizedExperiment" %in% .packages())
+    }) {
+        x <- as_tibble(.x) 
+        x <- vctrs::new_data_frame(x, class=c("tidyAggregatedCoverage", "tbl"))
+        attr(x, "width") <- width(rowRanges(.x)[[1]][1])
+        attr(x, "binning") <- attr(x, "width") / length(assay(.x, 1)[1, 1][[1]])
+        attr(x, "number_of_features") <- nrow(.x)
+        attr(x, "number_of_tracks") <- ncol(.x)
+        attr(x, "assay_names") <- names(assays(.x))
+        attr(x, "named_header") <- sprintf(
+            "%s %s %s", 
+            nrow(x),
+            cli::symbol$times,
+            ncol(x)
+        ) |> setNames("An AggregatedCoverage-tibble abstraction")
+        print(x)
+    }
+    else {
+        x
+    }
 }
 
 #' @name show

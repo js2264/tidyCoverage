@@ -30,9 +30,26 @@ library(tidyCoverage)
 
 ## Introduction 
 
-...
+Genome-wide assays provide powerful methods to profile the composition, the
+conformation and the activity of the chromatin. Linear "coverage" tracks 
+(generally stored as `.bigwig` files) are one of the outputs obtained 
+when processing raw high-throughput sequencing data. These coverage tracks 
+can be inspected in genome interactive browsers (e.g. `IGV`) to visually 
+appreciate local or global variations in the coverage of specific genomic assays. 
 
-## New classes
+The coverage signal aggregated over multiple genomic features can also be computed. 
+This approach is very efficient to summarize and compare the coverage 
+of chromatin modalities (e.g. protein binding profiles from ChIP-seq, transcription 
+profiles from RNA-seq, chromatin accessibility from ATAC-seq, ...) over 
+hundreds and up to thousands of genomic features of interest. This unlocks a more 
+quantitative description of the coverage over groups of genomic features. 
+
+`tidyCoverage` implements the `CoverageExperiment` and the `AggregatedCoverage`
+classes built on top of the `SummarizedExperiment` class. These classes 
+formalize the extraction and aggregation of coverage tracks over 
+sets of genomic features of interests. 
+
+## `CoverageExperiment` and `AggregatedCoverage` classes
 
 ### `CoverageExperiment`
 
@@ -77,9 +94,9 @@ assay(ac, 'mean')
 assay(ac[1, 1], 'mean')
 ```
 
-## `CoverageExperiment` objects
+## Manipulate `CoverageExperiment` objects
 
-### Creating a `CoverageExperiment` object
+### Create a `CoverageExperiment` object
 
 ```{r}
 library(rtracklayer)
@@ -98,6 +115,13 @@ CE
 ```{r}
 coarsen(CE, window = 50)
 ```
+
+### Expand a `CoverageExperiment` object 
+
+```{r}
+expand(CE)
+```
+
 
 ### Plot coverage of a set of tracks over a single genomic locus
 
@@ -119,7 +143,8 @@ CE2 <- CoverageExperiment(
     features = GRanges(locus),
     width = width   (GRanges(locus))
 ) |> coarsen(window = width(GRanges(locus))/1000)
-as_tibble(CE2) |> 
+CE2 |> 
+    expand() |> 
     ggplot(aes(x = coord, y = coverage)) + 
         geom_col(aes(fill = track, col = track)) + 
         facet_grid(track~., scales = 'free') + 
@@ -128,9 +153,9 @@ as_tibble(CE2) |>
         theme(legend.position = "none", aspect.ratio = 0.1)
 ```
 
-## `AggregatedCoverage` objects
+## Manipulate `AggregatedCoverage` objects
 
-### Aggregating a `CoverageExperiment` into an `AggregatedCoverage` object
+### Aggregate a `CoverageExperiment` into an `AggregatedCoverage` object
 
 ```{r}
 AC <- aggregate(CE)
@@ -169,7 +194,7 @@ AC <- aggregate(CE)
 AC
 ```
 
-### Plotting aggregated coverages with `ggplot2`
+### Plot aggregated coverages with `ggplot2`
 
 ```{r}
 as_tibble(AC) |> 
@@ -182,14 +207,14 @@ as_tibble(AC) |>
     theme(legend.position = 'top')
 ```
 
-### Using a tidy grammar
+### Use a tidy grammar
 
 ```{r}
 library(tidySummarizedExperiment)
 CE |> 
     filter(track != 'Scc1') |> 
     filter(features == 'Convergent transcription') |> 
-    aggregate(10) |> 
+    aggregate() |> 
     ggplot(aes(x = coord, y = mean)) + 
     geom_ribbon(aes(ymin = ci_low, ymax = ci_high, fill = track), alpha = 0.2) + 
     geom_line(aes(col = track)) + 
@@ -199,12 +224,13 @@ CE |>
     theme(legend.position = 'top')
 ```
 
-### Coarsening the aggregated coverage statistics
+### Coarsen the aggregated coverage statistics
 
 ```{r}
-aggregate(CE, bin = 200) |> 
+CE |> 
     filter(track != 'Scc1') |> 
     filter(features == 'Convergent transcription') |> 
+    aggregate(bin = 200) |> 
     ggplot(aes(x = coord, y = mean)) + 
     geom_ribbon(aes(ymin = ci_low, ymax = ci_high, fill = track), alpha = 0.2) + 
     geom_line(aes(col = track)) + 
@@ -217,7 +243,7 @@ aggregate(CE, bin = 200) |>
 
 ## Example use case: `AnnotationHub` and `TxDb` resources
 
-### Recovering TSSs of forward human genes 
+### Recover TSSs of forward human genes 
 
 ```{r}
 txdb <- TxDb.Hsapiens.UCSC.hg19.knownGene::TxDb.Hsapiens.UCSC.hg19.knownGene
@@ -227,7 +253,7 @@ TSSs <- GenomicFeatures::genes(txdb) |>
     mutate(width = 1)
 ```
 
-### Recovering H3K4me3 coverage track from ENCODE
+### Recover H3K4me3 coverage track from ENCODE
 
 ```{r}
 library(AnnotationHub)
@@ -236,7 +262,7 @@ ah['AH34904']
 H3K4me3_bw <- ah[['AH34904']]
 ```
 
-### Computing the aggregated coverage of H3K4me3 ± 3kb around the TSSs of forward human genes 
+### Compute the aggregated coverage of H3K4me3 ± 3kb around the TSSs of forward human genes 
 
 ```{r}
 CE <- CoverageExperiment(
