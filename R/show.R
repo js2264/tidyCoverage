@@ -37,19 +37,19 @@ NULL
 
 setMethod("show", signature("CoverageExperiment"), function(object) {
     w <- width(rowRanges(object)[[1]][1])
-    # if (
-    #     isTRUE(x = getOption(x = "restore_SummarizedExperiment_show", default = FALSE)) | 
-    #     isTRUE(x = getOption(x = "restore_CoverageExperiment_show", default = FALSE)) | 
-    #     isFALSE("tidySummarizedExperiment" %in% .packages())
-    # ) {
+    if (
+        isTRUE(x = getOption(x = "restore_SummarizedExperiment_show", default = FALSE)) | 
+        isTRUE(x = getOption(x = "restore_CoverageExperiment_show", default = FALSE)) | 
+        isFALSE("tidySummarizedExperiment" %in% .packages())
+    ) {
         f <- getMethod(f = "show", signature = "SummarizedExperiment", 
             where = asNamespace(ns = "SummarizedExperiment"))
         f(object = object)
         cat(paste0("width: ", w, '\n'))
-    # }
-    # else {
-    #     print(object)
-    # }
+    }
+    else {
+        print(object)
+    }
 })
 
 #' @name show

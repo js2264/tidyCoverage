@@ -18,7 +18,6 @@
 NULL
 
 #' @rdname as_tibble-methods
-#' @export
 
 as_tibble.CoverageExperiment <- function(x, ...) {
     tracks <- colData(x)$track
