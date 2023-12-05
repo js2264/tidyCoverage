@@ -101,6 +101,20 @@ test_that("other CoverageExperiment methods work", {
 })
 
 test_that("aggregate works", {
+
+    features <- list(
+        TSSs = system.file("extdata", "TSSs.bed", package = "tidyCoverage"),
+        `Convergent transcription` = system.file("extdata", "conv_transcription_loci.bed", package = "tidyCoverage")
+    ) |> map(import) |> map(filter, strand == '+') 
+    tracks <- list(
+        Scc1 = system.file("extdata", "Scc1.bw", package = "tidyCoverage"), 
+        RNA_fwd = system.file("extdata", "RNA.fwd.bw", package = "tidyCoverage"),
+        RNA_rev = system.file("extdata", "RNA.rev.bw", package = "tidyCoverage")
+    ) |> map(import, as = 'Rle')
+    CE <- CoverageExperiment(
+        tracks, features, width = 100, scale = TRUE, center = TRUE
+    )
+
     expect_s4_class(
         AC <- aggregate(CE), 
         "AggregatedCoverage"
@@ -115,6 +129,20 @@ test_that("aggregate works", {
 })
 
 test_that("print/show work", {
+    features <- list(
+        TSSs = system.file("extdata", "TSSs.bed", package = "tidyCoverage"),
+        `Convergent transcription` = system.file("extdata", "conv_transcription_loci.bed", package = "tidyCoverage")
+    ) |> map(import) |> map(filter, strand == '+') 
+    tracks <- list(
+        Scc1 = system.file("extdata", "Scc1.bw", package = "tidyCoverage"), 
+        RNA_fwd = system.file("extdata", "RNA.fwd.bw", package = "tidyCoverage"),
+        RNA_rev = system.file("extdata", "RNA.rev.bw", package = "tidyCoverage")
+    ) |> map(import, as = 'Rle')
+    CE <- CoverageExperiment(
+        tracks, features, width = 100, scale = TRUE, center = TRUE
+    )
+    AC <- aggregate(CE)
+
     options(restore_SummarizedExperiment_show = TRUE)
     expect_no_error(show(CE))
     expect_no_error(show(AC))
@@ -128,16 +156,56 @@ test_that("print/show work", {
 })
 
 test_that("as_tibble methods work", {
+    features <- list(
+        TSSs = system.file("extdata", "TSSs.bed", package = "tidyCoverage"),
+        `Convergent transcription` = system.file("extdata", "conv_transcription_loci.bed", package = "tidyCoverage")
+    ) |> map(import) |> map(filter, strand == '+') 
+    tracks <- list(
+        Scc1 = system.file("extdata", "Scc1.bw", package = "tidyCoverage"), 
+        RNA_fwd = system.file("extdata", "RNA.fwd.bw", package = "tidyCoverage"),
+        RNA_rev = system.file("extdata", "RNA.rev.bw", package = "tidyCoverage")
+    ) |> map(import, as = 'Rle')
+    CE <- CoverageExperiment(
+        tracks, features, width = 100, scale = TRUE, center = TRUE
+    )
+    AC <- aggregate(CE)
+
     expect_true(all(dim(as_tibble(AC)) == c(600, 13)))
     expect_true(all(colnames(as_tibble(AC)) == c(".sample", ".feature", "track", "features", "coord", "mean", "median", "min", "max", "sd", "se", "ci_low", "ci_high")))
 })
 
 test_that("expand method works", {
+    features <- list(
+        TSSs = system.file("extdata", "TSSs.bed", package = "tidyCoverage"),
+        `Convergent transcription` = system.file("extdata", "conv_transcription_loci.bed", package = "tidyCoverage")
+    ) |> map(import) |> map(filter, strand == '+') 
+    tracks <- list(
+        Scc1 = system.file("extdata", "Scc1.bw", package = "tidyCoverage"), 
+        RNA_fwd = system.file("extdata", "RNA.fwd.bw", package = "tidyCoverage"),
+        RNA_rev = system.file("extdata", "RNA.rev.bw", package = "tidyCoverage")
+    ) |> map(import, as = 'Rle')
+    CE <- CoverageExperiment(
+        tracks, features, width = 100, scale = TRUE, center = TRUE
+    )
     expect_true(all(dim(expand(CE)) == c(402600, 7)))
     expect_true(all(colnames(expand(CE)) == c("track", "features", "chr", "ranges", "strand", "coord", "coverage")))
 })
 
 test_that("coarsen method works", {
+    features <- list(
+        TSSs = system.file("extdata", "TSSs.bed", package = "tidyCoverage"),
+        `Convergent transcription` = system.file("extdata", "conv_transcription_loci.bed", package = "tidyCoverage")
+    ) |> map(import) |> map(filter, strand == '+') 
+    tracks <- list(
+        Scc1 = system.file("extdata", "Scc1.bw", package = "tidyCoverage"), 
+        RNA_fwd = system.file("extdata", "RNA.fwd.bw", package = "tidyCoverage"),
+        RNA_rev = system.file("extdata", "RNA.rev.bw", package = "tidyCoverage")
+    ) |> map(import, as = 'Rle')
+    CE <- CoverageExperiment(
+        tracks, features, width = 100, scale = TRUE, center = TRUE
+    )
+    AC <- aggregate(CE)
+
     expect_s4_class(
         CCE <- coarsen(CE, 10), 
         "CoverageExperiment"
