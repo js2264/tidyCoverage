@@ -72,14 +72,48 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9">
-`tidyCoverage` framework enables tidy manipulation 
-    of collections of genomic tracks and features using 
-    `tidySummarizedExperiment` methods. It facilitates the 
-    extraction, aggregation and visualization of genomic coverage over 
-    individual of thousands of genomic loci, relying on `CoverageExperiment`
-    and `AggregatedCoverage` classes. This accelerates the integration 
-    of genomic track data in genomic analysis workflows. 
+  <main id="main" class="col-md-9"><div class="section level1">
+<div class="page-header"><h1 id="tidycoverage">tidyCoverage<a class="anchor" aria-label="anchor" href="#tidycoverage"></a>
+</h1></div>
+<div class="section level2">
+<h2 id="load-libraries-and-example-datasets">Load libraries and example datasets<a class="anchor" aria-label="anchor" href="#load-libraries-and-example-datasets"></a>
+</h2>
+<p>```{r} library(tidyCoverage) library(tidySummarizedExperiment) library(rtracklayer) library(plyranges) library(purrr) library(ggplot2)</p>
+</div>
+</div>
+<div class="section level1">
+<h1 id="id_-import-genomic-features-into-a-named-list-">~~~~~~~~~~~~~~~ Import genomic features into a named list ~~~~~~~~~~~~~~~<a class="anchor" aria-label="anchor" href="#id_-import-genomic-features-into-a-named-list-"></a>
+</h1>
+<p>features &lt;- list( TSSs = system.file(“extdata”, “TSSs.bed”, package = “tidyCoverage”), conv_sites = system.file(“extdata”, “conv_transcription_loci.bed”, package = “tidyCoverage”) ) |&gt; map(~ import(.x))</p>
+</div>
+<div class="section level1">
+<h1 id="id_-import-coverage-tracks-into-a-bigwigfilelist-">~~~~~~~~~~~~ Import coverage tracks into a <code>BigWigFileList</code> ~~~~~~~~~~~~~<a class="anchor" aria-label="anchor" href="#id_-import-coverage-tracks-into-a-bigwigfilelist-"></a>
+</h1>
+<p>tracks &lt;- list( Scc1 = system.file(“extdata”, “Scc1.bw”, package = “tidyCoverage”), RNA_fwd = system.file(“extdata”, “RNA.fwd.bw”, package = “tidyCoverage”), RNA_rev = system.file(“extdata”, “RNA.rev.bw”, package = “tidyCoverage”), PolII = system.file(“extdata”, “PolII.bw”, package = “tidyCoverage”), MNase = system.file(“extdata”, “MNase.bw”, package = “tidyCoverage”) ) |&gt; BigWigFileList()</p>
+<pre><code>
+## Plot tracks coverage aggregated over genomic features
+
+```{r}
+CoverageExperiment(tracks, features, width = 3000, ignore.strand = FALSE) |&gt; 
+    filter(track %in% c('MNase', 'PolII')) |&gt; 
+    filter(features == 'TSSs') |&gt; 
+    aggregate() |&gt; 
+    ggplot(aes(x = coord, y = mean)) + 
+    geom_ribbon(aes(ymin = ci_low, ymax = ci_high, fill = track), alpha = 0.2) + 
+    geom_line(aes(col = track)) + 
+    facet_grid(track ~ ., scales = "free") + 
+    labs(x = 'Distance from TSS', y = 'Signal coverage') + 
+    theme_bw() + 
+    theme(legend.position = 'top')</code></pre>
+<p><img src="reference/figures/aggr-cov.png"></p>
+<div class="section level2">
+<h2 id="plot-coverage-over-a-single-locus">Plot coverage over a single locus<a class="anchor" aria-label="anchor" href="#plot-coverage-over-a-single-locus"></a>
+</h2>
+<p><code>{r} CoverageExperiment(tracks, GRanges("II:450001-455000"), width = 5000) |&gt;      expand() |&gt;      ggplot(aes(x = coord, y = coverage)) +          geom_col(aes(fill = track, col = track)) +          facet_grid(track~., scales = 'free') +          scale_x_continuous(expand = c(0, 0)) +          theme_bw() +          theme(legend.position = "none", aspect.ratio = 0.1)</code></p>
+<p><img src="reference/figures/cov.png"></p>
+</div>
+</div>
+
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
