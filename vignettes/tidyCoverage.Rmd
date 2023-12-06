@@ -327,3 +327,9 @@ AC |>
 ```
 
 ![](../man/figures/PTMs-TSSs.png)
+
+## Session info
+
+```{r}
+sessionInfo()
+```
