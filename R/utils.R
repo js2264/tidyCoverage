@@ -44,21 +44,22 @@
     w <- width
     gr <- trim(gr)
     gr <- gr[width(gr) == w]
+    sort(gr)
 }
 
 #' @importFrom IRanges NumericList
 #' @importFrom stats qt
 
 .compute_cov <- function(scores, gr, center, scale, ignore.strand = TRUE) {
-    scores <- as.matrix(scores)
+    m <- as.matrix(scores)
     if (!ignore.strand) {
-        scores <- data.frame(scores)
+        m <- data.frame(m)
         which.flip <- which(as.vector(strand(gr)) == '-')
-        scores[which.flip, ] <- rev(scores[which.flip, ])
-        scores <- as.matrix(scores)
+        m[which.flip, ] <- rev(m[which.flip, ])
+        m <- as.matrix(m)
     }
-    scores <- t(scale(t(scores), center = center, scale = scale))
-    scores
+    m <- t(scale(t(m), center = center, scale = scale))
+    m
 }
 
 .summarize_cov <- function(scores) {
