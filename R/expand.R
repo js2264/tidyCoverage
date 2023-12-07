@@ -1,4 +1,12 @@
-#' expand 
+#' Expand a CoverageExperiment object
+#' 
+#' @description
+#' A `CoverageExperiment` object can be coerced into a `tibble` using the 
+#' `tidySummarizedExperiment` package, but this will not turn 
+#' each coverage matrix into a "long" format. The `expand` function 
+#' provided here allows one to coerce a `CoverageExperiment`
+#' object into a long data frame, and adds the `ranges` 
+#' and `seqnames` to the resulting `tibble`. 
 #' 
 #' @name expand
 #' @aliases expand,CoverageExperiment-method

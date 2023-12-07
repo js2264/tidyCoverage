@@ -3,7 +3,7 @@
 \name{expand}
 \alias{expand}
 \alias{expand,CoverageExperiment-method}
-\title{expand}
+\title{Expand a CoverageExperiment object}
 \usage{
 \S4method{expand}{CoverageExperiment}(x, ...)
 }
@@ -16,7 +16,12 @@
 a \code{tibble} object
 }
 \description{
-expand
+A \code{CoverageExperiment} object can be coerced into a \code{tibble} using the
+\code{tidySummarizedExperiment} package, but this will not turn
+each coverage matrix into a "long" format. The \code{expand} function
+provided here allows one to coerce a \code{CoverageExperiment}
+object into a long data frame, and adds the \code{ranges}
+and \code{seqnames} to the resulting \code{tibble}.
 }
 \examples{
 data(ce)

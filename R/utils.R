@@ -89,7 +89,7 @@ Please adjust `bin` argument."
     )$x
 }
 
-.coarsen_mat <- function(x, bin, FUN, ...) {
+.coarsen_mat <- function(x, bin, FUN = mean, ...) {
     if ({ncol(x) %% bin} != 0) stop(
         "The column number of the provided matrix should be divided by the window size without remainder.
 Please adjust `window` argument."
@@ -100,5 +100,5 @@ Please adjust `window` argument."
             by = list(rep(seq(1, length(vec)/bin), each = bin)), 
             FUN = FUN, ...
         )$x
-    })
+    }) |> t()
 }

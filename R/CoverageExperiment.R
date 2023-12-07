@@ -1,7 +1,13 @@
 #' CoverageExperiment
 #'
-#' `CoverageExperiment` objects are instantiated using the `CoverageExperiment()` 
-#' function, and can be coarsened using the `coarsen()` function.
+#' #' @description
+#' 
+#' `CoverageExperiment` objects store coverages for individual
+#' tracks over different sets of features. The `coverage` 
+#' assay contains a separate matrix for each combination of 
+#' track x features. `CoverageExperiment` objects are instantiated 
+#' using the `CoverageExperiment()` #' function, and can be 
+#' coarsened using the `coarsen()` function.
 #'
 #' @name CoverageExperiment
 #' @rdname CoverageExperiment
@@ -175,17 +181,11 @@ setMethod(
     "CoverageExperiment", 
     signature(tracks = "BigWigFileList", features = "GRanges"), 
     function(
-        tracks, features, width, 
-        center = FALSE, scale = FALSE, 
-        ignore.strand = TRUE, 
-        BPPARAM = BiocParallel::bpparam()
+        tracks, features, ...
     ) {
         features <- GRangesList(features = features)
         CoverageExperiment(
-            tracks, features, width, 
-            center, scale, 
-            ignore.strand, 
-            BPPARAM
+            tracks, features, ...
         )
     }
 )
@@ -197,17 +197,11 @@ setMethod(
     "CoverageExperiment", 
     signature(tracks = "BigWigFileList", features = "list"), 
     function(
-        tracks, features, width, 
-        center = FALSE, scale = FALSE, 
-        ignore.strand = TRUE, 
-        BPPARAM = BiocParallel::bpparam()
+        tracks, features, ...
     ) {
         features <- as(features, 'GRangesList')
         CoverageExperiment(
-            tracks, features, width, 
-            center, scale, 
-            ignore.strand, 
-            BPPARAM
+            tracks, features, ...
         )
     }
 )
@@ -219,17 +213,11 @@ setMethod(
     "CoverageExperiment", 
     signature(tracks = "BigWigFile", features = "GRangesList"), 
     function(
-        tracks, features, width, 
-        center = FALSE, scale = FALSE, 
-        ignore.strand = TRUE, 
-        BPPARAM = BiocParallel::bpparam()
+        tracks, features, ...
     ) {
         tracks <- BigWigFileList(list(track = BiocIO::resource(tracks)))
         CoverageExperiment(
-            tracks, features, width, 
-            center, scale, 
-            ignore.strand, 
-            BPPARAM
+            tracks, features, ...
         )
     }
 )
@@ -241,18 +229,12 @@ setMethod(
     "CoverageExperiment", 
     signature(tracks = "BigWigFile", features = "GRanges"), 
     function(
-        tracks, features, width, 
-        center = FALSE, scale = FALSE, 
-        ignore.strand = TRUE, 
-        BPPARAM = BiocParallel::bpparam()
+        tracks, features, ...
     ) {
         tracks <- BigWigFileList(list(track = BiocIO::resource(tracks)))
         features <- GRangesList(features = features)
         CoverageExperiment(
-            tracks, features, width, 
-            center, scale, 
-            ignore.strand, 
-            BPPARAM
+            tracks, features, ...
         )
     }
 )
@@ -264,18 +246,12 @@ setMethod(
     "CoverageExperiment", 
     signature(tracks = "BigWigFile", features = "list"), 
     function(
-        tracks, features, width, 
-        center = FALSE, scale = FALSE, 
-        ignore.strand = TRUE, 
-        BPPARAM = BiocParallel::bpparam()
+        tracks, features, ...
     ) {
         tracks <- BigWigFileList(list(track = BiocIO::resource(tracks)))
         features <- as(features, 'GRangesList')
         CoverageExperiment(
-            tracks, features, width, 
-            center, scale, 
-            ignore.strand, 
-            BPPARAM
+            tracks, features, ...
         )
     }
 )
@@ -367,17 +343,11 @@ setMethod(
     "CoverageExperiment", 
     signature(tracks = "list", features = "GRanges"), 
     function(
-        tracks, features, width, 
-        center = FALSE, scale = FALSE, 
-        ignore.strand = TRUE, 
-        BPPARAM = BiocParallel::bpparam()
+        tracks, features, ...
     ) {
         features <- GRangesList(features = features)
         CoverageExperiment(
-            tracks, features, width, 
-            center, scale, 
-            ignore.strand, 
-            BPPARAM
+            tracks, features, ...
         )
     }
 )
@@ -389,17 +359,11 @@ setMethod(
     "CoverageExperiment", 
     signature(tracks = "list", features = "list"), 
     function(
-        tracks, features, width, 
-        center = FALSE, scale = FALSE, 
-        ignore.strand = TRUE, 
-        BPPARAM = BiocParallel::bpparam()
+        tracks, features, ...
     ) {
         features <- as(features, 'GRangesList')
         CoverageExperiment(
-            tracks, features, width, 
-            center, scale, 
-            ignore.strand, 
-            BPPARAM
+            tracks, features, ...
         )
     }
 )
@@ -411,17 +375,11 @@ setMethod(
     "CoverageExperiment", 
     signature(tracks = "RleList", features = "GRangesList"), 
     function(
-        tracks, features, width, 
-        center = FALSE, scale = FALSE, 
-        ignore.strand = TRUE, 
-        BPPARAM = BiocParallel::bpparam()
+        tracks, features, ...
     ) {
         tracks <- list(track = tracks)
         CoverageExperiment(
-            tracks, features, width, 
-            center, scale, 
-            ignore.strand, 
-            BPPARAM
+            tracks, features, ...
         )
     }
 )
@@ -433,18 +391,12 @@ setMethod(
     "CoverageExperiment", 
     signature(tracks = "RleList", features = "GRanges"), 
     function(
-        tracks, features, width, 
-        center = FALSE, scale = FALSE, 
-        ignore.strand = TRUE, 
-        BPPARAM = BiocParallel::bpparam()
+        tracks, features, ...
     ) {
         tracks <- list(track = tracks)
         features <- GRangesList(features = features)
         CoverageExperiment(
-            tracks, features, width, 
-            center, scale, 
-            ignore.strand, 
-            BPPARAM
+            tracks, features, ...
         )
     }
 )
@@ -456,18 +408,12 @@ setMethod(
     "CoverageExperiment", 
     signature(tracks = "RleList", features = "list"), 
     function(
-        tracks, features, width, 
-        center = FALSE, scale = FALSE, 
-        ignore.strand = TRUE, 
-        BPPARAM = BiocParallel::bpparam()
+        tracks, features, ...
     ) {
         tracks <- list(track = tracks)
         features <- as(features, 'GRangesList')
         CoverageExperiment(
-            tracks, features, width, 
-            center, scale, 
-            ignore.strand, 
-            BPPARAM
+            tracks, features, ...
         )
     }
 )

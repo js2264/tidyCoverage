@@ -30,58 +30,19 @@ coarsen(x, window, ...)
   center = FALSE,
   scale = FALSE,
   ignore.strand = TRUE,
+  window = 1,
   BPPARAM = BiocParallel::bpparam()
 )
 
-\S4method{CoverageExperiment}{BigWigFileList,GRanges}(
-  tracks,
-  features,
-  width,
-  center = FALSE,
-  scale = FALSE,
-  ignore.strand = TRUE,
-  BPPARAM = BiocParallel::bpparam()
-)
+\S4method{CoverageExperiment}{BigWigFileList,GRanges}(tracks, features, ...)
 
-\S4method{CoverageExperiment}{BigWigFileList,list}(
-  tracks,
-  features,
-  width,
-  center = FALSE,
-  scale = FALSE,
-  ignore.strand = TRUE,
-  BPPARAM = BiocParallel::bpparam()
-)
+\S4method{CoverageExperiment}{BigWigFileList,list}(tracks, features, ...)
 
-\S4method{CoverageExperiment}{BigWigFile,GRangesList}(
-  tracks,
-  features,
-  width,
-  center = FALSE,
-  scale = FALSE,
-  ignore.strand = TRUE,
-  BPPARAM = BiocParallel::bpparam()
-)
+\S4method{CoverageExperiment}{BigWigFile,GRangesList}(tracks, features, ...)
 
-\S4method{CoverageExperiment}{BigWigFile,GRanges}(
-  tracks,
-  features,
-  width,
-  center = FALSE,
-  scale = FALSE,
-  ignore.strand = TRUE,
-  BPPARAM = BiocParallel::bpparam()
-)
+\S4method{CoverageExperiment}{BigWigFile,GRanges}(tracks, features, ...)
 
-\S4method{CoverageExperiment}{BigWigFile,list}(
-  tracks,
-  features,
-  width,
-  center = FALSE,
-  scale = FALSE,
-  ignore.strand = TRUE,
-  BPPARAM = BiocParallel::bpparam()
-)
+\S4method{CoverageExperiment}{BigWigFile,list}(tracks, features, ...)
 
 \S4method{CoverageExperiment}{list,GRangesList}(
   tracks,
@@ -90,58 +51,19 @@ coarsen(x, window, ...)
   center = FALSE,
   scale = FALSE,
   ignore.strand = TRUE,
+  window = 1,
   BPPARAM = BiocParallel::bpparam()
 )
 
-\S4method{CoverageExperiment}{list,GRanges}(
-  tracks,
-  features,
-  width,
-  center = FALSE,
-  scale = FALSE,
-  ignore.strand = TRUE,
-  BPPARAM = BiocParallel::bpparam()
-)
+\S4method{CoverageExperiment}{list,GRanges}(tracks, features, ...)
 
-\S4method{CoverageExperiment}{list,list}(
-  tracks,
-  features,
-  width,
-  center = FALSE,
-  scale = FALSE,
-  ignore.strand = TRUE,
-  BPPARAM = BiocParallel::bpparam()
-)
+\S4method{CoverageExperiment}{list,list}(tracks, features, ...)
 
-\S4method{CoverageExperiment}{RleList,GRangesList}(
-  tracks,
-  features,
-  width,
-  center = FALSE,
-  scale = FALSE,
-  ignore.strand = TRUE,
-  BPPARAM = BiocParallel::bpparam()
-)
+\S4method{CoverageExperiment}{RleList,GRangesList}(tracks, features, ...)
 
-\S4method{CoverageExperiment}{RleList,GRanges}(
-  tracks,
-  features,
-  width,
-  center = FALSE,
-  scale = FALSE,
-  ignore.strand = TRUE,
-  BPPARAM = BiocParallel::bpparam()
-)
+\S4method{CoverageExperiment}{RleList,GRanges}(tracks, features, ...)
 
-\S4method{CoverageExperiment}{RleList,list}(
-  tracks,
-  features,
-  width,
-  center = FALSE,
-  scale = FALSE,
-  ignore.strand = TRUE,
-  BPPARAM = BiocParallel::bpparam()
-)
+\S4method{CoverageExperiment}{RleList,list}(tracks, features, ...)
 
 \S4method{coarsen}{CoverageExperiment}(x, window = 1, BPPARAM = BiocParallel::bpparam())
 }
@@ -172,8 +94,15 @@ information}
 A \code{CoverageExperiment} object
 }
 \description{
-\code{CoverageExperiment} objects are instantiated using the \code{CoverageExperiment()}
-function, and can be coarsened using the \code{coarsen()} function.
+#' @description
+}
+\details{
+\code{CoverageExperiment} objects store coverages for individual
+tracks over different sets of features. The \code{coverage}
+assay contains a separate matrix for each combination of
+track x features. \code{CoverageExperiment} objects are instantiated
+using the \code{CoverageExperiment()} #' function, and can be
+coarsened using the \code{coarsen()} function.
 }
 \examples{
 library(rtracklayer)
