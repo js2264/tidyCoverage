@@ -105,6 +105,7 @@ setMethod(
         tracks, features, width, 
         center = FALSE, scale = FALSE, 
         ignore.strand = TRUE, 
+        window = 1, 
         BPPARAM = BiocParallel::bpparam()
     ) {
         ## Check that input args are valid
@@ -142,6 +143,9 @@ setMethod(
                 scores, features[[f]], 
                 scale = scale, center = center, ignore.strand = ignore.strand
             )
+            if (window > 1) {
+                m <- .coarsen_mat(m, window)
+            }
             return(m)
         }, BPPARAM = BPPARAM)
         names(l) <- paste(combs$tracks, combs$features, sep = '^')
@@ -272,6 +276,7 @@ setMethod(
         tracks, features, width, 
         center = FALSE, scale = FALSE, 
         ignore.strand = TRUE, 
+        window = 1, 
         BPPARAM = BiocParallel::bpparam()
     ) {
         ## Check that input args are valid
@@ -304,6 +309,9 @@ setMethod(
                 scores, features[[f]], 
                 scale = scale, center = center, ignore.strand = ignore.strand
             )
+            if (window > 1) {
+                m <- .coarsen_mat(m, window)
+            }
             return(m)
         }, BPPARAM = BPPARAM)
         names(l) <- paste(combs$tracks, combs$features, sep = '^')
