@@ -211,6 +211,7 @@ setMethod(
 )
 
 #' @rdname CoverageExperiment
+#' @importFrom BiocIO resource
 #' @export
 
 setMethod(

@@ -8,7 +8,7 @@
 #' object into a long data frame, and adds the `ranges` 
 #' and `seqnames` to the resulting `tibble`. 
 #' 
-#' @name expand
+#' @name expand,CoverageExperiment
 #' @aliases expand,CoverageExperiment-method
 #' @rdname expand
 #' 

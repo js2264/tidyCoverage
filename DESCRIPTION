@@ -30,6 +30,7 @@ Imports:
     GenomicRanges,
     GenomeInfoDb, 
     BiocParallel, 
+    BiocIO, 
     rtracklayer,
     methods,
     tidyr, 
