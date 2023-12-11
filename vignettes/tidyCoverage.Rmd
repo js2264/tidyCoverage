@@ -328,6 +328,80 @@ AC |>
 
 ![](../man/figures/PTMs-TSSs.png)
 
+## Quantify coverage over genomic features
+
+```{r}
+# ~~~~~~~~~~ Recover 4 different genomic tracks ~~~~~~~~~~ #
+ids <- c(
+    'AH35931', # ATAC
+    'AH35187', # H3K4me3
+    'AH35207', # H3K36me3
+    'AH35193'  # H3K9me3
+)
+names(ids) <- mcols(ah[ids])$title |> 
+    gsub(".*IMR90.", "", x = _) |> 
+    gsub("\\..*", "", x = _)
+bws <- map(ids, ~ ah[[.x]]) |> 
+    map(resource) |> 
+    BigWigFileList()
+names(bws) <- names(ids)
+
+# ~~~~~~~~~~ Define sets of genomic features ~~~~~~~~~~ #
+promoters <- GenomicFeatures::promoters(txdb, upstream = 0, downstream = 0) |> unique()
+promoters <- promoters[1:2000]
+
+# ~~~~~~~~~~ Quantify coverage over genomic features ~~~~~~~~~~ #
+p1 <- CoverageExperiment(bws, promoters, width = 2500, ignore.strand = FALSE, window = 1250) |>
+    aggregate() |> 
+    ggplot(aes(x = coord, y = mean)) + 
+    geom_ribbon(aes(ymin = ci_low, ymax = ci_high, fill = track), alpha = 0.2) + 
+    geom_line(aes(col = track)) + 
+    labs(x = 'Distance from center of genomic features', y = 'Mean coverage') + 
+    facet_grid(~features) + 
+    theme_bw() + 
+    theme(legend.position = 'top') + 
+    geom_vline(xintercept = c(-150, 50), linetype = 'dashed')
+
+# ~~~~~~~~~~ Quantify coverage in NFR region ~~~~~~~~~~ #
+NFR <- resize(promoters, width = 200, fix = 'center') |> shift_upstream(50)
+upstream <- shift_upstream(NFR, 400)
+downstream <- shift_downstream(NFR, 400)
+tracks <- list(NFR = NFR, upstream = upstream, downstream = downstream)
+p2 <- CoverageExperiment(bws, tracks, width = 200, ignore.strand = FALSE, window = 10) |> 
+    S4Vectors::expand() |> 
+    group_by(track, features, ranges) |> 
+    summarize(coverage = quantile(coverage, probs = 0.9, na.rm = TRUE)) |> 
+    ggplot(aes(x = track, y = coverage, fill = features)) + 
+    geom_boxplot(outlier.shape = NA) + ylim(c(0, 20)) + 
+    labs(x = 'Genomic features', y = 'Mean coverage') + 
+    facet_grid(~track, scales = 'free') + 
+    theme_bw() + 
+    theme(legend.position = 'top')
+cowplot::plot_grid(p1, p2)
+```
+
+```{r}
+TSSs <- system.file("extdata", "TSSs.bed", package = "tidyCoverage") |> import()
+tracks <- BigWigFileList(list(
+    t05 = "~/Projects/20230517_Lea_MNase-timecourse/results/pneumo_t05_nucpos.bw", 
+    t10 = "~/Projects/20230517_Lea_MNase-timecourse/results/pneumo_t10_nucpos.bw", 
+    t20 = "~/Projects/20230517_Lea_MNase-timecourse/results/pneumo_t20_nucpos.bw", 
+    t40 = "~/Projects/20230517_Lea_MNase-timecourse/results/pneumo_t40_nucpos.bw", 
+    t60 = "~/Projects/20230517_Lea_MNase-timecourse/results/pneumo_t60_nucpos.bw"
+))
+
+# ~~~~~~~~~~ Quantify coverage over genomic features ~~~~~~~~~~ #
+p <- CoverageExperiment(tracks, TSSs, width = 2000, ignore.strand = FALSE) |>
+    aggregate() |> 
+    ggplot(aes(x = coord, y = mean)) + 
+    geom_ribbon(aes(ymin = ci_low, ymax = ci_high, fill = track), alpha = 0.2) + 
+    geom_line(aes(col = track)) + 
+    labs(x = 'Distance from center of TSSs', y = 'Mean coverage') + 
+    theme_bw() + 
+    theme(legend.position = 'top') 
+```
+
+
 ## Session info
 
 ```{r}
