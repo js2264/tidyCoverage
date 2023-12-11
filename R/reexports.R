@@ -14,3 +14,8 @@ dplyr::as_tibble
 #' @importFrom S4Vectors aggregate
 #' @export
 S4Vectors::aggregate
+
+#' @rdname reexports
+#' @importFrom S4Vectors expand
+#' @export
+S4Vectors::expand
