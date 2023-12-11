@@ -32,12 +32,6 @@ TSSs <- GenomicFeatures::genes(txdb) |>
 seqlevelsStyle(TSSs) <- "Ensembl"
 export(TSSs, 'inst/extdata/TSSs.bed')
 
-## Scc1-peaks.narrowPeak <--- /home/rsg/Projects/20220309_Christophe_GC-paper/data/WT/ChIP/peaks/CH224/CH224_vs-CH225_genome-S288c_YMT7BP_peaks.narrowPeak
-file.copy(
-    "/home/rsg/Projects/20220309_Christophe_GC-paper/data/WT/ChIP/peaks/CH224/CH224_vs-CH225_genome-S288c_YMT7BP_peaks.narrowPeak", 
-    "inst/extdata/Scc1-peaks.narrowPeak"
-)
-
 
 ## Scc1-vs-input.bw <-------- /home/rsg/Projects/20220309_Christophe_GC-paper/data/WT/ChIP/tracks/CH224/CH224^unmapped_CBS138^mapped_S288c^YMT7BP.vs-CH225.bw
 ## RNA.fwd.bw <--- /home/rsg/Projects/20220309_Christophe_GC-paper/data/WT/RNA/tracks/SRR2045244/SRR2045244^mapped_S288c^KEYTQL.fwd.CPM.bw
@@ -52,7 +46,6 @@ seqlengths(t) <- lengths(t)
 t <- t[1:16]
 si <- seqinfo(t)
 seqlevels(si) <- seqlevels(si)[1:16]
-bins <- plyranges::tile_ranges(si |> as("GRanges"), width = 50)
 tracks <- list(
     `RNA.fwd.bw` = "/home/rsg/Projects/20220309_Christophe_GC-paper/data/WT/RNA/tracks/SRR2045244/SRR2045244^mapped_S288c^KEYTQL.fwd.CPM.bw", 
     `RNA.rev.bw` = "/home/rsg/Projects/20220309_Christophe_GC-paper/data/WT/RNA/tracks/SRR2045244/SRR2045244^mapped_S288c^KEYTQL.rev.CPM.bw", 
@@ -60,10 +53,10 @@ tracks <- list(
     `PolII.bw` = "/home/rsg/Projects/20220309_Christophe_GC-paper/data/WT/ChIP/tracks/CH244/CH244^mapped_S288c^CIJXLY.CPM.bw", 
     `MNase.bw` = "~/Projects/20230517_Lea_MNase-timecourse/nuc_cov_Pneumo-time-course.bw" 
 ) |> map(import, as = 'Rle') 
+bins <- plyranges::tile_ranges(si |> as("GRanges"), width = 75)
 tracks |> 
     map(function(x) {
         x <- binnedAverage(bins, x[1:16], 'mean', na.rm = FALSE) |> coverage(weigh = 'mean')
         x[c("II", "IV", "XVI")]
     }) |> 
     imap(~ export(.x, con = paste0("inst/extdata/", .y)))
-

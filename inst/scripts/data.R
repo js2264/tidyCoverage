@@ -10,6 +10,7 @@ tracks <- list(
     RNA_rev = system.file("extdata", "RNA.rev.bw", package = "tidyCoverage")
 ) |> map(import, as = 'Rle')
 ce <- CoverageExperiment(tracks, features, width = 3000, scale = TRUE, center = TRUE)
+ce <- coarsen(ce, 10)
 usethis::use_data(ce, overwrite = TRUE)
 
 ## ac
