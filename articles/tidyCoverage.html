@@ -67,7 +67,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Introduction to tidyCoverage</h1>
             
-            <h4 data-toc-skip class="date">6 December 2023</h4>
+            <h4 data-toc-skip class="date">11 December 2023</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/js2264/tidyCoverage/blob/HEAD/vignettes/tidyCoverage.Rmd" class="external-link"><code>vignettes/tidyCoverage.Rmd</code></a></small>
       <div class="d-none name"><code>tidyCoverage.Rmd</code></div>
@@ -139,16 +139,16 @@ classes<a class="anchor" aria-label="anchor" href="#coverageexperiment-and-aggre
 <span><span class="co">#&gt; metadata(0):</span></span>
 <span><span class="co">#&gt; assays(1): coverage</span></span>
 <span><span class="co">#&gt; rownames(1): Scc1</span></span>
-<span><span class="co">#&gt; rowData names(1): features</span></span>
+<span><span class="co">#&gt; rowData names(2): features n</span></span>
 <span><span class="co">#&gt; colnames(2): RNA_fwd RNA_rev</span></span>
 <span><span class="co">#&gt; colData names(1): track</span></span>
 <span><span class="co">#&gt; width: 3000</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">ce</span><span class="op">)</span></span>
-<span><span class="co">#&gt; DataFrame with 1 row and 1 column</span></span>
-<span><span class="co">#&gt;         features</span></span>
-<span><span class="co">#&gt;      &lt;character&gt;</span></span>
-<span><span class="co">#&gt; Scc1        Scc1</span></span>
+<span><span class="co">#&gt; DataFrame with 1 row and 2 columns</span></span>
+<span><span class="co">#&gt;         features         n</span></span>
+<span><span class="co">#&gt;      &lt;character&gt; &lt;integer&gt;</span></span>
+<span><span class="co">#&gt; Scc1        Scc1       614</span></span>
 <span></span>
 <span><span class="fu">rowRanges</span><span class="op">(</span><span class="va">ce</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GRangesList object of length 1:</span></span>
@@ -156,11 +156,11 @@ classes<a class="anchor" aria-label="anchor" href="#coverageexperiment-and-aggre
 <span><span class="co">#&gt; GRanges object with 614 ranges and 2 metadata columns:</span></span>
 <span><span class="co">#&gt;         seqnames          ranges strand |        name     score</span></span>
 <span><span class="co">#&gt;            &lt;Rle&gt;       &lt;IRanges&gt;  &lt;Rle&gt; | &lt;character&gt; &lt;numeric&gt;</span></span>
-<span><span class="co">#&gt;     [1]       II   234992-237991      + |     YBL002W         0</span></span>
-<span><span class="co">#&gt;     [2]       II   226136-229135      + |     YBL004W         0</span></span>
-<span><span class="co">#&gt;     [3]       II   215970-218969      + |     YBL005W         0</span></span>
-<span><span class="co">#&gt;     [4]       II   219830-222829      + |   YBL005W-B         0</span></span>
-<span><span class="co">#&gt;     [5]       II   215211-218210      + |   YBL006W-A         0</span></span>
+<span><span class="co">#&gt;     [1]       II       4290-7289      + |     YBL109W         0</span></span>
+<span><span class="co">#&gt;     [2]       II       6677-9676      + |     YBL108W         0</span></span>
+<span><span class="co">#&gt;     [3]       II      7768-10767      + |   YBL107W-A         0</span></span>
+<span><span class="co">#&gt;     [4]       II     22598-25597      + |     YBL102W         0</span></span>
+<span><span class="co">#&gt;     [5]       II     26927-29926      + |   YBL100W-C         0</span></span>
 <span><span class="co">#&gt;     ...      ...             ...    ... .         ...       ...</span></span>
 <span><span class="co">#&gt;   [610]       IV 1506505-1509504      + |     YDR536W         0</span></span>
 <span><span class="co">#&gt;   [611]       IV 1509402-1512401      + |     YDR538W         0</span></span>
@@ -182,12 +182,12 @@ classes<a class="anchor" aria-label="anchor" href="#coverageexperiment-and-aggre
 <span><span class="co">#&gt; names(1): coverage</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assay</a></span><span class="op">(</span><span class="va">ce</span>, <span class="st">'coverage'</span><span class="op">)</span></span>
-<span><span class="co">#&gt;      RNA_fwd         RNA_rev        </span></span>
-<span><span class="co">#&gt; Scc1 numeric,1842000 numeric,1842000</span></span>
+<span><span class="co">#&gt;      RNA_fwd        RNA_rev       </span></span>
+<span><span class="co">#&gt; Scc1 numeric,184200 numeric,184200</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assay</a></span><span class="op">(</span><span class="va">ce</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">]</span>, <span class="st">'coverage'</span><span class="op">)</span></span>
-<span><span class="co">#&gt;      RNA_fwd        </span></span>
-<span><span class="co">#&gt; Scc1 numeric,1842000</span></span></code></pre></div>
+<span><span class="co">#&gt;      RNA_fwd       </span></span>
+<span><span class="co">#&gt; Scc1 numeric,184200</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="aggregatedcoverage">
@@ -320,21 +320,21 @@ classes<a class="anchor" aria-label="anchor" href="#coverageexperiment-and-aggre
 <h3 id="expand-a-coverageexperiment-object">Expand a <code>CoverageExperiment</code> object<a class="anchor" aria-label="anchor" href="#expand-a-coverageexperiment-object"></a>
 </h3>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/expand.html">expand</a></span><span class="op">(</span><span class="va">CE</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/expand-methods.html" class="external-link">expand</a></span><span class="op">(</span><span class="va">CE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5,355,000 × 7</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># Groups:   track, features, ranges [1,785]</span></span></span>
-<span><span class="co">#&gt;    track features chr   ranges             strand  coord coverage</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> track features II    II:235967-238966:- -      <span style="text-decoration: underline;">235</span>967     1.24</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> track features II    II:235967-238966:- -      <span style="text-decoration: underline;">235</span>968     1.24</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> track features II    II:235967-238966:- -      <span style="text-decoration: underline;">235</span>969     1.24</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> track features II    II:235967-238966:- -      <span style="text-decoration: underline;">235</span>970     1.24</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> track features II    II:235967-238966:- -      <span style="text-decoration: underline;">235</span>971     1.24</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> track features II    II:235967-238966:- -      <span style="text-decoration: underline;">235</span>972     1.24</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> track features II    II:235967-238966:- -      <span style="text-decoration: underline;">235</span>973     1.24</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> track features II    II:235967-238966:- -      <span style="text-decoration: underline;">235</span>974     1.24</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> track features II    II:235967-238966:- -      <span style="text-decoration: underline;">235</span>975     1.24</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> track features II    II:235967-238966:- -      <span style="text-decoration: underline;">235</span>976     1.24</span></span>
+<span><span class="co">#&gt;    track features chr   ranges         strand coord coverage</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>290        0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>291        0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>292        0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>293        0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>294        0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>295        0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>296        0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>297        0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>298        0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>299        0</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 5,354,990 more rows</span></span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -359,7 +359,7 @@ classes<a class="anchor" aria-label="anchor" href="#coverageexperiment-and-aggre
 <span>    width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/start.html" class="external-link">width</a></span>   <span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/GenomicRanges/man/GRanges-class.html" class="external-link">GRanges</a></span><span class="op">(</span><span class="va">locus</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/CoverageExperiment.html">coarsen</a></span><span class="op">(</span>window <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/start.html" class="external-link">width</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/GenomicRanges/man/GRanges-class.html" class="external-link">GRanges</a></span><span class="op">(</span><span class="va">locus</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">1000</span><span class="op">)</span></span>
 <span><span class="va">CE2</span> <span class="op">|&gt;</span> </span>
-<span>    <span class="fu"><a href="../reference/expand.html">expand</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/expand-methods.html" class="external-link">expand</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">coord</span>, y <span class="op">=</span> <span class="va">coverage</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">track</span>, col <span class="op">=</span> <span class="va">track</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">facet_grid</a></span><span class="op">(</span><span class="va">track</span><span class="op">~</span><span class="va">.</span>, scales <span class="op">=</span> <span class="st">'free'</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -717,7 +717,7 @@ forward human genes<a class="anchor" aria-label="anchor" href="#compute-the-aggr
 <span><span class="co">#&gt;  [15] S4Arrays_1.3.1                         </span></span>
 <span><span class="co">#&gt;  [16] TxDb.Hsapiens.UCSC.hg19.knownGene_3.2.2</span></span>
 <span><span class="co">#&gt;  [17] progress_1.2.3                         </span></span>
-<span><span class="co">#&gt;  [18] curl_5.1.0                             </span></span>
+<span><span class="co">#&gt;  [18] curl_5.2.0                             </span></span>
 <span><span class="co">#&gt;  [19] SparseArray_1.3.1                      </span></span>
 <span><span class="co">#&gt;  [20] sass_0.4.8                             </span></span>
 <span><span class="co">#&gt;  [21] bslib_0.6.1                            </span></span>
@@ -742,7 +742,7 @@ forward human genes<a class="anchor" aria-label="anchor" href="#compute-the-aggr
 <span><span class="co">#&gt;  [40] RSQLite_2.3.3                          </span></span>
 <span><span class="co">#&gt;  [41] filelock_1.0.2                         </span></span>
 <span><span class="co">#&gt;  [42] labeling_0.4.3                         </span></span>
-<span><span class="co">#&gt;  [43] fansi_1.0.5                            </span></span>
+<span><span class="co">#&gt;  [43] fansi_1.0.6                            </span></span>
 <span><span class="co">#&gt;  [44] httr_1.4.7                             </span></span>
 <span><span class="co">#&gt;  [45] abind_1.4-5                            </span></span>
 <span><span class="co">#&gt;  [46] compiler_4.4.0                         </span></span>
