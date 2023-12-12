@@ -67,7 +67,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Introduction to tidyCoverage</h1>
             
-            <h4 data-toc-skip class="date">11 December 2023</h4>
+            <h4 data-toc-skip class="date">12 December 2023</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/js2264/tidyCoverage/blob/HEAD/vignettes/tidyCoverage.Rmd" class="external-link"><code>vignettes/tidyCoverage.Rmd</code></a></small>
       <div class="d-none name"><code>tidyCoverage.Rmd</code></div>
@@ -320,21 +320,21 @@ classes<a class="anchor" aria-label="anchor" href="#coverageexperiment-and-aggre
 <h3 id="expand-a-coverageexperiment-object">Expand a <code>CoverageExperiment</code> object<a class="anchor" aria-label="anchor" href="#expand-a-coverageexperiment-object"></a>
 </h3>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/expand-methods.html" class="external-link">expand</a></span><span class="op">(</span><span class="va">CE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5,355,000 × 7</span></span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/expand.html" class="external-link">expand</a></span><span class="op">(</span><span class="va">CE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5,355,000 × 8</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># Groups:   track, features, ranges [1,785]</span></span></span>
-<span><span class="co">#&gt;    track features chr   ranges         strand coord coverage</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>290        0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>291        0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>292        0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>293        0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>294        0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>295        0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>296        0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>297        0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>298        0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>299        0</span></span>
+<span><span class="co">#&gt;    track features chr   ranges         strand coord coverage coord.scaled</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>290        0        -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">500</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>291        0        -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">499</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>292        0        -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">498</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>293        0        -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">497</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>294        0        -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">496</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>295        0        -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">495</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>296        0        -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">494</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>297        0        -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">493</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>298        0        -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">492</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> track features II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>299        0        -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">491</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 5,354,990 more rows</span></span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -352,21 +352,20 @@ classes<a class="anchor" aria-label="anchor" href="#coverageexperiment-and-aggre
 <span>    MNase <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"MNase.bw"</span>, package <span class="op">=</span> <span class="st">"tidyCoverage"</span><span class="op">)</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/pkg/rtracklayer/man/BigWigFile.html" class="external-link">BigWigFileList</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">locus</span> <span class="op">&lt;-</span> <span class="st">"II:450001-475000"</span></span>
-<span><span class="va">CE2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CoverageExperiment.html">CoverageExperiment</a></span><span class="op">(</span></span>
+<span><span class="va">locus</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicRanges/man/GRanges-class.html" class="external-link">GRanges</a></span><span class="op">(</span><span class="st">"II:450001-475000"</span><span class="op">)</span></span>
+<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CoverageExperiment.html">CoverageExperiment</a></span><span class="op">(</span></span>
 <span>    tracks <span class="op">=</span> <span class="va">tracks</span>, </span>
-<span>    features <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicRanges/man/GRanges-class.html" class="external-link">GRanges</a></span><span class="op">(</span><span class="va">locus</span><span class="op">)</span>,</span>
-<span>    width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/start.html" class="external-link">width</a></span>   <span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/GenomicRanges/man/GRanges-class.html" class="external-link">GRanges</a></span><span class="op">(</span><span class="va">locus</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/CoverageExperiment.html">coarsen</a></span><span class="op">(</span>window <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/start.html" class="external-link">width</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/GenomicRanges/man/GRanges-class.html" class="external-link">GRanges</a></span><span class="op">(</span><span class="va">locus</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">1000</span><span class="op">)</span></span>
-<span><span class="va">CE2</span> <span class="op">|&gt;</span> </span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/expand-methods.html" class="external-link">expand</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    features <span class="op">=</span> <span class="va">locus</span>,</span>
+<span>    width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/start.html" class="external-link">width</a></span><span class="op">(</span><span class="va">locus</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="../reference/CoverageExperiment.html">coarsen</a></span><span class="op">(</span>window <span class="op">=</span> <span class="fl">25</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/expand.html" class="external-link">expand</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">coord</span>, y <span class="op">=</span> <span class="va">coverage</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">track</span>, col <span class="op">=</span> <span class="va">track</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">facet_grid</a></span><span class="op">(</span><span class="va">track</span><span class="op">~</span><span class="va">.</span>, scales <span class="op">=</span> <span class="st">'free'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span>, aspect.ratio <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tidyCoverage_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 </div>
 </div>
 <div class="section level2">
@@ -687,7 +686,7 @@ forward human genes<a class="anchor" aria-label="anchor" href="#compute-the-aggr
 <span><span class="co">#&gt; [8] base     </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; other attached packages:</span></span>
-<span><span class="co">#&gt;  [1] AnnotationHub_3.11.0            BiocFileCache_2.11.1           </span></span>
+<span><span class="co">#&gt;  [1] AnnotationHub_3.11.1            BiocFileCache_2.11.1           </span></span>
 <span><span class="co">#&gt;  [3] dbplyr_2.4.0                    tidyr_1.3.0                    </span></span>
 <span><span class="co">#&gt;  [5] dplyr_1.1.4                     tidySummarizedExperiment_1.13.0</span></span>
 <span><span class="co">#&gt;  [7] ttservice_0.4.0                 plyranges_1.23.0               </span></span>
@@ -697,114 +696,107 @@ forward human genes<a class="anchor" aria-label="anchor" href="#compute-the-aggr
 <span><span class="co">#&gt; [15] GenomicRanges_1.55.1            GenomeInfoDb_1.39.1            </span></span>
 <span><span class="co">#&gt; [17] IRanges_2.37.0                  S4Vectors_0.41.2               </span></span>
 <span><span class="co">#&gt; [19] BiocGenerics_0.49.1             MatrixGenerics_1.15.0          </span></span>
-<span><span class="co">#&gt; [21] matrixStats_1.1.0               BiocStyle_2.31.0               </span></span>
+<span><span class="co">#&gt; [21] matrixStats_1.2.0               BiocStyle_2.31.0               </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
-<span><span class="co">#&gt;   [1] jsonlite_1.8.8                         </span></span>
-<span><span class="co">#&gt;   [2] magrittr_2.0.3                         </span></span>
-<span><span class="co">#&gt;   [3] GenomicFeatures_1.55.1                 </span></span>
-<span><span class="co">#&gt;   [4] farver_2.1.1                           </span></span>
-<span><span class="co">#&gt;   [5] rmarkdown_2.25                         </span></span>
-<span><span class="co">#&gt;   [6] fs_1.6.3                               </span></span>
-<span><span class="co">#&gt;   [7] BiocIO_1.13.0                          </span></span>
-<span><span class="co">#&gt;   [8] zlibbioc_1.49.0                        </span></span>
-<span><span class="co">#&gt;   [9] ragg_1.2.6                             </span></span>
-<span><span class="co">#&gt;  [10] vctrs_0.6.5                            </span></span>
-<span><span class="co">#&gt;  [11] memoise_2.0.1                          </span></span>
-<span><span class="co">#&gt;  [12] Rsamtools_2.19.2                       </span></span>
-<span><span class="co">#&gt;  [13] RCurl_1.98-1.13                        </span></span>
-<span><span class="co">#&gt;  [14] htmltools_0.5.7                        </span></span>
-<span><span class="co">#&gt;  [15] S4Arrays_1.3.1                         </span></span>
-<span><span class="co">#&gt;  [16] TxDb.Hsapiens.UCSC.hg19.knownGene_3.2.2</span></span>
-<span><span class="co">#&gt;  [17] progress_1.2.3                         </span></span>
-<span><span class="co">#&gt;  [18] curl_5.2.0                             </span></span>
-<span><span class="co">#&gt;  [19] SparseArray_1.3.1                      </span></span>
-<span><span class="co">#&gt;  [20] sass_0.4.8                             </span></span>
-<span><span class="co">#&gt;  [21] bslib_0.6.1                            </span></span>
-<span><span class="co">#&gt;  [22] htmlwidgets_1.6.4                      </span></span>
-<span><span class="co">#&gt;  [23] desc_1.4.3                             </span></span>
-<span><span class="co">#&gt;  [24] plotly_4.10.3                          </span></span>
-<span><span class="co">#&gt;  [25] cachem_1.0.8                           </span></span>
-<span><span class="co">#&gt;  [26] GenomicAlignments_1.39.0               </span></span>
-<span><span class="co">#&gt;  [27] mime_0.12                              </span></span>
-<span><span class="co">#&gt;  [28] lifecycle_1.0.4                        </span></span>
-<span><span class="co">#&gt;  [29] pkgconfig_2.0.3                        </span></span>
-<span><span class="co">#&gt;  [30] Matrix_1.6-4                           </span></span>
-<span><span class="co">#&gt;  [31] R6_2.5.1                               </span></span>
-<span><span class="co">#&gt;  [32] fastmap_1.1.1                          </span></span>
-<span><span class="co">#&gt;  [33] GenomeInfoDbData_1.2.11                </span></span>
-<span><span class="co">#&gt;  [34] shiny_1.8.0                            </span></span>
-<span><span class="co">#&gt;  [35] digest_0.6.33                          </span></span>
-<span><span class="co">#&gt;  [36] colorspace_2.1-0                       </span></span>
-<span><span class="co">#&gt;  [37] AnnotationDbi_1.65.2                   </span></span>
-<span><span class="co">#&gt;  [38] textshaping_0.3.7                      </span></span>
-<span><span class="co">#&gt;  [39] RSQLite_2.3.4                          </span></span>
-<span><span class="co">#&gt;  [40] filelock_1.0.3                         </span></span>
-<span><span class="co">#&gt;  [41] labeling_0.4.3                         </span></span>
-<span><span class="co">#&gt;  [42] fansi_1.0.6                            </span></span>
-<span><span class="co">#&gt;  [43] httr_1.4.7                             </span></span>
-<span><span class="co">#&gt;  [44] abind_1.4-5                            </span></span>
-<span><span class="co">#&gt;  [45] compiler_4.4.0                         </span></span>
-<span><span class="co">#&gt;  [46] bit64_4.0.5                            </span></span>
-<span><span class="co">#&gt;  [47] withr_2.5.2                            </span></span>
-<span><span class="co">#&gt;  [48] BiocParallel_1.37.0                    </span></span>
-<span><span class="co">#&gt;  [49] DBI_1.1.3                              </span></span>
-<span><span class="co">#&gt;  [50] highr_0.10                             </span></span>
-<span><span class="co">#&gt;  [51] biomaRt_2.59.0                         </span></span>
-<span><span class="co">#&gt;  [52] rappdirs_0.3.3                         </span></span>
-<span><span class="co">#&gt;  [53] DelayedArray_0.29.0                    </span></span>
-<span><span class="co">#&gt;  [54] rjson_0.2.21                           </span></span>
-<span><span class="co">#&gt;  [55] tools_4.4.0                            </span></span>
-<span><span class="co">#&gt;  [56] interactiveDisplayBase_1.41.0          </span></span>
-<span><span class="co">#&gt;  [57] httpuv_1.6.13                          </span></span>
-<span><span class="co">#&gt;  [58] glue_1.6.2                             </span></span>
-<span><span class="co">#&gt;  [59] restfulr_0.0.15                        </span></span>
-<span><span class="co">#&gt;  [60] promises_1.2.1                         </span></span>
-<span><span class="co">#&gt;  [61] grid_4.4.0                             </span></span>
-<span><span class="co">#&gt;  [62] generics_0.1.3                         </span></span>
-<span><span class="co">#&gt;  [63] gtable_0.3.4                           </span></span>
-<span><span class="co">#&gt;  [64] data.table_1.14.10                     </span></span>
-<span><span class="co">#&gt;  [65] hms_1.1.3                              </span></span>
-<span><span class="co">#&gt;  [66] xml2_1.3.6                             </span></span>
-<span><span class="co">#&gt;  [67] utf8_1.2.4                             </span></span>
-<span><span class="co">#&gt;  [68] XVector_0.43.0                         </span></span>
-<span><span class="co">#&gt;  [69] BiocVersion_3.19.1                     </span></span>
-<span><span class="co">#&gt;  [70] pillar_1.9.0                           </span></span>
-<span><span class="co">#&gt;  [71] stringr_1.5.1                          </span></span>
-<span><span class="co">#&gt;  [72] later_1.3.2                            </span></span>
-<span><span class="co">#&gt;  [73] lattice_0.22-5                         </span></span>
-<span><span class="co">#&gt;  [74] bit_4.0.5                              </span></span>
-<span><span class="co">#&gt;  [75] tidyselect_1.2.0                       </span></span>
-<span><span class="co">#&gt;  [76] Biostrings_2.71.1                      </span></span>
-<span><span class="co">#&gt;  [77] knitr_1.45                             </span></span>
-<span><span class="co">#&gt;  [78] bookdown_0.37                          </span></span>
-<span><span class="co">#&gt;  [79] xfun_0.41                              </span></span>
-<span><span class="co">#&gt;  [80] stringi_1.8.2                          </span></span>
-<span><span class="co">#&gt;  [81] lazyeval_0.2.2                         </span></span>
-<span><span class="co">#&gt;  [82] yaml_2.3.8                             </span></span>
-<span><span class="co">#&gt;  [83] evaluate_0.23                          </span></span>
-<span><span class="co">#&gt;  [84] codetools_0.2-19                       </span></span>
-<span><span class="co">#&gt;  [85] tibble_3.2.1                           </span></span>
-<span><span class="co">#&gt;  [86] BiocManager_1.30.22                    </span></span>
-<span><span class="co">#&gt;  [87] cli_3.6.2                              </span></span>
-<span><span class="co">#&gt;  [88] xtable_1.8-4                           </span></span>
-<span><span class="co">#&gt;  [89] systemfonts_1.0.5                      </span></span>
-<span><span class="co">#&gt;  [90] munsell_0.5.0                          </span></span>
-<span><span class="co">#&gt;  [91] jquerylib_0.1.4                        </span></span>
-<span><span class="co">#&gt;  [92] Rcpp_1.0.11                            </span></span>
-<span><span class="co">#&gt;  [93] png_0.1-8                              </span></span>
-<span><span class="co">#&gt;  [94] XML_3.99-0.16                          </span></span>
-<span><span class="co">#&gt;  [95] parallel_4.4.0                         </span></span>
-<span><span class="co">#&gt;  [96] ellipsis_0.3.2                         </span></span>
-<span><span class="co">#&gt;  [97] pkgdown_2.0.7                          </span></span>
-<span><span class="co">#&gt;  [98] blob_1.2.4                             </span></span>
-<span><span class="co">#&gt;  [99] prettyunits_1.2.0                      </span></span>
-<span><span class="co">#&gt; [100] bitops_1.0-7                           </span></span>
-<span><span class="co">#&gt; [101] viridisLite_0.4.2                      </span></span>
-<span><span class="co">#&gt; [102] scales_1.3.0                           </span></span>
-<span><span class="co">#&gt; [103] crayon_1.5.2                           </span></span>
-<span><span class="co">#&gt; [104] rlang_1.1.2                            </span></span>
-<span><span class="co">#&gt; [105] KEGGREST_1.43.0</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] DBI_1.1.3                              </span></span>
+<span><span class="co">#&gt;  [2] bitops_1.0-7                           </span></span>
+<span><span class="co">#&gt;  [3] biomaRt_2.59.0                         </span></span>
+<span><span class="co">#&gt;  [4] rlang_1.1.2                            </span></span>
+<span><span class="co">#&gt;  [5] magrittr_2.0.3                         </span></span>
+<span><span class="co">#&gt;  [6] compiler_4.4.0                         </span></span>
+<span><span class="co">#&gt;  [7] RSQLite_2.3.4                          </span></span>
+<span><span class="co">#&gt;  [8] GenomicFeatures_1.55.1                 </span></span>
+<span><span class="co">#&gt;  [9] png_0.1-8                              </span></span>
+<span><span class="co">#&gt; [10] systemfonts_1.0.5                      </span></span>
+<span><span class="co">#&gt; [11] vctrs_0.6.5                            </span></span>
+<span><span class="co">#&gt; [12] stringr_1.5.1                          </span></span>
+<span><span class="co">#&gt; [13] pkgconfig_2.0.3                        </span></span>
+<span><span class="co">#&gt; [14] crayon_1.5.2                           </span></span>
+<span><span class="co">#&gt; [15] fastmap_1.1.1                          </span></span>
+<span><span class="co">#&gt; [16] XVector_0.43.0                         </span></span>
+<span><span class="co">#&gt; [17] ellipsis_0.3.2                         </span></span>
+<span><span class="co">#&gt; [18] labeling_0.4.3                         </span></span>
+<span><span class="co">#&gt; [19] utf8_1.2.4                             </span></span>
+<span><span class="co">#&gt; [20] Rsamtools_2.19.2                       </span></span>
+<span><span class="co">#&gt; [21] rmarkdown_2.25                         </span></span>
+<span><span class="co">#&gt; [22] ragg_1.2.6                             </span></span>
+<span><span class="co">#&gt; [23] bit_4.0.5                              </span></span>
+<span><span class="co">#&gt; [24] xfun_0.41                              </span></span>
+<span><span class="co">#&gt; [25] zlibbioc_1.49.0                        </span></span>
+<span><span class="co">#&gt; [26] cachem_1.0.8                           </span></span>
+<span><span class="co">#&gt; [27] jsonlite_1.8.8                         </span></span>
+<span><span class="co">#&gt; [28] progress_1.2.3                         </span></span>
+<span><span class="co">#&gt; [29] blob_1.2.4                             </span></span>
+<span><span class="co">#&gt; [30] highr_0.10                             </span></span>
+<span><span class="co">#&gt; [31] DelayedArray_0.29.0                    </span></span>
+<span><span class="co">#&gt; [32] BiocParallel_1.37.0                    </span></span>
+<span><span class="co">#&gt; [33] prettyunits_1.2.0                      </span></span>
+<span><span class="co">#&gt; [34] parallel_4.4.0                         </span></span>
+<span><span class="co">#&gt; [35] R6_2.5.1                               </span></span>
+<span><span class="co">#&gt; [36] bslib_0.6.1                            </span></span>
+<span><span class="co">#&gt; [37] stringi_1.8.3                          </span></span>
+<span><span class="co">#&gt; [38] jquerylib_0.1.4                        </span></span>
+<span><span class="co">#&gt; [39] bookdown_0.37                          </span></span>
+<span><span class="co">#&gt; [40] knitr_1.45                             </span></span>
+<span><span class="co">#&gt; [41] Matrix_1.6-4                           </span></span>
+<span><span class="co">#&gt; [42] tidyselect_1.2.0                       </span></span>
+<span><span class="co">#&gt; [43] abind_1.4-5                            </span></span>
+<span><span class="co">#&gt; [44] yaml_2.3.8                             </span></span>
+<span><span class="co">#&gt; [45] codetools_0.2-19                       </span></span>
+<span><span class="co">#&gt; [46] curl_5.2.0                             </span></span>
+<span><span class="co">#&gt; [47] lattice_0.22-5                         </span></span>
+<span><span class="co">#&gt; [48] tibble_3.2.1                           </span></span>
+<span><span class="co">#&gt; [49] withr_2.5.2                            </span></span>
+<span><span class="co">#&gt; [50] KEGGREST_1.43.0                        </span></span>
+<span><span class="co">#&gt; [51] evaluate_0.23                          </span></span>
+<span><span class="co">#&gt; [52] desc_1.4.3                             </span></span>
+<span><span class="co">#&gt; [53] xml2_1.3.6                             </span></span>
+<span><span class="co">#&gt; [54] Biostrings_2.71.1                      </span></span>
+<span><span class="co">#&gt; [55] filelock_1.0.3                         </span></span>
+<span><span class="co">#&gt; [56] pillar_1.9.0                           </span></span>
+<span><span class="co">#&gt; [57] BiocManager_1.30.22                    </span></span>
+<span><span class="co">#&gt; [58] TxDb.Hsapiens.UCSC.hg19.knownGene_3.2.2</span></span>
+<span><span class="co">#&gt; [59] plotly_4.10.3                          </span></span>
+<span><span class="co">#&gt; [60] generics_0.1.3                         </span></span>
+<span><span class="co">#&gt; [61] RCurl_1.98-1.13                        </span></span>
+<span><span class="co">#&gt; [62] BiocVersion_3.19.1                     </span></span>
+<span><span class="co">#&gt; [63] hms_1.1.3                              </span></span>
+<span><span class="co">#&gt; [64] munsell_0.5.0                          </span></span>
+<span><span class="co">#&gt; [65] scales_1.3.0                           </span></span>
+<span><span class="co">#&gt; [66] glue_1.6.2                             </span></span>
+<span><span class="co">#&gt; [67] lazyeval_0.2.2                         </span></span>
+<span><span class="co">#&gt; [68] tools_4.4.0                            </span></span>
+<span><span class="co">#&gt; [69] BiocIO_1.13.0                          </span></span>
+<span><span class="co">#&gt; [70] data.table_1.14.10                     </span></span>
+<span><span class="co">#&gt; [71] GenomicAlignments_1.39.0               </span></span>
+<span><span class="co">#&gt; [72] fs_1.6.3                               </span></span>
+<span><span class="co">#&gt; [73] XML_3.99-0.16                          </span></span>
+<span><span class="co">#&gt; [74] grid_4.4.0                             </span></span>
+<span><span class="co">#&gt; [75] AnnotationDbi_1.65.2                   </span></span>
+<span><span class="co">#&gt; [76] colorspace_2.1-0                       </span></span>
+<span><span class="co">#&gt; [77] GenomeInfoDbData_1.2.11                </span></span>
+<span><span class="co">#&gt; [78] restfulr_0.0.15                        </span></span>
+<span><span class="co">#&gt; [79] cli_3.6.2                              </span></span>
+<span><span class="co">#&gt; [80] rappdirs_0.3.3                         </span></span>
+<span><span class="co">#&gt; [81] textshaping_0.3.7                      </span></span>
+<span><span class="co">#&gt; [82] fansi_1.0.6                            </span></span>
+<span><span class="co">#&gt; [83] S4Arrays_1.3.1                         </span></span>
+<span><span class="co">#&gt; [84] viridisLite_0.4.2                      </span></span>
+<span><span class="co">#&gt; [85] gtable_0.3.4                           </span></span>
+<span><span class="co">#&gt; [86] sass_0.4.8                             </span></span>
+<span><span class="co">#&gt; [87] digest_0.6.33                          </span></span>
+<span><span class="co">#&gt; [88] SparseArray_1.3.1                      </span></span>
+<span><span class="co">#&gt; [89] rjson_0.2.21                           </span></span>
+<span><span class="co">#&gt; [90] htmlwidgets_1.6.4                      </span></span>
+<span><span class="co">#&gt; [91] farver_2.1.1                           </span></span>
+<span><span class="co">#&gt; [92] memoise_2.0.1                          </span></span>
+<span><span class="co">#&gt; [93] htmltools_0.5.7                        </span></span>
+<span><span class="co">#&gt; [94] pkgdown_2.0.7                          </span></span>
+<span><span class="co">#&gt; [95] lifecycle_1.0.4                        </span></span>
+<span><span class="co">#&gt; [96] httr_1.4.7                             </span></span>
+<span><span class="co">#&gt; [97] mime_0.12                              </span></span>
+<span><span class="co">#&gt; [98] bit64_4.0.5</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

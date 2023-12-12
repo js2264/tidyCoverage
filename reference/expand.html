@@ -66,17 +66,17 @@ and <code>seqnames</code> to the resulting <code>tibble</code>.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S4 method for CoverageExperiment</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/expand-methods.html" class="external-link">expand</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for CoverageExperiment</span></span>
+<span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/expand.html" class="external-link">expand</a></span><span class="op">(</span><span class="va">data</span>, <span class="va">...</span>, .name_repair <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>x</dt>
+    <dl><dt>data</dt>
 <dd><p>a <code>CoverageExperiment</code> object</p></dd>
 
 
-<dt>...</dt>
+<dt>..., .name_repair</dt>
 <dd><p>ignored</p></dd>
 
 </dl></div>
@@ -101,21 +101,21 @@ and <code>seqnames</code> to the resulting <code>tibble</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> colData names(1): track</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> width: 3000</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/expand-methods.html" class="external-link">expand</a></span><span class="op">(</span><span class="va">ce</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 368,400 × 7</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/expand.html" class="external-link">expand</a></span><span class="op">(</span><span class="va">ce</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 368,400 × 8</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Groups:   track, features, ranges [1,228]</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    track   features chr   ranges         strand coord coverage</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> RNA_fwd Scc1     II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>290   -<span style="color: #BB0000;">0.257</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> RNA_fwd Scc1     II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>300   -<span style="color: #BB0000;">0.257</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> RNA_fwd Scc1     II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>310   -<span style="color: #BB0000;">0.257</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> RNA_fwd Scc1     II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>320   -<span style="color: #BB0000;">0.257</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> RNA_fwd Scc1     II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>330   -<span style="color: #BB0000;">0.257</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> RNA_fwd Scc1     II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>340   -<span style="color: #BB0000;">0.257</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> RNA_fwd Scc1     II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>350   -<span style="color: #BB0000;">0.257</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> RNA_fwd Scc1     II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>360   -<span style="color: #BB0000;">0.257</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> RNA_fwd Scc1     II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>370   -<span style="color: #BB0000;">0.257</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> RNA_fwd Scc1     II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>380   -<span style="color: #BB0000;">0.257</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    track   features chr   ranges         strand coord coverage coord.scaled</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> RNA_fwd Scc1     II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>290   -<span style="color: #BB0000;">0.257</span>        -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">500</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> RNA_fwd Scc1     II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>300   -<span style="color: #BB0000;">0.257</span>        -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">490</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> RNA_fwd Scc1     II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>310   -<span style="color: #BB0000;">0.257</span>        -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">480</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> RNA_fwd Scc1     II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>320   -<span style="color: #BB0000;">0.257</span>        -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">470</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> RNA_fwd Scc1     II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>330   -<span style="color: #BB0000;">0.257</span>        -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">460</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> RNA_fwd Scc1     II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>340   -<span style="color: #BB0000;">0.257</span>        -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">450</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> RNA_fwd Scc1     II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>350   -<span style="color: #BB0000;">0.257</span>        -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">440</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> RNA_fwd Scc1     II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>360   -<span style="color: #BB0000;">0.257</span>        -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">430</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> RNA_fwd Scc1     II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>370   -<span style="color: #BB0000;">0.257</span>        -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">420</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> RNA_fwd Scc1     II    II:4290-7289:+ +       <span style="text-decoration: underline;">4</span>380   -<span style="color: #BB0000;">0.257</span>        -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">410</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 368,390 more rows</span></span>
 </code></pre></div>
     </div>
