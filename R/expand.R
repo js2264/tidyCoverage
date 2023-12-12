@@ -13,10 +13,10 @@
 #' @rdname expand
 #' 
 #' @param x a `CoverageExperiment` object
-#' @param ... ignored
+#' @param ...,.name_repair ignored
 #' @return a `tibble` object
 #' 
-#' @importFrom S4Vectors expand
+#' @importFrom tidyr expand
 #' @export
 #' @examples 
 #' data(ce)
@@ -24,7 +24,7 @@
 #' 
 #' expand(ce)
 
-setMethod("expand", signature(x = "CoverageExperiment"), function(x, ...) {
+expand.CoverageExperiment <- function(x, ..., .name_repair = NULL) {
     tracks <- colData(x)$track
     features <- rowData(x)$features
     w <- width(rowRanges(x)[[1]])[[1]]
@@ -33,6 +33,7 @@ setMethod("expand", signature(x = "CoverageExperiment"), function(x, ...) {
         rr <- rowRanges(x)[[f]]
         rrdf <- as.data.frame(rr)
         coord <- lapply(seq_len(nrow(rrdf)), function(K) seq(rrdf[K, 'start'], rrdf[K, 'end'], by = bin)) |> unlist()
+        coord.scaled <- lapply(seq_len(nrow(rrdf)), function(K) seq(-w/2, w/2-1, by = bin)) |> unlist()
         lapply(tracks, function(t) {
             m <- assay(x, "coverage")[f, t][[1]] |> 
                 as.data.frame() |>
@@ -45,10 +46,11 @@ setMethod("expand", signature(x = "CoverageExperiment"), function(x, ...) {
                 dplyr::relocate(tidyr::all_of(c("track", "features", "chr", "ranges", "strand")))
             d <- tidyr::pivot_longer(
                 m, 
-                !tidyr::any_of(c("track", "features", "chr", "ranges", "strand")), 
+                !tidyr::any_of(c("track", "features", "chr", "ranges", "strand", "coord.scaled")), 
                 names_to = "coord", values_to = "coverage"
             )
             d$coord <- coord
+            d$coord.scaled <- coord.scaled
             d
         }) |> dplyr::bind_rows()
     }) |> 
@@ -56,4 +58,4 @@ setMethod("expand", signature(x = "CoverageExperiment"), function(x, ...) {
         dplyr::left_join(colData(x) |> as.data.frame(), by = 'track') |> 
         dplyr::group_by(track, features, ranges)
     return(df)
-})
+}

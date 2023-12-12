@@ -2,15 +2,16 @@
 % Please edit documentation in R/expand.R
 \name{expand,CoverageExperiment}
 \alias{expand,CoverageExperiment}
+\alias{expand.CoverageExperiment}
 \alias{expand,CoverageExperiment-method}
 \title{Expand a CoverageExperiment object}
 \usage{
-\S4method{expand}{CoverageExperiment}(x, ...)
+\method{expand}{CoverageExperiment}(x, ..., .name_repair = NULL)
 }
 \arguments{
 \item{x}{a \code{CoverageExperiment} object}
 
-\item{...}{ignored}
+\item{..., .name_repair}{ignored}
 }
 \value{
 a \code{tibble} object

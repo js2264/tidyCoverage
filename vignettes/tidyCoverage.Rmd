@@ -122,7 +122,6 @@ coarsen(CE, window = 50)
 expand(CE)
 ```
 
-
 ### Plot coverage of a set of tracks over a single genomic locus
 
 ```{r}
@@ -137,13 +136,13 @@ tracks <- list(
     MNase = system.file("extdata", "MNase.bw", package = "tidyCoverage")
 ) |> BigWigFileList()
 
-locus <- "II:450001-475000"
-CE2 <- CoverageExperiment(
+locus <- GRanges("II:450001-475000")
+p <- CoverageExperiment(
     tracks = tracks, 
-    features = GRanges(locus),
-    width = width   (GRanges(locus))
-) |> coarsen(window = width(GRanges(locus))/1000)
-CE2 |> 
+    features = locus,
+    width = width(locus)
+) |> 
+    coarsen(window = 25) |> 
     expand() |> 
     ggplot(aes(x = coord, y = coverage)) + 
         geom_col(aes(fill = track, col = track)) + 

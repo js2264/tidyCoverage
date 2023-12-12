@@ -4,8 +4,8 @@
 \name{reexports}
 \alias{reexports}
 \alias{as_tibble}
-\alias{aggregate}
 \alias{expand}
+\alias{aggregate}
 \title{Objects exported from other packages}
 \value{
 Depending on the re-exported function
@@ -21,6 +21,8 @@ below to see their documentation.
 \describe{
   \item{dplyr}{\code{\link[dplyr:reexports]{as_tibble}}}
 
-  \item{S4Vectors}{\code{\link[S4Vectors:aggregate-methods]{aggregate}}, \code{\link[S4Vectors:expand-methods]{expand}}}
+  \item{S4Vectors}{\code{\link[S4Vectors:aggregate-methods]{aggregate}}}
+
+  \item{tidyr}{\code{\link[tidyr]{expand}}}
 }}
 

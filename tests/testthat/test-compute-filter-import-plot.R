@@ -188,7 +188,7 @@ test_that("expand method works", {
         tracks, features, width = 100, scale = TRUE, center = TRUE
     )
     expect_true(all(dim(expand(CE)) == c(402600, 7)))
-    expect_true(all(colnames(expand(CE)) == c("track", "features", "chr", "ranges", "strand", "coord", "coverage")))
+    expect_true(all(colnames(expand(CE)) == c("track", "features", "chr", "ranges", "strand", "coord", "coverage", "coord.scaled")))
 })
 
 test_that("coarsen method works", {

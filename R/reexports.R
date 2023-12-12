@@ -11,11 +11,11 @@ NULL
 dplyr::as_tibble
 
 #' @rdname reexports
+#' @importFrom tidyr expand
+#' @export
+tidyr::expand
+
+#' @rdname reexports
 #' @importFrom S4Vectors aggregate
 #' @export
 S4Vectors::aggregate
-
-#' @rdname reexports
-#' @importFrom S4Vectors expand
-#' @export
-S4Vectors::expand
