@@ -187,7 +187,7 @@ test_that("expand method works", {
     CE <- CoverageExperiment(
         tracks, features, width = 100, scale = TRUE, center = TRUE
     )
-    expect_true(all(dim(expand(CE)) == c(402600, 7)))
+    expect_true(all(dim(expand(CE)) == c(402600, 8)))
     expect_true(all(colnames(expand(CE)) == c("track", "features", "chr", "ranges", "strand", "coord", "coverage", "coord.scaled")))
 })
 

@@ -6,10 +6,10 @@
 \alias{expand,CoverageExperiment-method}
 \title{Expand a CoverageExperiment object}
 \usage{
-\method{expand}{CoverageExperiment}(x, ..., .name_repair = NULL)
+\method{expand}{CoverageExperiment}(data, ..., .name_repair = NULL)
 }
 \arguments{
-\item{x}{a \code{CoverageExperiment} object}
+\item{data}{a \code{CoverageExperiment} object}
 
 \item{..., .name_repair}{ignored}
 }

@@ -12,7 +12,7 @@
 #' @aliases expand,CoverageExperiment-method
 #' @rdname expand
 #' 
-#' @param x a `CoverageExperiment` object
+#' @param data a `CoverageExperiment` object
 #' @param ...,.name_repair ignored
 #' @return a `tibble` object
 #' 
@@ -24,18 +24,18 @@
 #' 
 #' expand(ce)
 
-expand.CoverageExperiment <- function(x, ..., .name_repair = NULL) {
-    tracks <- colData(x)$track
-    features <- rowData(x)$features
-    w <- width(rowRanges(x)[[1]])[[1]]
-    bin <- w / ncol(assay(x, "coverage")[1, 1][[1]])
+expand.CoverageExperiment <- function(data, ..., .name_repair = NULL) {
+    tracks <- colData(data)$track
+    features <- rowData(data)$features
+    w <- width(rowRanges(data)[[1]])[[1]]
+    bin <- w / ncol(assay(data, "coverage")[1, 1][[1]])
     df <- lapply(features, function(f) {
-        rr <- rowRanges(x)[[f]]
+        rr <- rowRanges(data)[[f]]
         rrdf <- as.data.frame(rr)
         coord <- lapply(seq_len(nrow(rrdf)), function(K) seq(rrdf[K, 'start'], rrdf[K, 'end'], by = bin)) |> unlist()
         coord.scaled <- lapply(seq_len(nrow(rrdf)), function(K) seq(-w/2, w/2-1, by = bin)) |> unlist()
         lapply(tracks, function(t) {
-            m <- assay(x, "coverage")[f, t][[1]] |> 
+            m <- assay(data, "coverage")[f, t][[1]] |> 
                 as.data.frame() |>
                 dplyr::mutate(
                     track = t, features = f, 
@@ -55,7 +55,7 @@ expand.CoverageExperiment <- function(x, ..., .name_repair = NULL) {
         }) |> dplyr::bind_rows()
     }) |> 
         dplyr::bind_rows() |> 
-        dplyr::left_join(colData(x) |> as.data.frame(), by = 'track') |> 
+        dplyr::left_join(colData(data) |> as.data.frame(), by = 'track') |> 
         dplyr::group_by(track, features, ranges)
     return(df)
 }
