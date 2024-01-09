@@ -1,6 +1,6 @@
 Package: tidyCoverage
 Title: Extract and aggregate genomic coverage over features of interest
-Version: 0.99.2
+Version: 0.99.3
 Date: 2023-11-09
 Authors@R: 
     person("Jacques", "Serizay", , "jacquesserizay@gmail.com", 
@@ -9,7 +9,7 @@ Description: `tidyCoverage` framework enables tidy manipulation
     of collections of genomic tracks and features using 
     `tidySummarizedExperiment` methods. It facilitates the 
     extraction, aggregation and visualization of genomic coverage over 
-    individual of thousands of genomic loci, relying on `CoverageExperiment`
+    individual or thousands of genomic loci, relying on `CoverageExperiment`
     and `AggregatedCoverage` classes. This accelerates the integration 
     of genomic track data in genomic analysis workflows. 
 License: MIT + file LICENSE
