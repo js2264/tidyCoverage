@@ -53,6 +53,11 @@ sets of genomic features of interests.
 
 ### `CoverageExperiment`
 
+`tidyCoverage` package defines the `CoverageExperiment`, directly extending
+the `SummarizedExperiment` class. This means that all standard methods 
+available for `SummarizedExperiment`s are available for `CoverageExperiment` 
+objects.
+
 ```{r}
 library(tidyCoverage)
 showClass("CoverageExperiment")
@@ -69,11 +74,37 @@ colData(ce)
 assays(ce)
 
 assay(ce, 'coverage')
+```
 
-assay(ce[1, 1], 'coverage')
+Note that whereas traditional `SummarizedExperiment` objects 
+store atomic values stored in individual cells of an assay, each cell of 
+the `CoverageExperiment` `coverage` assay contains a list of length 1, 
+itself containing an array. This array stores the per-base 
+coverage score of a genomic track (from `colData`) over a set of genomic 
+ranges of interest (from `rowData`). 
+
+```{r}
+assay(ce, 'coverage')
+
+assay(ce, 'coverage')[1, 1] |> class()
+
+assay(ce, 'coverage')[1, 1] |> length()
+
+assay(ce, 'coverage')[1, 1][[1]] |> class()
+
+assay(ce, 'coverage')[1, 1][[1]] |> dim()
+
+## Compare this to `rowData(ce)$n` and `width(ce)`
+rowData(ce)$n
+
+width(ce)
+
+assay(ce[1, 1], 'coverage')[[1]][1:10, 1:10]
 ```
 
 ### `AggregatedCoverage`
+
+`AggregatedCoverage` also directly extends the `SummarizedExperiment` class. 
 
 ```{r}
 showClass("AggregatedCoverage")
@@ -90,18 +121,43 @@ colData(ac)
 assays(ac)
 
 assay(ac, 'mean')
+```
 
-assay(ac[1, 1], 'mean')
+It stores per-base coverage statistical metrics in assays (e.g. `mean`, `median`, ...). 
+Each assay thus contains an **matrix of vectors**. 
+
+```{r}
+assay(ac[1, 1], 'mean')[[1]] |> dim()
+
+assay(ac[1, 1], 'mean')[[1]] |> length()
+
+assay(ac[1, 1], 'mean')[[1]][1:10]
 ```
 
 ## Manipulate `CoverageExperiment` objects
 
 ### Create a `CoverageExperiment` object
 
+One can use `CoverageExperiment()` constructor along with: 
+
+- A single `bigwig` file imported `as = "Rle"` and a `GRanges` or a *named* `GRangesList`; 
+- A *named* list of `bigwig` files imported `as = "Rle"` and a `GRanges` or a *named* `GRangesList`; 
+- A `BigWigFile` object and a `GRanges` or a *named* `GRangesList`; 
+- A *named* `BigWigFileList` object and a `GRanges` or a *named* `GRangesList`; 
+
+A numeric `width` argument also needs to be specified. It is used to center 
+`features` to their midpoint and resize them to the chosen `width`. 
+
+For example:
+
 ```{r}
 library(rtracklayer)
 bw_file <- system.file("extdata", "MNase.bw", package = "tidyCoverage")
+bw_file
+
 bed_file <- system.file("extdata", "TSSs.bed", package = "tidyCoverage")
+bed_file
+
 CE <- CoverageExperiment(
     tracks = import(bw_file, as = "Rle"), 
     features = import(bed_file),
@@ -110,23 +166,94 @@ CE <- CoverageExperiment(
 CE
 ```
 
-### Bin a `CoverageExperiment` object 
+And this works as well (note that in this case the names of the `GRangesList`
+are being used as `rownames`):
 
 ```{r}
-coarsen(CE, window = 50)
+library(rtracklayer)
+bw_file <- system.file("extdata", "MNase.bw", package = "tidyCoverage")
+bw_file
+
+bed_file <- system.file("extdata", "TSSs.bed", package = "tidyCoverage")
+bed_file
+
+CoverageExperiment(
+    tracks = BigWigFile(bw_file), 
+    features = GRangesList('TSSs' = import(bed_file)),
+    width = 3000
+)
+```
+
+### Bin a `CoverageExperiment` object 
+
+By default, `CoverageExperiment` objects store _per-base_ track coverage. 
+This implies that any cell from the `coverage` assay has as many columns 
+as the `width` provided in the constructor function. 
+
+```{r}
+assay(CE, 'coverage')[1, 1][[1]] |> ncol()
+```
+
+If _per-base_ resolution is not needed, one can use the `window` argument in 
+the constructor function to average the coverage score over non-overlapping bins. 
+
+```{r}
+CE2 <- CoverageExperiment(
+    tracks = import(bw_file, as = "Rle"), 
+    features = import(bed_file),
+    width = 3000, 
+    window = 20
+)
+
+CE2
+
+assay(CE2, 'coverage')[1, 1][[1]] |> ncol()
+```
+
+If a `CoverageExperiment` object has already been computed, the `coarsen()` 
+function can be used afterwards to reduce the resolution of the object. 
+
+```{r}
+CE3 <- coarsen(CE, window = 20)
+
+CE3 
+
+identical(CE2, CE3)
 ```
 
 ### Expand a `CoverageExperiment` object 
+
+The `expand` method from the `tidyr` package is adapted to `CoverageExperiment`
+objects to return a tidy `tibble`. This reformated object contains several 
+columns: 
+
+1. `track`: storing `colnames`, i.e. names of tracks used in the original `CoverageExperiment`; 
+2. `features`: storing `rownames`, i.e. names of features used in the original `CoverageExperiment`; 
+3. `chr`: features `seqnames` from the `CoverageExperiment`; 
+4. `ranges`: features from the `CoverageExperiment` coerced as `character`; 
+5. `strand`: features `strand` from the `CoverageExperiment`; 
+6. `coord`: exact genomic position from the `CoverageExperiment`; 
+7. `coverage`: coverage score extracted from corresponding `track` at `chr:coord`;
+8. `coord.scaled`: 0-centered genomic position;
 
 ```{r}
 expand(CE)
 ```
 
-### Plot coverage of a set of tracks over a single genomic locus
+Note that if the `CoverageExperiment` object has been coarsened using `window = ...`,
+the `coord` and `coord.scaled` are handled correspondingly. 
 
 ```{r}
-library(ggplot2)
+expand(CE3)
+```
 
+### Plot coverage of a set of tracks over a single genomic locus
+
+To illustrate how to visualize coverage tracks from a `CoverageExperiment` 
+object over a single genomic locus of interest, 
+let's use sample data provided in the `tidyCoverage` package. 
+
+```{r}
 # ~~~~~~~~~~~~~~~ Import coverage tracks into a named list ~~~~~~~~~~~~~~~ #
 tracks <- list(
     Scc1 = system.file("extdata", "Scc1.bw", package = "tidyCoverage"), 
@@ -137,12 +264,24 @@ tracks <- list(
 ) |> BigWigFileList()
 
 locus <- GRanges("II:450001-475000")
-p <- CoverageExperiment(
+
+# ~~~~~~~~~~~~~~~ Instantiate a CoverageExperiment object ~~~~~~~~~~~~~~~ #
+CE_chrII <- CoverageExperiment(
     tracks = tracks, 
     features = locus,
     width = width(locus)
-) |> 
-    coarsen(window = 25) |> 
+)
+
+CE_chrII
+```
+
+From there, it is easy to (optionally) `coarsen` then `expand` the 
+`CoverageExperiment` into a `tibble` and use `ggplot2` for visualization. 
+
+```{r}
+library(ggplot2)
+CE_chrII |> 
+    coarsen(window = 10) |> 
     expand() |> 
     ggplot(aes(x = coord, y = coverage)) + 
         geom_col(aes(fill = track, col = track)) + 
@@ -152,19 +291,64 @@ p <- CoverageExperiment(
         theme(legend.position = "none", aspect.ratio = 0.1)
 ```
 
+In this plot, each facet represents the coverage of a different genomic track 
+over a single region of interest (`chrII:450001-475000`). Each facet has 
+independent scaling thanks to `facet_grid(..., scales = free)`.
+
 ## Manipulate `AggregatedCoverage` objects
 
 ### Aggregate a `CoverageExperiment` into an `AggregatedCoverage` object
 
+It is often useful to `aggregate()` genomic `tracks` coverage over a set of 
+genomic `features`. 
+
 ```{r}
 AC <- aggregate(CE)
+
 AC
 
-AC10 <- aggregate(CE, bin = 10)
-AC10
+assay(AC, 'mean')[1, 1][[1]] |> length()
+```
+
+```{r}
+AC20 <- aggregate(CE, bin = 20)
+AC20
+
+assay(AC20, 'mean')[1, 1][[1]] |> length()
+```
+
+The resulting `AggregatedCoverage` objects can be readily coerced into a `tibble`. 
+
+```{r}
+as_tibble(AC20)
+```
+
+Note that the `coarsen-then-aggregate` or `aggregate-by-bin` are **NOT** 
+equivalent. This is due to the certain operations being not commutative with `mean` (e.g. `sd`, `min`/`max`, ...). 
+
+```{r}
+## Coarsen `CoverageExperiment` with `window = ...` then per-bin `aggregate`:
+CoverageExperiment(
+    tracks = import(bw_file, as = "Rle"), features = import(bed_file),
+    width = 3000
+) |> 
+    coarsen(window = 20) |> ### FIRST COARSEN...
+    aggregate() |>          ### ... THEN AGGREGATE
+    as_tibble()
+
+## Per-base `CoverageExperiment` then `aggregate` with `bin = ...`: 
+CoverageExperiment(
+    tracks = import(bw_file, as = "Rle"), features = import(bed_file),
+    width = 3000
+) |> 
+    aggregate(bin = 20) |>  ### DIRECTLY AGGREGATE BY BIN
+    as_tibble()
 ```
 
 ### `AggregatedCoverage` over multiple tracks / feature sets
+
+As en example for the rest of this vignette, we compute an `AggregatedCoverage` 
+object using multiple genomic track files and multiple sets of genomic ranges. 
 
 ```{r}
 library(purrr)
@@ -195,47 +379,102 @@ AC
 
 ### Plot aggregated coverages with `ggplot2`
 
+Because `AggregatedCoverage` objects can be easily coerced into `tibble`s, 
+the full range of `ggplot2` functionalities can be exploited to plot 
+aggregated coverage signal of multiple tracks over multiple sets of genomic ranges. 
+
 ```{r}
-as_tibble(AC) |> 
+AC |> 
+    as_tibble() |> 
+    ggplot(aes(x = coord, y = mean, group = interaction(features, track), col = track)) + 
+    geom_line()
+```
+
+This plot is way too busy. Let's first split into facets using `features`:
+
+```{r}
+AC |> 
+    as_tibble() |> 
+    ggplot(aes(x = coord, y = mean, col = track)) + 
+    geom_line() + 
+    facet_grid(features ~ .)
+```
+
+Better, but what about adding confidence interval for each coverage track: 
+
+```{r}
+AC |> 
+    as_tibble() |> 
+    ggplot(aes(x = coord, y = mean)) + 
+    geom_ribbon(aes(ymin = ci_low, ymax = ci_high, fill = track), alpha = 0.2) + 
+    geom_line(aes(col = track)) + 
+    facet_grid(features ~ .)
+```
+
+Nearly there, few cosmethic changes and we're done! 
+
+```{r}
+AC |> 
+    as_tibble() |> 
     ggplot(aes(x = coord, y = mean)) + 
     geom_ribbon(aes(ymin = ci_low, ymax = ci_high, fill = track), alpha = 0.2) + 
     geom_line(aes(col = track)) + 
     facet_grid(features ~ .) + 
-    labs(x = 'Distance from genomic feature', y = 'Mean coverage') + 
+    labs(x = 'Distance from genomic feature', y = 'Mean coverage (± 95% conf. intervale)') + 
     theme_bw() + 
     theme(legend.position = 'top')
 ```
 
-### Use a tidy grammar
+## Use a tidy grammar
+
+`tidySummarizedExperiment` package implements native `tidyverse` functionalities 
+to `SummarizedExperiment` objects and their extensions. It tweaks the way 
+`CoverageExperiment` and `AggregatedCoverage` objects look and feel, but 
+do not change the underlying data or object. 
+
+In particular, this means that data wrangling _verbs_ provided by `dplyr` 
+can directly work on `CoverageExperiment` and `AggregatedCoverage` objects, 
+provided that the `tidySummarizedExperiment` package is loaded. 
 
 ```{r}
 library(tidySummarizedExperiment)
-CE |> 
-    filter(track != 'Scc1') |> 
+CE
+
+AC <- CE |> 
+    filter(track == 'Scc1') |> 
     filter(features == 'Convergent transcription') |> 
-    aggregate() |> 
+    aggregate()
+
+AC
+```
+
+This also means that `as_tibble()` coercing step is facultative 
+if the `tidySummarizedExperiment` package id loaded. 
+
+```{r}
+AC |> 
     ggplot(aes(x = coord, y = mean)) + 
-    geom_ribbon(aes(ymin = ci_low, ymax = ci_high, fill = track), alpha = 0.2) + 
     geom_line(aes(col = track)) + 
     facet_grid(track ~ .) + 
-    labs(x = 'Distance from locus of convergent transcription', y = 'RNA-seq coverage') + 
+    labs(x = 'Distance from locus of convergent transcription', y = 'Scc1 coverage') + 
     theme_bw() + 
     theme(legend.position = 'top')
 ```
 
-### Coarsen the aggregated coverage statistics
+**Note:** To read more about the `tidySummarizedExperiment` package and the overall 
+`tidyomics` project, read the preprint [here](https://www.biorxiv.org/content/10.1101/2023.09.10.557072v2). 
+
+### Example workflow using tidy grammar
 
 ```{r}
-CE |> 
-    filter(track != 'Scc1') |> 
-    filter(features == 'Convergent transcription') |> 
-    aggregate(bin = 200) |> 
+CoverageExperiment(tracks, features, width = 5000, scale = TRUE, center = TRUE) |> 
+    filter(track == 'RNA_fwd') |> 
+    aggregate(bin = 20) |> 
     ggplot(aes(x = coord, y = mean)) + 
-    geom_ribbon(aes(ymin = ci_low, ymax = ci_high, fill = track), alpha = 0.2) + 
-    geom_line(aes(col = track)) + 
-    geom_point(aes(col = track)) + 
-    facet_grid(track ~ .) + 
-    labs(x = 'Distance from locus of convergent transcription', y = 'Mean coverage') + 
+    geom_ribbon(aes(ymin = ci_low, ymax = ci_high, fill = features), alpha = 0.2) + 
+    geom_line(aes(col = features)) + 
+    facet_grid(features ~ .) + 
+    labs(x = 'Distance to center of genomic features', y = 'Forward RNA-seq coverage') + 
     theme_bw() + 
     theme(legend.position = 'top')
 ```
@@ -243,6 +482,8 @@ CE |>
 ## Example use case: `AnnotationHub` and `TxDb` resources
 
 ### Recover TSSs of forward human genes 
+
+Let's first fetch features of interest from the human `TxDb` resources. 
 
 ```{r}
 txdb <- TxDb.Hsapiens.UCSC.hg19.knownGene::TxDb.Hsapiens.UCSC.hg19.knownGene
@@ -252,25 +493,34 @@ TSSs <- GenomicFeatures::genes(txdb) |>
     mutate(width = 1)
 ```
 
+These 1bp-wide `GRanges` correspond to forward TSSs genomic positions. 
+
 ### Recover H3K4me3 coverage track from ENCODE
+
+Let's also fetch a real-life ChIP-seq dataset (e.g. `H3K4me3`) 
+from ENCODE stored in the `AnnotationHub`:
 
 ```{r}
 library(AnnotationHub)
 ah <- AnnotationHub()
 ah['AH34904']
 H3K4me3_bw <- ah[['AH34904']]
+
+H3K4me3_bw
 ```
 
 ### Compute the aggregated coverage of H3K4me3 ± 3kb around the TSSs of forward human genes 
 
+We can now extract the coverage of `H3K4me3` over all the human forward TSSs 
+(± 3kb) and aggregate this coverage. 
+
 ```{r}
-CE <- CoverageExperiment(
+CoverageExperiment(
     H3K4me3_bw, TSSs, 
     width = 6000, 
     scale = TRUE, center = TRUE
-)
-AC <- aggregate(CE)
-as_tibble(AC) |> 
+) |> 
+    aggregate() |> 
     ggplot(aes(x = coord, y = mean)) + 
     geom_ribbon(aes(ymin = ci_low, ymax = ci_high, fill = track), alpha = 0.2) + 
     geom_line(aes(col = track)) + 
@@ -280,7 +530,12 @@ as_tibble(AC) |>
     theme(legend.position = 'top')
 ```
 
+We obtain the typical profile of enrichment of `H3K4me3` over the +1 nucleosome. 
+
 ### With more genomic tracks
+
+This more complex example fetches a collection of 15 different ChIP-seq genomic 
+tracks to check their profile of enrichment over human forward TSSs. 
 
 ```{r eval = FALSE}
 # ~~~~~~~~~~ Recover 15 different histone PTM ChIP-seq tracks ~~~~~~~~~~ #

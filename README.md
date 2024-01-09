@@ -29,7 +29,8 @@ tracks <- list(
 ## Plot tracks coverage aggregated over genomic features
 
 ```r
-CoverageExperiment(tracks, features, width = 3000, ignore.strand = FALSE) |> 
+CE <- CoverageExperiment(tracks, features, width = 1000, ignore.strand = FALSE) 
+CE |> 
     filter(track %in% c('MNase', 'PolII')) |> 
     filter(features == 'TSSs') |> 
     aggregate() |> 
