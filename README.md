@@ -59,3 +59,23 @@ CoverageExperiment(tracks, GRanges("II:450001-455000"), width = 5000) |>
 ```
 
 ![](man/figures/cov.png)
+
+## Related projects
+
+A number of `CRAN`, `Bioconductor` or `GitHub` packages already exist to enable genomic track 
+data visualization, for instance: 
+
+- `Gviz` [\[Bioconductor\]](https://www.bioconductor.org/packages/release/bioc/html/Gviz.html)
+- `soGGi` [\[Bioconductor\]](https://www.bioconductor.org/packages/release/bioc/html/soGGi.html)
+- `GenomicPlot` [\[Bioconductor\]](https://www.bioconductor.org/packages/release/bioc/html/GenomicPlot.html)
+- `plotgardener` [\[Bioconductor\]](https://www.bioconductor.org/packages/release/bioc/html/plotgardener.html)
+- `genomation` [\[Bioconductor\]](https://www.bioconductor.org/packages/release/bioc/html/genomation.html)
+- `ggcoverage` [\[GitHub\]](https://github.com/showteeth/ggcoverage)
+- `GenomicScores` [\[Bioconductor\]](https://www.bioconductor.org/packages/release/bioc/html/GenomicScores.html)
+
+Compared to these existing solutions, `tidyCoverage` directly extends `SummarizedExperiment` infrastructure and 
+follows [tidy "omics" principles](https://www.biorxiv.org/content/10.1101/2023.09.10.557072v2). It does 
+not directly provide **plotting** functionalities, but instead focuses on data recovery, structure and coercion, 
+using a familiar grammar and standard representation of the data. 
+This ensures seamless integration of genomic track investigation in exisiting 
+`Bioconductor` and data analysis workflows. 
