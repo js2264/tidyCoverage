@@ -20,7 +20,12 @@ knitr::opts_chunk$set(
     collapse = TRUE,
     comment = "#>",
     crop = NULL, 
-    width = 180
+    width = 180, 
+    dpi = 72, 
+    fig.align = "center", 
+    fig.width = 5, 
+    fig.asp = 0.7, 
+    dev = 'jpeg'
 )
 ```
 
@@ -28,7 +33,7 @@ knitr::opts_chunk$set(
 library(tidyCoverage)
 ```
 
-## Introduction 
+# Introduction 
 
 Genome-wide assays provide powerful methods to profile the composition, the
 conformation and the activity of the chromatin. Linear "coverage" tracks 
@@ -49,7 +54,7 @@ classes built on top of the `SummarizedExperiment` class. These classes
 formalize the extraction and aggregation of coverage tracks over 
 sets of genomic features of interests. 
 
-## Installation
+# Installation
 
 `tidyCoverage` package can be installed from Bioconductor using the following
 command: 
@@ -61,9 +66,9 @@ if (!require("BiocManager", quietly = TRUE))
 BiocManager::install("tidyCoverage")
 ```
 
-## `CoverageExperiment` and `AggregatedCoverage` classes
+# `CoverageExperiment` and `AggregatedCoverage` classes
 
-### `CoverageExperiment`
+## `CoverageExperiment`
 
 `tidyCoverage` package defines the `CoverageExperiment`, directly extending
 the `SummarizedExperiment` class. This means that all standard methods 
@@ -106,7 +111,7 @@ assay(ce, 'coverage')[1, 1][[1]] |> class()
 
 assay(ce, 'coverage')[1, 1][[1]] |> dim()
 
-## Compare this to `rowData(ce)$n` and `width(ce)`
+# Compare this to `rowData(ce)$n` and `width(ce)`
 rowData(ce)$n
 
 width(ce)
@@ -114,7 +119,7 @@ width(ce)
 assay(ce[1, 1], 'coverage')[[1]][1:10, 1:10]
 ```
 
-### `AggregatedCoverage`
+## `AggregatedCoverage`
 
 `AggregatedCoverage` also directly extends the `SummarizedExperiment` class. 
 
@@ -146,9 +151,9 @@ assay(ac[1, 1], 'mean')[[1]] |> length()
 assay(ac[1, 1], 'mean')[[1]][1:10]
 ```
 
-## Manipulate `CoverageExperiment` objects
+# Manipulate `CoverageExperiment` objects
 
-### Create a `CoverageExperiment` object
+## Create a `CoverageExperiment` object
 
 One can use `CoverageExperiment()` constructor along with: 
 
@@ -196,7 +201,7 @@ CoverageExperiment(
 )
 ```
 
-### Bin a `CoverageExperiment` object 
+## Bin a `CoverageExperiment` object 
 
 By default, `CoverageExperiment` objects store _per-base_ track coverage. 
 This implies that any cell from the `coverage` assay has as many columns 
@@ -233,7 +238,7 @@ CE3
 identical(CE2, CE3)
 ```
 
-### Expand a `CoverageExperiment` object 
+## Expand a `CoverageExperiment` object 
 
 The `expand` method from the `tidyr` package is adapted to `CoverageExperiment`
 objects to return a tidy `tibble`. This reformated object contains several 
@@ -259,7 +264,7 @@ the `coord` and `coord.scaled` are handled correspondingly.
 expand(CE3)
 ```
 
-### Plot coverage of a set of tracks over a single genomic locus
+## Plot coverage of a set of tracks over a single genomic locus
 
 To illustrate how to visualize coverage tracks from a `CoverageExperiment` 
 object over a single genomic locus of interest, 
@@ -307,9 +312,9 @@ In this plot, each facet represents the coverage of a different genomic track
 over a single region of interest (`chrII:450001-475000`). Each facet has 
 independent scaling thanks to `facet_grid(..., scales = free)`.
 
-## Manipulate `AggregatedCoverage` objects
+# Manipulate `AggregatedCoverage` objects
 
-### Aggregate a `CoverageExperiment` into an `AggregatedCoverage` object
+## Aggregate a `CoverageExperiment` into an `AggregatedCoverage` object
 
 It is often useful to `aggregate()` genomic `tracks` coverage over a set of 
 genomic `features`. 
@@ -339,25 +344,25 @@ Note that the `coarsen-then-aggregate` or `aggregate-by-bin` are **NOT**
 equivalent. This is due to the certain operations being not commutative with `mean` (e.g. `sd`, `min`/`max`, ...). 
 
 ```{r}
-## Coarsen `CoverageExperiment` with `window = ...` then per-bin `aggregate`:
+# Coarsen `CoverageExperiment` with `window = ...` then per-bin `aggregate`:
 CoverageExperiment(
     tracks = import(bw_file, as = "Rle"), features = import(bed_file),
     width = 3000
 ) |> 
-    coarsen(window = 20) |> ### FIRST COARSEN...
-    aggregate() |>          ### ... THEN AGGREGATE
+    coarsen(window = 20) |> ## FIRST COARSEN...
+    aggregate() |>          ## ... THEN AGGREGATE
     as_tibble()
 
-## Per-base `CoverageExperiment` then `aggregate` with `bin = ...`: 
+# Per-base `CoverageExperiment` then `aggregate` with `bin = ...`: 
 CoverageExperiment(
     tracks = import(bw_file, as = "Rle"), features = import(bed_file),
     width = 3000
 ) |> 
-    aggregate(bin = 20) |>  ### DIRECTLY AGGREGATE BY BIN
+    aggregate(bin = 20) |>  ## DIRECTLY AGGREGATE BY BIN
     as_tibble()
 ```
 
-### `AggregatedCoverage` over multiple tracks / feature sets
+## `AggregatedCoverage` over multiple tracks / feature sets
 
 As en example for the rest of this vignette, we compute an `AggregatedCoverage` 
 object using multiple genomic track files and multiple sets of genomic ranges. 
@@ -389,7 +394,7 @@ AC <- aggregate(CE)
 AC
 ```
 
-### Plot aggregated coverages with `ggplot2`
+## Plot aggregated coverages with `ggplot2`
 
 Because `AggregatedCoverage` objects can be easily coerced into `tibble`s, 
 the full range of `ggplot2` functionalities can be exploited to plot 
@@ -437,7 +442,7 @@ AC |>
     theme(legend.position = 'top')
 ```
 
-## Use a tidy grammar
+# Use a tidy grammar
 
 `tidySummarizedExperiment` package implements native `tidyverse` functionalities 
 to `SummarizedExperiment` objects and their extensions. It tweaks the way 
@@ -476,7 +481,7 @@ AC |>
 **Note:** To read more about the `tidySummarizedExperiment` package and the overall 
 `tidyomics` project, read the preprint [here](https://www.biorxiv.org/content/10.1101/2023.09.10.557072v2). 
 
-### Example workflow using tidy grammar
+## Example workflow using tidy grammar
 
 ```{r}
 CoverageExperiment(tracks, features, width = 5000, scale = TRUE, center = TRUE) |> 
@@ -491,9 +496,9 @@ CoverageExperiment(tracks, features, width = 5000, scale = TRUE, center = TRUE) 
     theme(legend.position = 'top')
 ```
 
-## Example use case: `AnnotationHub` and `TxDb` resources
+# Example use case: `AnnotationHub` and `TxDb` resources
 
-### Recover TSSs of forward human genes 
+## Recover TSSs of forward human genes 
 
 Let's first fetch features of interest from the human `TxDb` resources. 
 
@@ -507,7 +512,7 @@ TSSs <- GenomicFeatures::genes(txdb) |>
 
 These 1bp-wide `GRanges` correspond to forward TSSs genomic positions. 
 
-### Recover H3K4me3 coverage track from ENCODE
+## Recover H3K4me3 coverage track from ENCODE
 
 Let's also fetch a real-life ChIP-seq dataset (e.g. `H3K4me3`) 
 from ENCODE stored in the `AnnotationHub`:
@@ -521,7 +526,7 @@ H3K4me3_bw <- ah[['AH34904']]
 H3K4me3_bw
 ```
 
-### Compute the aggregated coverage of H3K4me3 ± 3kb around the TSSs of forward human genes 
+## Compute the aggregated coverage of H3K4me3 ± 3kb around the TSSs of forward human genes 
 
 We can now extract the coverage of `H3K4me3` over all the human forward TSSs 
 (± 3kb) and aggregate this coverage. 
@@ -544,7 +549,7 @@ CoverageExperiment(
 
 We obtain the typical profile of enrichment of `H3K4me3` over the +1 nucleosome. 
 
-### With more genomic tracks
+## With more genomic tracks
 
 This more complex example fetches a collection of 15 different ChIP-seq genomic 
 tracks to check their profile of enrichment over human forward TSSs. 
@@ -594,7 +599,7 @@ AC |>
 
 ![](../man/figures/PTMs-TSSs.png)
 
-## Session info
+# Session info
 
 ```{r}
 sessionInfo()
