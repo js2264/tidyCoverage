@@ -1,6 +1,6 @@
 Package: tidyCoverage
 Title: Extract and aggregate genomic coverage over features of interest
-Version: 0.99.3
+Version: 0.99.4
 Date: 2023-11-09
 Authors@R: 
     person("Jacques", "Serizay", , "jacquesserizay@gmail.com", 
@@ -17,7 +17,8 @@ URL: https://github.com/js2264/tidyCoverage
 BugReports: https://github.com/js2264/tidyCoverage/issues
 biocViews: 
     Software, 
-    Coverage
+    Sequencing, 
+    Coverage, 
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
