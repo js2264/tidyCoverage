@@ -49,6 +49,18 @@ classes built on top of the `SummarizedExperiment` class. These classes
 formalize the extraction and aggregation of coverage tracks over 
 sets of genomic features of interests. 
 
+## Installation
+
+`tidyCoverage` package can be installed from Bioconductor using the following
+command: 
+
+```{r eval = FALSE}
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("tidyCoverage")
+```
+
 ## `CoverageExperiment` and `AggregatedCoverage` classes
 
 ### `CoverageExperiment`
