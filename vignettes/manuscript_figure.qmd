@@ -1,0 +1,130 @@
+---
+title: "Figure for tidyCoverage manuscript"
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>",
+    crop = NULL, 
+    width = 180, 
+    error = TRUE
+)
+```
+
+# Plotting aggregate signals (ENCODE data) over REs
+
+```{r}
+library(tidyCoverage)
+library(AnnotationHub)
+library(purrr)
+library(plyranges)
+library(rtracklayer)
+library(ggplot2) 
+
+# ~~~~~~~~~~ Tracks ~~~~~~~~~~ #
+ids <- c(
+    fwdGRO = "ENCFF896TNM", 
+    revGRO = "ENCFF764SVR", 
+    Pol2RA = "ENCFF890SYC", 
+    CTCF = "ENCFF484SOD", 
+    DNAse = "ENCFF428XFI", 
+    ATAC = "ENCFF165WGA", 
+    H3K4me1 = "ENCFF785YET", 
+    H3K4me3 = "ENCFF736DCK", 
+    H3K9me3 = "ENCFF698SKV", 
+    H3K27me3 = "ENCFF119CAV", 
+    H3K27ac = "ENCFF458CRP"  
+)
+future::plan(future::multisession(workers = 13))
+options(timeout=10000)
+furrr::future_map(ids[7:13], ~ {
+    download.file(glue::glue("https://www.encodeproject.org/files/{.x}/@@download/{.x}.bigWig"), glue::glue("encode/{.x}.bigWig"))
+})
+tracks <- rtracklayer::BigWigFileList(paste0('encode/', ids, '.bigWig'))
+names(tracks) <- names(ids)
+
+# ~~~~~~~~~~ REs ~~~~~~~~~~ #
+download.file('https://static-content.springer.com/esm/art%3A10.1038%2Fs41586-020-2493-4/MediaObjects/41586_2020_2493_MOESM12_ESM.txt', 'data/REs_GRCh38.txt')
+features <- vroom::vroom('data/REs_GRCh38.txt', col_names = TRUE, show_col_types = FALSE) |> 
+    filter(chr == 'chr1') |> 
+    filter(group %in% c('PLS,CTCF-bound', 'pELS,CTCF-bound', 'pELS', 'dELS,CTCF-bound', 'dELS')) |>
+    group_by(group) |> 
+    dplyr::slice_head(n = 10000) |> 
+    makeGRangesFromDataFrame(keep.extra.columns = TRUE)
+genome(features) <- 'hg38'
+REs <- split(features, features$group)
+
+# ~~~~~~~~~~ Computing coverage of all tracks over all features ~~~~~~~~~~ #
+library(BiocParallel)
+register(MulticoreParam(workers = 13, progressbar = TRUE))
+CE <- CoverageExperiment(
+    tracks = tracks, 
+    features = REs, 
+    width = 5000, 
+    window = 5
+) 
+AC <- aggregate(CE)
+
+# ~~~~~~~~~~ Plot the resulting AggregatedCoverage object ~~~~~~~~~~ #
+AC |> 
+    as_tibble() |> 
+    group_by(track, features) |> 
+    mutate(group = dplyr::case_when(
+        stringr::str_detect(track, 'RNA|GRO') ~ "RNA", 
+        stringr::str_detect(track, 'CTCF|DNAse|ATAC') ~ "Accessibility", 
+        stringr::str_detect(track, 'H3') ~ "Histone PTMs"
+    )) |> 
+    # mutate(across(all_of(c("mean", "ci_low", "ci_high")), ~ ifelse(group == 'RNA', scale(.x), .x))) |> 
+    mutate(group = factor(group, c("RNA", "Accessibility", "Histone PTMs"))) |> 
+    mutate(track = factor(track, names(ids))) |> 
+    tidyr::drop_na() |> 
+    ggplot(aes(x = coord, y = mean)) + 
+    geom_ribbon(aes(ymin = ci_low, ymax = ci_high, fill = track), alpha = 0.2) + 
+    geom_line(aes(col = track)) + 
+    facet_grid(group~features, scales = 'free') + 
+    labs(x = 'Distance from center of reg. elements', y = 'Track signal') + 
+    theme_bw() + 
+    theme(legend.position = 'top') + 
+    hues::scale_colour_iwanthue() + 
+    hues::scale_fill_iwanthue() 
+```
+
+# Plotting matrix signals (ENCODE data) over REs
+
+```{r}
+expand(CE) |> 
+    filter(track == "ATAC") |> 
+    select(-coord) |> 
+    nest(data = c(coord.scaled, coverage)) |> 
+    mutate(score = map_dbl(
+        data, 
+        ~ filter(.x, abs(coord.scaled) < 50) |> pull(coverage) |> mean(na.rm = TRUE)
+    )) |> 
+    unnest(data) |>
+    arrange(score) |> 
+    mutate(coverage = scales::oob_squish(coverage, c(0, 10))) |> 
+    ggplot(aes(x = coord.scaled, y = factor(ranges, unique(ranges)), fill = coverage)) + 
+    geom_tile() |> ggrastr::rasterize() + 
+    facet_wrap(~ features, scales = 'free') + 
+    scale_fill_distiller(palette = 'Spectral', direction = -1) + 
+    scale_x_continuous(expand = c(0,0)) + 
+    theme_bw() + 
+    theme(
+        legend.position = 'bottom', 
+        axis.text.y = element_blank(), 
+        axis.ticks.y = element_blank()  
+    )
+
+as_tibble(AC) |> filter(track == "ATAC", features == 'PLS,CTCF-bound') |> 
+    pivot_longer(all_of(c("mean", "median", "ci_low", "ci_high")), names_to = 'coverage', values_to = 'score') |> 
+    ggplot(aes(x = coord, y = score, col = coverage)) + 
+        geom_path() +
+        facet_grid(~ coverage)
+```
+
+# Session info 
+
+```{r}
+sessioninfo::session_info()
+```
