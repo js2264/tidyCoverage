@@ -37,7 +37,8 @@ scale_y_coverage()
 scale_x_genome(unit = c("kb", "Mb", "b"))
 }
 \arguments{
-\item{mapping}{Aesthetics for geom_*. By default, no color/fill aesthetic
+\item{mapping}{Set of aesthetic mappings created by aes().
+By default, no color/fill aesthetic
 is specified, but they can be assigned to a variable with \code{mapping = aes(...)}.
 Note that \code{x} and \code{y} are automatically filled.}
 
@@ -57,13 +58,28 @@ internal functions}
 \item{type}{Choose between "line" and "area" style for \code{geom_coverage()}.}
 }
 \value{
-A \code{ggplot} object`
+A \code{ggplot} object
 }
 \description{
-#' @description
+Plotting functions for tidyCoverage objects.
+Two geoms are provided:
+\itemize{
+\item \code{geom_coverage()}: for plotting coverages over individual loci.
+\item \code{geom_aggrcoverage()}: for plotting aggregated coverages with confidence intervals.
+}
+
+See the Details section for more information on the aesthetics used by each geom.
 }
 \details{
-Plotting functions for tidyCoverage objects
+These geoms are drawn using \code{geom_line}/\code{ribbon}/\code{area()} so they support the same
+aesthetics: \code{colour}, \code{linetype} and \code{linewidth.} Both geoms also support
+the \code{unit} argument to control the x axis units (b, kb, Mb).
+
+In addition, they each support additional arguments:
+\itemize{
+\item \code{geom_coverage} uses a \code{type} argument to switch between line plot and area plots;
+\item \code{geom_aggrcoverage} uses a \code{ci} argument to toggle the confidence interval display.
+}
 }
 \examples{
 library(rtracklayer)

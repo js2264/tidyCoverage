@@ -94,14 +94,11 @@ information}
 A \code{CoverageExperiment} object
 }
 \description{
-#' @description
-}
-\details{
 \code{CoverageExperiment} objects store coverages for individual
 tracks over different sets of features. The \code{coverage}
 assay contains a separate matrix for each combination of
 track x features. \code{CoverageExperiment} objects are instantiated
-using the \code{CoverageExperiment()} #' function, and can be
+using the \code{CoverageExperiment()} function, and can be
 coarsened using the \code{coarsen()} function.
 }
 \examples{

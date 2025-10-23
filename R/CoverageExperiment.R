@@ -1,12 +1,12 @@
 #' CoverageExperiment
 #'
-#' #' @description
+#' @description
 #' 
 #' `CoverageExperiment` objects store coverages for individual
 #' tracks over different sets of features. The `coverage` 
 #' assay contains a separate matrix for each combination of 
 #' track x features. `CoverageExperiment` objects are instantiated 
-#' using the `CoverageExperiment()` #' function, and can be 
+#' using the `CoverageExperiment()` function, and can be 
 #' coarsened using the `coarsen()` function.
 #'
 #' @name CoverageExperiment

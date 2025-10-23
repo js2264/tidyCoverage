@@ -1,13 +1,31 @@
 #' Plotting functions
 #'
-#' #' @description
+#' @description
 #' 
-#' Plotting functions for tidyCoverage objects
+#' Plotting functions for tidyCoverage objects. 
+#' Two geoms are provided:
+#' 
+#' - `geom_coverage()`: for plotting coverages over individual loci.
+#' - `geom_aggrcoverage()`: for plotting aggregated coverages with confidence intervals.
+#' 
+#' See the Details section for more information on the aesthetics used by each geom.
+#' 
+#' @details 
+#' 
+#' These geoms are drawn using `geom_line`/`ribbon`/`area()` so they support the same
+#' aesthetics: `colour`, `linetype` and `linewidth.` Both geoms also support 
+#' the `unit` argument to control the x axis units (b, kb, Mb). 
+#' 
+#' In addition, they each support additional arguments:
+#' 
+#' - `geom_coverage` uses a `type` argument to switch between line plot and area plots; 
+#' - `geom_aggrcoverage` uses a `ci` argument to toggle the confidence interval display.
 #' 
 #' @name ggplot-tidyCoverage
 #' @rdname ggplot-tidyCoverage
 #' 
-#' @param mapping Aesthetics for geom_*. By default, no color/fill aesthetic 
+#' @param mapping Set of aesthetic mappings created by aes(). 
+#'     By default, no color/fill aesthetic 
 #'     is specified, but they can be assigned to a variable with `mapping = aes(...)`. 
 #'     Note that `x` and `y` are automatically filled. 
 #' @param data Data frame passed to geom_*. Typically a `CoverageExperiment` object 
@@ -19,7 +37,7 @@
 #' @param grid Should the plot grid by displayed? (default: FALSE).
 #' @param ...,na.rm,show.legend,inherit.aes Argument passed to `ggplot` 
 #'     internal functions
-#' @return A `ggplot` object`
+#' @return A `ggplot` object
 #'
 #' @import ggplot2
 #' @importFrom scales oob_squish
