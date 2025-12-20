@@ -35,6 +35,10 @@
 #'     (default: TRUE)
 #' @param unit Rounding of x axis (any of c('b', 'kb', 'Mb')).
 #' @param grid Should the plot grid by displayed? (default: FALSE).
+#' @param alpha Transparency level for `geom_coverage()` (default: 0.6).
+#' @param linewidth Line width for `geom_coverage()` (default: 0.4).
+#' @param raster Should the plot be rasterized for faster rendering?
+#'     (default: TRUE)
 #' @param ...,na.rm,show.legend,inherit.aes Argument passed to `ggplot` 
 #'     internal functions
 #' @return A `ggplot` object
@@ -121,9 +125,10 @@ GeomAggrCoverage <- ggplot2::ggproto("GeomAggrCoverage", ggplot2::Geom,
 GeomCoverage <- ggplot2::ggproto("GeomCoverage", ggplot2::Geom,
     setup_params = function(data, params) {
         params$type <- params$type
+        params$alpha <- params$alpha
         params
     },
-    extra_params = c("na.rm"),
+    extra_params = c("na.rm", "alpha"),
     required_aes = c("x", "y"), 
     default_aes = ggplot2::aes(
         colour = "black", 
@@ -135,6 +140,9 @@ GeomCoverage <- ggplot2::ggproto("GeomCoverage", ggplot2::Geom,
     
     draw_group = function(data, params, coord, type, ...) {
 
+        if (!is.null(params$alpha)) {
+            data$alpha <- params$alpha
+        }
         forArea <- transform(data, ymax = y, ymin = 0, colour = NA)
 
         grid::gList(
@@ -195,22 +203,25 @@ geom_aggrcoverage <- function(
 
 geom_coverage <- function(
     mapping = NULL, 
-    data = NULL, 
+    data = NULL,
     ..., 
     type = c('area', 'line'), 
     unit = c('kb', 'Mb', 'b'), 
     grid = FALSE, 
+    alpha = 0.6,
     na.rm = FALSE, 
     show.legend = NA, 
-    inherit.aes = TRUE
+    inherit.aes = TRUE, 
+    raster = TRUE
 ) {
     m <- ggplot2::aes(x = coord, y = coverage, group = interaction(track, features), fill = track)
+    m_line <- ggplot2::aes(x = coord, y = coverage, group = interaction(track, features), color = track)
     if (!is.null(mapping)) m <- utils::modifyList(m, mapping)
     
     unit = match.arg(unit, c('kb', 'Mb', 'b'))
     type <- match.arg(type, c('area', 'line'))
 
-    list(
+    l <- list(
         ggplot2::layer(
             data = data, 
             mapping = m,  
@@ -219,14 +230,25 @@ geom_coverage <- function(
             position = "identity", 
             show.legend = show.legend, 
             inherit.aes = inherit.aes,
-            params = list(na.rm = na.rm, type = type, ...)
+            params = list(na.rm = na.rm, alpha = alpha, type = type, ...)
         ), 
+        ggplot2::geom_line(
+            data = data,
+            mapping = m_line,
+            na.rm = na.rm, 
+            ...
+        ),
         scale_x_genome(unit = unit),
         scale_y_coverage(), 
         theme_coverage(grid = grid), 
         ggplot2::guides(y = ggplot2::guide_axis(cap = "both"))
-    )
+    ) 
     
+    if (raster) {
+        l <- l |> ggrastr::rasterize(dpi = 300)
+    }
+    
+    l
 }
 
 #' @rdname ggplot-tidyCoverage
@@ -234,7 +256,7 @@ geom_coverage <- function(
 
 scale_y_coverage <- function() {
     ggplot2::scale_y_continuous(
-        expand = ggplot2::expansion(mult = c(0, 0)), 
+        expand = ggplot2::expansion(mult = c(0, 0.05)), 
         n.breaks = 3
     )
 }
