@@ -36,7 +36,6 @@
 #' @param unit Rounding of x axis (any of c('b', 'kb', 'Mb')).
 #' @param grid Should the plot grid by displayed? (default: FALSE).
 #' @param alpha Transparency level for `geom_coverage()` (default: 0.6).
-#' @param linewidth Line width for `geom_coverage()` (default: 0.4).
 #' @param raster Should the plot be rasterized for faster rendering?
 #'     (default: TRUE)
 #' @param ...,na.rm,show.legend,inherit.aes Argument passed to `ggplot` 
@@ -46,6 +45,7 @@
 #' @import ggplot2
 #' @importFrom scales oob_squish
 #' @importFrom scales unit_format
+#' @importFrom ggrastr rasterize
 #'
 #' @examples
 #' library(rtracklayer)

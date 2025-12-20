@@ -63,8 +63,6 @@ internal functions}
 
 \item{raster}{Should the plot be rasterized for faster rendering?
 (default: TRUE)}
-
-\item{linewidth}{Line width for \code{geom_coverage()} (default: 0.4).}
 }
 \value{
 A \code{ggplot} object
