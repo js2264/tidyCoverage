@@ -27,9 +27,11 @@ geom_coverage(
   type = c("area", "line"),
   unit = c("kb", "Mb", "b"),
   grid = FALSE,
+  alpha = 0.6,
   na.rm = FALSE,
   show.legend = NA,
-  inherit.aes = TRUE
+  inherit.aes = TRUE,
+  raster = TRUE
 )
 
 scale_y_coverage()
@@ -56,6 +58,13 @@ internal functions}
 \item{grid}{Should the plot grid by displayed? (default: FALSE).}
 
 \item{type}{Choose between "line" and "area" style for \code{geom_coverage()}.}
+
+\item{alpha}{Transparency level for \code{geom_coverage()} (default: 0.6).}
+
+\item{raster}{Should the plot be rasterized for faster rendering?
+(default: TRUE)}
+
+\item{linewidth}{Line width for \code{geom_coverage()} (default: 0.4).}
 }
 \value{
 A \code{ggplot} object

@@ -300,12 +300,9 @@ library(ggplot2)
 CE_chrII |> 
     coarsen(window = 10) |> 
     expand() |> 
-    ggplot(aes(x = coord, y = coverage)) + 
-        geom_col(aes(fill = track, col = track)) + 
-        facet_grid(track~., scales = 'free') + 
-        scale_x_continuous(expand = c(0, 0)) + 
-        theme_bw() + 
-        theme(legend.position = "none", aspect.ratio = 0.1)
+    ggplot() + 
+    geom_coverage(aes(fill = track)) + 
+    facet_grid(track~., scales = 'free')
 ```
 
 In this plot, each facet represents the coverage of a different genomic track 
@@ -483,12 +480,12 @@ CoverageExperiment(tracks, features, width = 5000, scale = TRUE, center = TRUE) 
 
 # Example use case: `AnnotationHub` and `TxDb` resources
 
-## Recover TSSs of forward human genes 
+## Recover TSSs of forward mouse genes 
 
-Let's first fetch features of interest from the human `TxDb` resources. 
+Let's first fetch features of interest from the mouse `TxDb` resources. 
 
 ```{r}
-txdb <- TxDb.Hsapiens.UCSC.hg19.knownGene::TxDb.Hsapiens.UCSC.hg19.knownGene
+txdb <- TxDb.Mmusculus.UCSC.mm10.knownGene::TxDb.Mmusculus.UCSC.mm10.knownGene
 TSSs <- GenomicFeatures::genes(txdb) |> 
     filter(strand == '+') |> 
     anchor_5p() |> 
@@ -497,23 +494,22 @@ TSSs <- GenomicFeatures::genes(txdb) |>
 
 These 1bp-wide `GRanges` correspond to forward TSSs genomic positions. 
 
-## Recover H3K4me3 coverage track from ENCODE
+## Recover H3K4me3 coverage track from AnnotationHub
 
-Let's also fetch a real-life ChIP-seq dataset (e.g. `H3K4me3`) 
-from ENCODE stored in the `AnnotationHub`:
+Let's also fetch a real-life ChIP-seq dataset (e.g. `H3K4me3`) stored in the `AnnotationHub`:
 
 ```{r}
 library(AnnotationHub)
 ah <- AnnotationHub()
-ah['AH34904']
-H3K4me3_bw <- ah[['AH34904']]
+ah['AH27840']
+H3K4me3_bw <- ah[['AH27840']]
 
 H3K4me3_bw
 ```
 
-## Compute the aggregated coverage of H3K4me3 ± 3kb around the TSSs of forward human genes 
+## Compute the aggregated coverage of H3K4me3 ± 3kb around the TSSs of forward mouse genes 
 
-We can now extract the coverage of `H3K4me3` over all the human forward TSSs 
+We can now extract the coverage of `H3K4me3` over all the mouse forward TSSs 
 (± 3kb) and aggregate this coverage. 
 
 ```{r}
@@ -536,7 +532,7 @@ We obtain the typical profile of enrichment of `H3K4me3` over the +1 nucleosome.
 ## With more genomic tracks
 
 This more complex example fetches a collection of 15 different ChIP-seq genomic 
-tracks to check their profile of enrichment over human forward TSSs. 
+tracks to check their profile of enrichment over mouse forward TSSs. 
 
 ```{r eval = FALSE}
 # ~~~~~~~~~~ Recover 15 different histone PTM ChIP-seq tracks ~~~~~~~~~~ #
@@ -574,8 +570,6 @@ AC |>
     geom_aggrcoverage(aes(col = track)) + 
     facet_grid(~histone) + 
     labs(x = 'Distance from TSSs', y = 'Mean histone PTM coverage') + 
-    theme_bw() + 
-    theme(legend.position = 'top') + 
     hues::scale_colour_iwanthue() + 
     hues::scale_fill_iwanthue() 
 ```
