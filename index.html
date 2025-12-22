@@ -8,8 +8,8 @@
 <title>Extract and aggregate genomic coverage over features of interest • tidyCoverage</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Extract and aggregate genomic coverage over features of interest">
 <meta name="description" content="`tidyCoverage` framework enables tidy manipulation of collections of genomic tracks and features using `tidySummarizedExperiment` methods. It facilitates the extraction, aggregation and visualization of genomic coverage over individual or thousands of genomic loci, relying on `CoverageExperiment` and `AggregatedCoverage` classes. This accelerates the integration of genomic track data in genomic analysis workflows.">
 <meta property="og:description" content="`tidyCoverage` framework enables tidy manipulation of collections of genomic tracks and features using `tidySummarizedExperiment` methods. It facilitates the extraction, aggregation and visualization of genomic coverage over individual or thousands of genomic loci, relying on `CoverageExperiment` and `AggregatedCoverage` classes. This accelerates the integration of genomic track data in genomic analysis workflows.">
@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">tidyCoverage</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -114,7 +114,7 @@
 </h2>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/CoverageExperiment.html">CoverageExperiment</a></span><span class="op">(</span><span class="va">tracks</span>, <span class="fu"><a href="https://rdrr.io/pkg/GenomicRanges/man/GRanges-class.html" class="external-link">GRanges</a></span><span class="op">(</span><span class="st">"II:450001-455000"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/expand.html" class="external-link">expand</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu">expand</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="reference/ggplot-tidyCoverage.html">geom_coverage</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">track</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">facet_grid</a></span><span class="op">(</span><span class="va">track</span><span class="op">~</span><span class="va">.</span>, scales <span class="op">=</span> <span class="st">'free'</span><span class="op">)</span></span></code></pre></div>
@@ -186,7 +186,7 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Jacques Serizay <br><small class="roles"> Author, maintainer </small>  </li>
+<li>Jacques Serizay <br><small class="roles"> Author, maintainer </small>   </li>
 </ul>
 </div>
 
@@ -207,7 +207,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

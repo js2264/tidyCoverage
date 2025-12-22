@@ -8,12 +8,12 @@
 <url><loc>/index.html</loc></url>
 <url><loc>/reference/AggregatedCoverage.html</loc></url>
 <url><loc>/reference/CoverageExperiment.html</loc></url>
-<url><loc>/reference/as_tibble-methods.html</loc></url>
+<url><loc>/reference/as_tibble-AggregatedCoverage.html</loc></url>
 <url><loc>/reference/data.html</loc></url>
-<url><loc>/reference/expand.html</loc></url>
+<url><loc>/reference/expand-CoverageExperiment.html</loc></url>
 <url><loc>/reference/ggplot-tidyCoverage.html</loc></url>
 <url><loc>/reference/index.html</loc></url>
-<url><loc>/reference/reexports.html</loc></url>
-<url><loc>/reference/show.html</loc></url>
+<url><loc>/reference/show-tidyCoverage.html</loc></url>
+<url><loc>/reference/tidyCoverage-package.html</loc></url>
 </urlset>
 
