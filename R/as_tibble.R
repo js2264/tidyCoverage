@@ -2,10 +2,9 @@
 #' 
 #' Coerce an `CoverageExperiment` or `AggregatedCoverage` object into a `tibble`
 #' 
-#' @name as_tibble-methods
-#' @rdname as_tibble-methods
-#' @param x an `CoverageExperiment` object
-#' @param ... ignored
+#' @name as_tibble-AggregatedCoverage
+#' @rdname as_tibble-AggregatedCoverage
+#' @inherit tibble::as_tibble
 #' @return `tibble`
 #' 
 #' @importFrom tidyr any_of
@@ -17,7 +16,8 @@
 #' as_tibble(ac)
 NULL
 
-#' @rdname as_tibble-methods
+#' @rdname as_tibble-AggregatedCoverage
+#' @method as_tibble AggregatedCoverage
 #' @export
 
 as_tibble.AggregatedCoverage <- function(x, ...) {

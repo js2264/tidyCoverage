@@ -8,22 +8,21 @@
 #' object into a long data frame, and adds the `ranges` 
 #' and `seqnames` to the resulting `tibble`. 
 #' 
-#' @name expand,CoverageExperiment
-#' @aliases expand,CoverageExperiment-method
-#' @rdname expand
-#' 
-#' @param data a `CoverageExperiment` object
-#' @param ...,.name_repair ignored
+#' @name expand-CoverageExperiment
+#' @rdname expand-CoverageExperiment
+#' @inherit tidyr::expand
 #' @return a `tibble` object
 #' 
 #' @importFrom tidyr expand
-#' @export
 #' @examples 
 #' data(ce)
 #' ce
-#' 
 #' expand(ce)
+NULL
 
+#' @rdname expand-CoverageExperiment
+#' @method expand CoverageExperiment
+#' @export
 expand.CoverageExperiment <- function(data, ..., .name_repair = NULL) {
     tracks <- colData(data)$track
     features <- rowData(data)$features

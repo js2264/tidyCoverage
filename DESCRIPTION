@@ -35,6 +35,7 @@ Imports:
     rtracklayer,
     methods,
     tidyr, 
+    tibble, 
     ggplot2,
     ggrastr, 
     dplyr,

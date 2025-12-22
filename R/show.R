@@ -1,8 +1,6 @@
-#' show
+#' @title show method for `CoverageExperiment` and `AggregatedCoverage` objects
 #' 
-#' show method for `CoverageExperiment` and `AggregatedCoverage` objects
-#' 
-#' @name show
+#' @name show-tidyCoverage
 #' @aliases show,CoverageExperiment-method
 #' @aliases show,AggregatedCoverage-method
 #' 
@@ -20,9 +18,7 @@
 #' @importFrom vctrs new_data_frame
 #' @importFrom SummarizedExperiment assayNames
 #' @importFrom stats setNames
-#' @export
 #' 
-#' @inherit tibble::formatting
 #' @return `Prints a message to the console describing
 #' the contents of the `CoverageExperiment` or `AggregatedCoverage` objects.
 #' @examples
@@ -32,7 +28,8 @@
 #' print(ac)
 NULL
 
-#' @name show
+#' @method show CoverageExperiment
+#' @aliases show,CoverageExperiment-method
 #' @export
 
 setMethod("show", signature("CoverageExperiment"), function(object) {
@@ -52,7 +49,8 @@ setMethod("show", signature("CoverageExperiment"), function(object) {
     }
 })
 
-#' @name show
+#' @method show AggregatedCoverage
+#' @aliases show,AggregatedCoverage-method
 #' @export
 
 setMethod("show", signature("AggregatedCoverage"), function(object) {
@@ -74,7 +72,7 @@ setMethod("show", signature("AggregatedCoverage"), function(object) {
     }
 })
 
-#' @name show
+#' @method print CoverageExperiment
 #' @export
 
 print.CoverageExperiment <- function (x, ..., n = NULL) {
@@ -105,7 +103,7 @@ print.CoverageExperiment <- function (x, ..., n = NULL) {
     }
 }
 
-#' @name show
+#' @method print AggregatedCoverage
 #' @export
 
 print.AggregatedCoverage <- function (x, ..., n = NULL) {
@@ -136,7 +134,7 @@ print.AggregatedCoverage <- function (x, ..., n = NULL) {
     }
 }
 
-#' @name show
+#' @method tbl_format_header tidyCoverageExperiment
 #' @export
 
 tbl_format_header.tidyCoverageExperiment <- function(x, setup, ...) {
@@ -170,7 +168,7 @@ tbl_format_header.tidyCoverageExperiment <- function(x, setup, ...) {
     pillar::style_subtle(.pillar___format_comment(header, width=setup$width))
 }
 
-#' @name show
+#' @method tbl_format_header tidyAggregatedCoverage
 #' @export
 
 tbl_format_header.tidyAggregatedCoverage <- function(x, setup, ...) {
