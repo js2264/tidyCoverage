@@ -969,7 +969,7 @@ H3K4me3_bw <- ah[['AH27840']]
 
 H3K4me3_bw
 #> BigWigFile object
-#> resource: /github/home/.cache/R/AnnotationHub/1c4f7c7fbac2_33280
+#> resource: /github/home/.cache/R/AnnotationHub/a3c4f421b6c_33280
 ```
 
 ### Compute the aggregated coverage of H3K4me3 ± 3kb around the TSSs of forward mouse genes
@@ -1052,7 +1052,7 @@ AC |>
 ``` r
 
 sessionInfo()
-#> R Under development (unstable) (2025-12-21 r89216)
+#> R Under development (unstable) (2026-01-03 r89269)
 #> Platform: x86_64-pc-linux-gnu
 #> Running under: Ubuntu 24.04.3 LTS
 #> 
@@ -1081,7 +1081,7 @@ sessionInfo()
 #>  [5] ttservice_0.5.3                 plyranges_1.31.1               
 #>  [7] purrr_1.2.0                     rtracklayer_1.71.3             
 #>  [9] ggplot2_4.0.1                   tidyr_1.3.2                    
-#> [11] dplyr_1.1.4                     tidyCoverage_1.7.0             
+#> [11] dplyr_1.1.4                     tidyCoverage_1.7.1             
 #> [13] SummarizedExperiment_1.41.0     Biobase_2.71.0                 
 #> [15] GenomicRanges_1.63.1            Seqinfo_1.1.0                  
 #> [17] IRanges_2.45.0                  S4Vectors_0.49.0               
@@ -1159,7 +1159,7 @@ sessionInfo()
 #> [67] lazyeval_0.2.2                           
 #> [68] tools_4.6.0                              
 #> [69] BiocIO_1.21.0                            
-#> [70] data.table_1.17.8                        
+#> [70] data.table_1.18.0                        
 #> [71] GenomicAlignments_1.47.0                 
 #> [72] fs_1.6.6                                 
 #> [73] XML_3.99-0.20                            
