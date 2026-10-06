@@ -1,4 +1,4 @@
 # License
 
-    YEAR: 2023
-    COPYRIGHT HOLDER: tidyCoverage authors
+YEAR: 2023\
+COPYRIGHT HOLDER: tidyCoverage authors\

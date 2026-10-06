@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Introduction to tidyCoverage • tidyCoverage</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to tidyCoverage">
 </head>
@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidyCoverage</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.9.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,7 +52,7 @@
 
       <h1>Introduction to tidyCoverage</h1>
             
-            <h4 data-toc-skip class="date">7 January 2026</h4>
+            <h4 data-toc-skip class="date">6 October 2026</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/js2264/tidyCoverage/blob/devel/vignettes/tidyCoverage.Rmd" class="external-link"><code>vignettes/tidyCoverage.Rmd</code></a></small>
       <div class="d-none name"><code>tidyCoverage.Rmd</code></div>
@@ -725,7 +725,7 @@ files and multiple sets of genomic ranges.</p>
 <span><span class="co">#&gt; The following object is masked from 'package:IRanges':</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;     reduce</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">plyranges</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyomics.github.io/plyranges" class="external-link">plyranges</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Attaching package: 'plyranges'</span></span>
 <span><span class="co">#&gt; The following objects are masked from 'package:dplyr':</span></span>
@@ -830,22 +830,13 @@ is loaded.</p>
 <span><span class="co">#&gt; The following objects are masked from 'package:dplyr':</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;     bind_cols, bind_rows</span></span>
-<span><span class="co">#&gt; tidySummarizedExperiment says: Printing is now handled externally. If you want to visualize the data in a tidy way, do library(tidyprint). See https://github.com/tidyomics/tidyprint for more information.</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Attaching package: 'tidySummarizedExperiment'</span></span>
-<span><span class="co">#&gt; The following object is masked from 'package:generics':</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     tidy</span></span>
+<span><span class="co">#&gt; Registered S3 method overwritten by 'tidySummarizedExperiment':</span></span>
+<span><span class="co">#&gt;   method                         from     </span></span>
+<span><span class="co">#&gt;   as_tibble.SummarizedExperiment tidyprint</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> tidySummarizedExperiment says: By default SummarizedExperiment uses the</span></span>
+<span><span class="co">#&gt;   standard display. For a tidy tibble-style display, run tidy_print_on(remember</span></span>
+<span><span class="co">#&gt;   = TRUE).</span></span>
 <span><span class="va">CE</span></span>
-<span><span class="co">#&gt; Warning: `when()` was deprecated in purrr 1.0.0.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use `if` instead.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">tidySummarizedExperiment</span></span></span>
-<span><span class="co">#&gt;   package.</span></span>
-<span><span class="co">#&gt;   Please report the issue at</span></span>
-<span><span class="co">#&gt;   <span style="color: #0000BB; font-style: italic;">&lt;https://github.com/stemangiola/tidySummarizedExperiment/issues&gt;</span>.</span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A CoverageExperiment-tibble abstraction: 10 × 7</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># </span><span style="color: #555555;">features=2 | tracks=5 | assays=coverage</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># </span><span style="color: #555555;">width=5000</span></span></span>
@@ -928,7 +919,7 @@ resources<a class="anchor" aria-label="anchor" href="#example-use-case-annotatio
 <code class="sourceCode R"><span><span class="va">txdb</span> <span class="op">&lt;-</span> <span class="fu">TxDb.Mmusculus.UCSC.mm10.knownGene</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/TxDb.Mmusculus.UCSC.mm10.knownGene/man/package.html" class="external-link">TxDb.Mmusculus.UCSC.mm10.knownGene</a></span></span>
 <span><span class="va">TSSs</span> <span class="op">&lt;-</span> <span class="fu">GenomicFeatures</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/GenomicFeatures/man/transcripts.html" class="external-link">genes</a></span><span class="op">(</span><span class="va">txdb</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">strand</span> <span class="op">==</span> <span class="st">'+'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/plyranges/man/ranges-anchor.html" class="external-link">anchor_5p</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://tidyomics.github.io/plyranges/reference/ranges-anchor.html" class="external-link">anchor_5p</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   66 genes were dropped because they have exons located on both strands of the</span></span>
 <span><span class="co">#&gt;   same reference sequence or on more than one reference sequence, so cannot be</span></span>
@@ -952,7 +943,7 @@ genomic positions.</p>
 <span><span class="co">#&gt; Attaching package: 'dbplyr'</span></span>
 <span><span class="co">#&gt; The following objects are masked from 'package:dplyr':</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     ident, sql</span></span>
+<span><span class="co">#&gt;     ident, sql, sql_escape_ident, sql_escape_string</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Attaching package: 'AnnotationHub'</span></span>
 <span><span class="co">#&gt; The following object is masked from 'package:rtracklayer':</span></span>
@@ -964,7 +955,7 @@ genomic positions.</p>
 <span><span class="va">ah</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/AnnotationHub/man/AnnotationHub-class.html" class="external-link">AnnotationHub</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">ah</span><span class="op">[</span><span class="st">'AH27840'</span><span class="op">]</span></span>
 <span><span class="co">#&gt; AnnotationHub with 1 record</span></span>
-<span><span class="co">#&gt; # snapshotDate(): 2025-11-14</span></span>
+<span><span class="co">#&gt; # snapshotDate(): 2026-09-18</span></span>
 <span><span class="co">#&gt; # names(): AH27840</span></span>
 <span><span class="co">#&gt; # $dataprovider: Haemcode</span></span>
 <span><span class="co">#&gt; # $species: Mus musculus</span></span>
@@ -985,7 +976,7 @@ genomic positions.</p>
 <span></span>
 <span><span class="va">H3K4me3_bw</span></span>
 <span><span class="co">#&gt; BigWigFile object</span></span>
-<span><span class="co">#&gt; resource: /github/home/.cache/R/AnnotationHub/a3c4f421b6c_33280</span></span></code></pre></div>
+<span><span class="co">#&gt; resource: /github/home/.cache/R/AnnotationHub/154915600f2c_33280</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="compute-the-aggregated-coverage-of-h3k4me3-3kb-around-the-tsss-of-forward-mouse-genes">Compute the aggregated coverage of H3K4me3 ± 3kb around the TSSs of
@@ -1042,7 +1033,7 @@ forward TSSs.</p>
 <span><span class="va">AC</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
-<span>        histone <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
+<span>        histone <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
 <span>            <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html" class="external-link">str_detect</a></span><span class="op">(</span><span class="va">track</span>, <span class="st">'H2A'</span><span class="op">)</span> <span class="op">~</span> <span class="st">"H2A"</span>, </span>
 <span>            <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html" class="external-link">str_detect</a></span><span class="op">(</span><span class="va">track</span>, <span class="st">'H2B'</span><span class="op">)</span> <span class="op">~</span> <span class="st">"H2B"</span>, </span>
 <span>            <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html" class="external-link">str_detect</a></span><span class="op">(</span><span class="va">track</span>, <span class="st">'H3'</span><span class="op">)</span> <span class="op">~</span> <span class="st">"H3"</span></span>
@@ -1062,9 +1053,9 @@ forward TSSs.</p>
 </h2>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; R Under development (unstable) (2026-01-03 r89269)</span></span>
+<span><span class="co">#&gt; R version 4.6.1 (2026-06-24)</span></span>
 <span><span class="co">#&gt; Platform: x86_64-pc-linux-gnu</span></span>
-<span><span class="co">#&gt; Running under: Ubuntu 24.04.3 LTS</span></span>
+<span><span class="co">#&gt; Running under: Ubuntu 24.04.4 LTS</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Matrix products: default</span></span>
 <span><span class="co">#&gt; BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
@@ -1086,118 +1077,119 @@ forward TSSs.</p>
 <span><span class="co">#&gt; [8] base     </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; other attached packages:</span></span>
-<span><span class="co">#&gt;  [1] AnnotationHub_4.1.0             BiocFileCache_3.1.0            </span></span>
-<span><span class="co">#&gt;  [3] dbplyr_2.5.1                    tidySummarizedExperiment_1.21.0</span></span>
-<span><span class="co">#&gt;  [5] ttservice_0.5.3                 plyranges_1.31.1               </span></span>
-<span><span class="co">#&gt;  [7] purrr_1.2.0                     rtracklayer_1.71.3             </span></span>
-<span><span class="co">#&gt;  [9] ggplot2_4.0.1                   tidyr_1.3.2                    </span></span>
-<span><span class="co">#&gt; [11] dplyr_1.1.4                     tidyCoverage_1.7.1             </span></span>
-<span><span class="co">#&gt; [13] SummarizedExperiment_1.41.0     Biobase_2.71.0                 </span></span>
-<span><span class="co">#&gt; [15] GenomicRanges_1.63.1            Seqinfo_1.1.0                  </span></span>
-<span><span class="co">#&gt; [17] IRanges_2.45.0                  S4Vectors_0.49.0               </span></span>
-<span><span class="co">#&gt; [19] BiocGenerics_0.57.0             generics_0.1.4                 </span></span>
-<span><span class="co">#&gt; [21] MatrixGenerics_1.23.0           matrixStats_1.5.0              </span></span>
-<span><span class="co">#&gt; [23] BiocStyle_2.39.0               </span></span>
+<span><span class="co">#&gt;  [1] AnnotationHub_4.3.2             BiocFileCache_3.3.0            </span></span>
+<span><span class="co">#&gt;  [3] dbplyr_2.6.0                    tidySummarizedExperiment_1.23.2</span></span>
+<span><span class="co">#&gt;  [5] ttservice_0.5.3                 plyranges_1.33.2               </span></span>
+<span><span class="co">#&gt;  [7] purrr_1.2.2                     rtracklayer_1.73.0             </span></span>
+<span><span class="co">#&gt;  [9] ggplot2_4.0.3                   tidyr_1.3.2                    </span></span>
+<span><span class="co">#&gt; [11] dplyr_1.2.1                     tidyCoverage_1.9.0             </span></span>
+<span><span class="co">#&gt; [13] SummarizedExperiment_1.43.0     Biobase_2.73.2                 </span></span>
+<span><span class="co">#&gt; [15] GenomicRanges_1.65.4            Seqinfo_1.3.2                  </span></span>
+<span><span class="co">#&gt; [17] IRanges_2.47.5                  S4Vectors_0.51.10              </span></span>
+<span><span class="co">#&gt; [19] BiocGenerics_0.59.12            generics_0.1.4                 </span></span>
+<span><span class="co">#&gt; [21] MatrixGenerics_1.25.0           matrixStats_1.5.0              </span></span>
+<span><span class="co">#&gt; [23] BiocStyle_2.41.0               </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
-<span><span class="co">#&gt;  [1] DBI_1.2.3                                </span></span>
-<span><span class="co">#&gt;  [2] bitops_1.0-9                             </span></span>
-<span><span class="co">#&gt;  [3] httr2_1.2.2                              </span></span>
-<span><span class="co">#&gt;  [4] rlang_1.1.6                              </span></span>
-<span><span class="co">#&gt;  [5] magrittr_2.0.4                           </span></span>
+<span><span class="co">#&gt;  [1] DBI_1.3.0                                </span></span>
+<span><span class="co">#&gt;  [2] bitops_1.1-0                             </span></span>
+<span><span class="co">#&gt;  [3] httr2_1.3.0                              </span></span>
+<span><span class="co">#&gt;  [4] rlang_1.3.0                              </span></span>
+<span><span class="co">#&gt;  [5] magrittr_2.0.5                           </span></span>
 <span><span class="co">#&gt;  [6] otel_0.2.0                               </span></span>
-<span><span class="co">#&gt;  [7] compiler_4.6.0                           </span></span>
-<span><span class="co">#&gt;  [8] RSQLite_2.4.5                            </span></span>
-<span><span class="co">#&gt;  [9] GenomicFeatures_1.63.1                   </span></span>
-<span><span class="co">#&gt; [10] png_0.1-8                                </span></span>
-<span><span class="co">#&gt; [11] systemfonts_1.3.1                        </span></span>
-<span><span class="co">#&gt; [12] vctrs_0.6.5                              </span></span>
+<span><span class="co">#&gt;  [7] RSQLite_3.53.3                           </span></span>
+<span><span class="co">#&gt;  [8] compiler_4.6.1                           </span></span>
+<span><span class="co">#&gt;  [9] GenomicFeatures_1.65.0                   </span></span>
+<span><span class="co">#&gt; [10] png_0.1-9                                </span></span>
+<span><span class="co">#&gt; [11] systemfonts_1.3.2                        </span></span>
+<span><span class="co">#&gt; [12] vctrs_0.7.3                              </span></span>
 <span><span class="co">#&gt; [13] stringr_1.6.0                            </span></span>
 <span><span class="co">#&gt; [14] pkgconfig_2.0.3                          </span></span>
 <span><span class="co">#&gt; [15] crayon_1.5.3                             </span></span>
 <span><span class="co">#&gt; [16] fastmap_1.2.0                            </span></span>
-<span><span class="co">#&gt; [17] XVector_0.51.0                           </span></span>
-<span><span class="co">#&gt; [18] ellipsis_0.3.2                           </span></span>
+<span><span class="co">#&gt; [17] XVector_0.53.0                           </span></span>
+<span><span class="co">#&gt; [18] ellipsis_0.3.3                           </span></span>
 <span><span class="co">#&gt; [19] labeling_0.4.3                           </span></span>
 <span><span class="co">#&gt; [20] utf8_1.2.6                               </span></span>
-<span><span class="co">#&gt; [21] Rsamtools_2.27.0                         </span></span>
-<span><span class="co">#&gt; [22] rmarkdown_2.30                           </span></span>
-<span><span class="co">#&gt; [23] UCSC.utils_1.7.1                         </span></span>
+<span><span class="co">#&gt; [21] Rsamtools_2.29.0                         </span></span>
+<span><span class="co">#&gt; [22] rmarkdown_2.32                           </span></span>
+<span><span class="co">#&gt; [23] UCSC.utils_1.9.0                         </span></span>
 <span><span class="co">#&gt; [24] ggbeeswarm_0.7.3                         </span></span>
-<span><span class="co">#&gt; [25] ragg_1.5.0                               </span></span>
+<span><span class="co">#&gt; [25] ragg_1.5.2                               </span></span>
 <span><span class="co">#&gt; [26] bit_4.6.0                                </span></span>
-<span><span class="co">#&gt; [27] xfun_0.55                                </span></span>
+<span><span class="co">#&gt; [27] xfun_0.61                                </span></span>
 <span><span class="co">#&gt; [28] cachem_1.1.0                             </span></span>
-<span><span class="co">#&gt; [29] cigarillo_1.1.0                          </span></span>
-<span><span class="co">#&gt; [30] GenomeInfoDb_1.47.2                      </span></span>
+<span><span class="co">#&gt; [29] cigarillo_1.3.1                          </span></span>
+<span><span class="co">#&gt; [30] GenomeInfoDb_1.49.1                      </span></span>
 <span><span class="co">#&gt; [31] jsonlite_2.0.0                           </span></span>
-<span><span class="co">#&gt; [32] blob_1.2.4                               </span></span>
-<span><span class="co">#&gt; [33] DelayedArray_0.37.0                      </span></span>
-<span><span class="co">#&gt; [34] BiocParallel_1.45.0                      </span></span>
-<span><span class="co">#&gt; [35] parallel_4.6.0                           </span></span>
+<span><span class="co">#&gt; [32] blob_1.3.0                               </span></span>
+<span><span class="co">#&gt; [33] DelayedArray_0.39.8                      </span></span>
+<span><span class="co">#&gt; [34] BiocParallel_1.47.0                      </span></span>
+<span><span class="co">#&gt; [35] parallel_4.6.1                           </span></span>
 <span><span class="co">#&gt; [36] R6_2.6.1                                 </span></span>
 <span><span class="co">#&gt; [37] TxDb.Mmusculus.UCSC.mm10.knownGene_3.10.0</span></span>
-<span><span class="co">#&gt; [38] bslib_0.9.0                              </span></span>
-<span><span class="co">#&gt; [39] stringi_1.8.7                            </span></span>
+<span><span class="co">#&gt; [38] bslib_0.12.0                             </span></span>
+<span><span class="co">#&gt; [39] stringi_1.8.9                            </span></span>
 <span><span class="co">#&gt; [40] RColorBrewer_1.1-3                       </span></span>
 <span><span class="co">#&gt; [41] jquerylib_0.1.4                          </span></span>
-<span><span class="co">#&gt; [42] bookdown_0.46                            </span></span>
-<span><span class="co">#&gt; [43] knitr_1.51                               </span></span>
-<span><span class="co">#&gt; [44] Matrix_1.7-4                             </span></span>
-<span><span class="co">#&gt; [45] tidyselect_1.2.1                         </span></span>
-<span><span class="co">#&gt; [46] abind_1.4-8                              </span></span>
-<span><span class="co">#&gt; [47] yaml_2.3.12                              </span></span>
-<span><span class="co">#&gt; [48] codetools_0.2-20                         </span></span>
-<span><span class="co">#&gt; [49] curl_7.0.0                               </span></span>
-<span><span class="co">#&gt; [50] lattice_0.22-7                           </span></span>
-<span><span class="co">#&gt; [51] tibble_3.3.0                             </span></span>
-<span><span class="co">#&gt; [52] KEGGREST_1.51.1                          </span></span>
-<span><span class="co">#&gt; [53] withr_3.0.2                              </span></span>
-<span><span class="co">#&gt; [54] S7_0.2.1                                 </span></span>
-<span><span class="co">#&gt; [55] evaluate_1.0.5                           </span></span>
-<span><span class="co">#&gt; [56] ggrastr_1.0.2                            </span></span>
-<span><span class="co">#&gt; [57] desc_1.4.3                               </span></span>
-<span><span class="co">#&gt; [58] Biostrings_2.79.3                        </span></span>
-<span><span class="co">#&gt; [59] filelock_1.0.3                           </span></span>
-<span><span class="co">#&gt; [60] pillar_1.11.1                            </span></span>
-<span><span class="co">#&gt; [61] BiocManager_1.30.27                      </span></span>
-<span><span class="co">#&gt; [62] plotly_4.11.0                            </span></span>
-<span><span class="co">#&gt; [63] RCurl_1.98-1.17                          </span></span>
-<span><span class="co">#&gt; [64] BiocVersion_3.23.1                       </span></span>
-<span><span class="co">#&gt; [65] scales_1.4.0                             </span></span>
-<span><span class="co">#&gt; [66] glue_1.8.0                               </span></span>
-<span><span class="co">#&gt; [67] lazyeval_0.2.2                           </span></span>
-<span><span class="co">#&gt; [68] tools_4.6.0                              </span></span>
-<span><span class="co">#&gt; [69] BiocIO_1.21.0                            </span></span>
-<span><span class="co">#&gt; [70] data.table_1.18.0                        </span></span>
-<span><span class="co">#&gt; [71] GenomicAlignments_1.47.0                 </span></span>
-<span><span class="co">#&gt; [72] fs_1.6.6                                 </span></span>
-<span><span class="co">#&gt; [73] XML_3.99-0.20                            </span></span>
-<span><span class="co">#&gt; [74] grid_4.6.0                               </span></span>
+<span><span class="co">#&gt; [42] bookdown_0.48                            </span></span>
+<span><span class="co">#&gt; [43] knitr_1.52                               </span></span>
+<span><span class="co">#&gt; [44] BiocBaseUtils_1.15.1                     </span></span>
+<span><span class="co">#&gt; [45] Matrix_1.7-6                             </span></span>
+<span><span class="co">#&gt; [46] tidyselect_1.2.1                         </span></span>
+<span><span class="co">#&gt; [47] abind_1.4-8                              </span></span>
+<span><span class="co">#&gt; [48] yaml_2.3.12                              </span></span>
+<span><span class="co">#&gt; [49] codetools_0.2-20                         </span></span>
+<span><span class="co">#&gt; [50] curl_8.0.0                               </span></span>
+<span><span class="co">#&gt; [51] lattice_0.23-1                           </span></span>
+<span><span class="co">#&gt; [52] tibble_3.3.1                             </span></span>
+<span><span class="co">#&gt; [53] KEGGREST_1.53.6                          </span></span>
+<span><span class="co">#&gt; [54] withr_3.0.3                              </span></span>
+<span><span class="co">#&gt; [55] S7_0.2.2                                 </span></span>
+<span><span class="co">#&gt; [56] evaluate_1.0.5                           </span></span>
+<span><span class="co">#&gt; [57] ggrastr_1.0.2                            </span></span>
+<span><span class="co">#&gt; [58] desc_1.4.3                               </span></span>
+<span><span class="co">#&gt; [59] Biostrings_2.81.9                        </span></span>
+<span><span class="co">#&gt; [60] filelock_1.0.3                           </span></span>
+<span><span class="co">#&gt; [61] pillar_1.11.1                            </span></span>
+<span><span class="co">#&gt; [62] BiocManager_1.30.27                      </span></span>
+<span><span class="co">#&gt; [63] plotly_4.12.1                            </span></span>
+<span><span class="co">#&gt; [64] RCurl_1.98-1.20                          </span></span>
+<span><span class="co">#&gt; [65] BiocVersion_3.24.0                       </span></span>
+<span><span class="co">#&gt; [66] scales_1.4.0                             </span></span>
+<span><span class="co">#&gt; [67] glue_1.8.1                               </span></span>
+<span><span class="co">#&gt; [68] tools_4.6.1                              </span></span>
+<span><span class="co">#&gt; [69] BiocIO_1.23.3                            </span></span>
+<span><span class="co">#&gt; [70] data.table_1.18.6.1                      </span></span>
+<span><span class="co">#&gt; [71] GenomicAlignments_1.49.2                 </span></span>
+<span><span class="co">#&gt; [72] fs_2.1.0                                 </span></span>
+<span><span class="co">#&gt; [73] XML_3.99-0.25                            </span></span>
+<span><span class="co">#&gt; [74] grid_4.6.1                               </span></span>
 <span><span class="co">#&gt; [75] Cairo_1.7-0                              </span></span>
-<span><span class="co">#&gt; [76] AnnotationDbi_1.73.0                     </span></span>
-<span><span class="co">#&gt; [77] beeswarm_0.4.0                           </span></span>
-<span><span class="co">#&gt; [78] restfulr_0.0.16                          </span></span>
-<span><span class="co">#&gt; [79] vipor_0.4.7                              </span></span>
-<span><span class="co">#&gt; [80] cli_3.6.5                                </span></span>
-<span><span class="co">#&gt; [81] rappdirs_0.3.3                           </span></span>
-<span><span class="co">#&gt; [82] textshaping_1.0.4                        </span></span>
-<span><span class="co">#&gt; [83] fansi_1.0.7                              </span></span>
-<span><span class="co">#&gt; [84] S4Arrays_1.11.1                          </span></span>
-<span><span class="co">#&gt; [85] viridisLite_0.4.2                        </span></span>
-<span><span class="co">#&gt; [86] gtable_0.3.6                             </span></span>
-<span><span class="co">#&gt; [87] sass_0.4.10                              </span></span>
-<span><span class="co">#&gt; [88] digest_0.6.39                            </span></span>
-<span><span class="co">#&gt; [89] SparseArray_1.11.10                      </span></span>
-<span><span class="co">#&gt; [90] rjson_0.2.23                             </span></span>
-<span><span class="co">#&gt; [91] htmlwidgets_1.6.4                        </span></span>
-<span><span class="co">#&gt; [92] farver_2.1.2                             </span></span>
-<span><span class="co">#&gt; [93] memoise_2.0.1                            </span></span>
-<span><span class="co">#&gt; [94] htmltools_0.5.9                          </span></span>
-<span><span class="co">#&gt; [95] pkgdown_2.2.0                            </span></span>
-<span><span class="co">#&gt; [96] lifecycle_1.0.4                          </span></span>
-<span><span class="co">#&gt; [97] httr_1.4.7                               </span></span>
-<span><span class="co">#&gt; [98] bit64_4.6.0-1</span></span></code></pre></div>
+<span><span class="co">#&gt; [76] AnnotationDbi_1.75.2                     </span></span>
+<span><span class="co">#&gt; [77] tidyprint_1.1.1                          </span></span>
+<span><span class="co">#&gt; [78] beeswarm_0.4.0                           </span></span>
+<span><span class="co">#&gt; [79] restfulr_0.0.17                          </span></span>
+<span><span class="co">#&gt; [80] vipor_0.4.7                              </span></span>
+<span><span class="co">#&gt; [81] cli_3.6.6                                </span></span>
+<span><span class="co">#&gt; [82] rappdirs_0.3.4                           </span></span>
+<span><span class="co">#&gt; [83] textshaping_1.0.5                        </span></span>
+<span><span class="co">#&gt; [84] fansi_1.0.7                              </span></span>
+<span><span class="co">#&gt; [85] S4Arrays_1.13.2                          </span></span>
+<span><span class="co">#&gt; [86] viridisLite_0.4.3                        </span></span>
+<span><span class="co">#&gt; [87] gtable_0.3.6                             </span></span>
+<span><span class="co">#&gt; [88] sass_0.4.10                              </span></span>
+<span><span class="co">#&gt; [89] digest_0.6.39                            </span></span>
+<span><span class="co">#&gt; [90] SparseArray_1.13.4                       </span></span>
+<span><span class="co">#&gt; [91] rjson_0.2.23                             </span></span>
+<span><span class="co">#&gt; [92] htmlwidgets_1.6.4                        </span></span>
+<span><span class="co">#&gt; [93] farver_2.1.2                             </span></span>
+<span><span class="co">#&gt; [94] memoise_2.0.1                            </span></span>
+<span><span class="co">#&gt; [95] htmltools_0.5.9                          </span></span>
+<span><span class="co">#&gt; [96] pkgdown_2.2.1                            </span></span>
+<span><span class="co">#&gt; [97] lifecycle_1.0.5                          </span></span>
+<span><span class="co">#&gt; [98] httr_1.4.9                               </span></span>
+<span><span class="co">#&gt; [99] bit64_4.8.6</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
@@ -1210,7 +1202,7 @@ forward TSSs.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

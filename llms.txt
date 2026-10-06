@@ -17,74 +17,64 @@ aggregation in R with tidyCoverage.” *Bioinformatics* *40*,
 
 In `R >= 4.4` and `Bioconductor >= 3.19`:
 
-``` r
-
-if (!require("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-
-BiocManager::install("tidyCoverage")
-```
+\
+`if`` ``(``!`[`require`](https://rdrr.io/r/base/library.html)`(`[`"BiocManager"`](https://bioconductor.github.io/BiocManager/)`, quietly ``=`` ``TRUE``)``)`\
+`    `[`install.packages`](https://rdrr.io/r/utils/install.packages.html)`(``"BiocManager"``)`\
+\
+`BiocManager``::`[`install`](https://bioconductor.github.io/BiocManager/reference/install.html)`(``"tidyCoverage"``)`
 
 ## Load libraries and example datasets
 
-``` r
-
-library(tidyCoverage)
-library(tidySummarizedExperiment)
-library(rtracklayer)
-library(plyranges)
-library(purrr)
-library(ggplot2)
-
-# ~~~~~~~~~~~~~~~ Import genomic features into a named list ~~~~~~~~~~~~~~~ #
-features <- list(
-    TSSs = system.file("extdata", "TSSs.bed", package = "tidyCoverage"),
-    conv_sites = system.file("extdata", "conv_transcription_loci.bed", package = "tidyCoverage")
-) |> map(~ import(.x))
-
-# ~~~~~~~~~~~~ Import coverage tracks into a `BigWigFileList` ~~~~~~~~~~~~~ #
-tracks <- list(
-    Scc1 = system.file("extdata", "Scc1.bw", package = "tidyCoverage"), 
-    RNA_fwd = system.file("extdata", "RNA.fwd.bw", package = "tidyCoverage"),
-    RNA_rev = system.file("extdata", "RNA.rev.bw", package = "tidyCoverage"),
-    PolII = system.file("extdata", "PolII.bw", package = "tidyCoverage"), 
-    MNase = system.file("extdata", "MNase.bw", package = "tidyCoverage")
-) |> BigWigFileList()
-```
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`tidyCoverage`](https://github.com/js2264/tidyCoverage)`)`\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`tidySummarizedExperiment`](https://github.com/stemangiola/tidySummarizedExperiment)`)`\
+[`library`](https://rdrr.io/r/base/library.html)`(``rtracklayer``)`\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`plyranges`](https://tidyomics.github.io/plyranges)`)`\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`purrr`](https://purrr.tidyverse.org/)`)`\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`ggplot2`](https://ggplot2.tidyverse.org)`)`\
+\
+`# ~~~~~~~~~~~~~~~ Import genomic features into a named list ~~~~~~~~~~~~~~~ #`\
+`features`` ``<-`` `[`list`](https://rdrr.io/r/base/list.html)`(`\
+`    TSSs ``=`` `[`system.file`](https://rdrr.io/r/base/system.file.html)`(``"extdata"``, ``"TSSs.bed"``, package ``=`` ``"tidyCoverage"``)``,`\
+`    conv_sites ``=`` `[`system.file`](https://rdrr.io/r/base/system.file.html)`(``"extdata"``, ``"conv_transcription_loci.bed"``, package ``=`` ``"tidyCoverage"``)`\
+`)`` ``|>`` `[`map`](https://purrr.tidyverse.org/reference/map.html)`(``~`` ``import``(``.x``)``)`\
+\
+`` # ~~~~~~~~~~~~ Import coverage tracks into a `BigWigFileList` ~~~~~~~~~~~~~ # ``\
+`tracks`` ``<-`` `[`list`](https://rdrr.io/r/base/list.html)`(`\
+`    Scc1 ``=`` `[`system.file`](https://rdrr.io/r/base/system.file.html)`(``"extdata"``, ``"Scc1.bw"``, package ``=`` ``"tidyCoverage"``)``, `\
+`    RNA_fwd ``=`` `[`system.file`](https://rdrr.io/r/base/system.file.html)`(``"extdata"``, ``"RNA.fwd.bw"``, package ``=`` ``"tidyCoverage"``)``,`\
+`    RNA_rev ``=`` `[`system.file`](https://rdrr.io/r/base/system.file.html)`(``"extdata"``, ``"RNA.rev.bw"``, package ``=`` ``"tidyCoverage"``)``,`\
+`    PolII ``=`` `[`system.file`](https://rdrr.io/r/base/system.file.html)`(``"extdata"``, ``"PolII.bw"``, package ``=`` ``"tidyCoverage"``)``, `\
+`    MNase ``=`` `[`system.file`](https://rdrr.io/r/base/system.file.html)`(``"extdata"``, ``"MNase.bw"``, package ``=`` ``"tidyCoverage"``)`\
+`)`` ``|>`` `[`BigWigFileList`](https://rdrr.io/pkg/rtracklayer/man/BigWigFile.html)`(``)`
 
 ## Extract coverage for each track over each set of features
 
-``` r
-
-CE <- CoverageExperiment(tracks, features, width = 5000, ignore.strand = FALSE) 
-```
+\
+`CE`` ``<-`` `[`CoverageExperiment`](reference/CoverageExperiment.md)`(``tracks``, ``features``, width ``=`` ``5000``, ignore.strand ``=`` ``FALSE``)`` `
 
 ## Plot tracks coverage aggregated over genomic features
 
-``` r
-
-CE |> 
-    filter(track %in% c('MNase', 'PolII')) |> 
-    filter(features == 'TSSs') |> 
-    aggregate() |> 
-    ggplot() + 
-    geom_aggrcoverage(aes(col = track)) + 
-    facet_grid(track ~ ., scales = "free") + 
-    labs(x = 'Distance from TSS', y = 'Signal coverage')
-```
+\
+`CE`` ``|>`` `\
+`    `[`filter`](https://dplyr.tidyverse.org/reference/filter.html)`(``track`` `[`%in%`](https://rdrr.io/pkg/BiocGenerics/man/match.html)` `[`c`](https://rdrr.io/r/base/c.html)`(``'MNase'``, ``'PolII'``)``)`` ``|>`` `\
+`    `[`filter`](https://dplyr.tidyverse.org/reference/filter.html)`(``features`` ``==`` ``'TSSs'``)`` ``|>`` `\
+`    `[`aggregate`](https://rdrr.io/r/stats/aggregate.html)`(``)`` ``|>`` `\
+`    `[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``)`` ``+`` `\
+`    `[`geom_aggrcoverage`](reference/ggplot-tidyCoverage.md)`(`[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``col ``=`` ``track``)``)`` ``+`` `\
+`    `[`facet_grid`](https://ggplot2.tidyverse.org/reference/facet_grid.html)`(``track`` ``~`` ``.``, scales ``=`` ``"free"``)`` ``+`` `\
+`    `[`labs`](https://ggplot2.tidyverse.org/reference/labs.html)`(``x ``=`` ``'Distance from TSS'``, y ``=`` ``'Signal coverage'``)`
 
 ![](reference/figures/aggr-cov.png)
 
 ## Plot coverage over a single locus
 
-``` r
-
-CoverageExperiment(tracks, GRanges("II:450001-455000")) |> 
-    expand() |> 
-    ggplot() + 
-    geom_coverage(aes(fill = track)) + 
-    facet_grid(track~., scales = 'free')
-```
+\
+[`CoverageExperiment`](reference/CoverageExperiment.md)`(``tracks``, `[`GRanges`](https://rdrr.io/pkg/GenomicRanges/man/GRanges-class.html)`(``"II:450001-455000"``)``)`` ``|>`` `\
+`    ``expand``(``)`` ``|>`` `\
+`    `[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``)`` ``+`` `\
+`    `[`geom_coverage`](reference/ggplot-tidyCoverage.md)`(`[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``fill ``=`` ``track``)``)`` ``+`` `\
+`    `[`facet_grid`](https://ggplot2.tidyverse.org/reference/facet_grid.html)`(``track``~``.``, scales ``=`` ``'free'``)`
 
 ![](reference/figures/cov.png)
 
